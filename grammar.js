@@ -37,7 +37,15 @@ module.exports = grammar({
       optional(seq("package", $.namespaceStatement)),
       repeat($.usesStatement),
       repeat(choice(
-        seq(optional($.modifiers), $.gClass),
+        seq(
+          optional($.modifiers),
+          choice(
+            $.gClass,
+            $.gInterfaceOrStructure,
+            $.gEnum,
+            $.gEnhancement,
+          ),
+        ),
         $.functionDefn,
         $.statement,
       )),
@@ -48,24 +56,59 @@ module.exports = grammar({
       repeat1(choice(
         // $.annotation,
         "private", "internal", "protected", "public",
-        "static", "abstract", "override", "final", "transient")),
+        "static", "abstract", "override", "final", "transient", "reified")),
+
+    typeVariableDefs: $ => seq("<", $.typeVariableDefinition, repeat(seq(",", $.typeVariableDefinition)), ">"),
+    typeVariableDefinition: $ => seq($.id, optional(seq("extends", $.type))),
 
     gClass: $ => seq(
       "class",
       field("name", $.id),
-      // PossiblyEmpty.typeVariableDefs($),
-      // optional(seq("extends", $.classOrInterfaceType)),
-      // optional(seq("implements", $.classOrInterfaceType, repeat(seq(",", $.classOrInterfaceType)))),
+      optional($.typeVariableDefs),
+      optional(seq("extends", $.type)),
+      optional(seq("implements", $.type, repeat(seq(",", $.type)))),
       field("body", $.classBody),
     ),
-    classBody: $ => seq("{", optional($.classMembers), "}"),
-    classMembers: $ => repeat1($.declaration),
-    declaration: $ => choice(
-      $.fieldDefn,
-      $.functionDefn,
-      // TODO
+    gInterfaceOrStructure: $ => seq(
+      choice("interface", "structure"),
+      field("name", $.id),
+      optional($.typeVariableDefs),
+      optional(seq("extends", $.type, repeat(seq(",", $.type)))),
+      field("body", $.interfaceBody),
     ),
-    fieldDefn: $ => seq(
+    gEnum: $ => seq(
+      "enum",
+      field("name", $.id),
+      optional($.typeVariableDefs),
+      optional(seq("implements", $.type, repeat(seq(",", $.type)))),
+      field("body", $.enumBody),
+    ),
+    gEnhancement: $ => seq(
+      "enhancement",
+      field("name", $.id),
+      optional($.typeVariableDefs),
+      ":",
+      $.type,
+      field("body", $.enhancementBody),
+    ),
+    classBody: $ => seq("{", optional($.classMembers), "}"),
+    interfaceBody: $ => seq("{", repeat($.declaration), "}"),
+    enhancementBody: $ => seq("{", repeat($.declaration), "}"),
+    enumBody: $ => seq("{", optional($.enumConstants), optional($.classMembers), "}"),
+    enumConstants: $ => seq($.enumConstant, repeat(seq(",", $.enumConstant)), optional(","), optional(";")),
+    enumConstant: $ => seq($.id, optional($.arguments)),
+    classMembers: $ => repeat1($.declaration),
+    declaration: $ => seq(
+      choice(
+        $.fieldDefn,
+        seq(optional($.modifiers), $.functionDefn),
+        seq(optional($.modifiers), $.gClass),
+        seq(optional($.modifiers), $.gInterfaceOrStructure),
+        seq(optional($.modifiers), $.gEnum),
+      ),
+      optional(";"),
+    ),
+    fieldDefn: $ => prec.right(seq(
       optional($.modifiers),
       "var",
       $.id,
@@ -76,7 +119,7 @@ module.exports = grammar({
       optional(seq("=",
         field("value", $._expression))),
       optional(";")
-    ),
+    )),
     functionDefn: $ => seq(
       "function", $.id, "(", optional($.parameterDeclarationList), ")",
       optional(seq("{", repeat($.statement), "}"))
@@ -189,7 +232,14 @@ module.exports = grammar({
     )),
     // FIXME: express in terms of multiplicativeExpr as in EBNF?
     additiveExpr: $ => prec.left(seq($._expression, seq($.additiveOp, $._expression))),
-    newExpr: $ => seq("new", $.id, $.arguments),
+    newExpr: $ => prec.right(seq(
+      "new",
+      $.id,
+      optional($.typeArguments),
+      repeat(seq(".", $.id, optional($.typeArguments))),
+      $.arguments,
+      optional(seq("{", optional($.classMembers), "}")),
+    )),
     id: $ => token(seq(Letter, repeat(choice(Digit, Letter)))) ,
     // Strings own their content: the fragments are immediate tokens so that
     // comments (`//`, `/*`) never leak inside a string literal (docs/PRD.md R3).

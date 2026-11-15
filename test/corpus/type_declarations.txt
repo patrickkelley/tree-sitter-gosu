@@ -1,0 +1,181 @@
+===========================================
+Class With Generics Extends And Implements
+===========================================
+
+class Box<T extends Comparable<T>> extends Base<T> implements Runnable, Closeable {
+  var item : T
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    (typeVariableDefs
+      (typeVariableDefinition
+        (id)
+        (type
+          (type_identifier)
+          (typeArguments
+            (typeArgument
+              (type
+                (type_identifier)))))))
+    (type
+      (type_identifier)
+      (typeArguments
+        (typeArgument
+          (type
+            (type_identifier)))))
+    (type
+      (type_identifier))
+    (type
+      (type_identifier))
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier))))))))
+
+====================================
+Interface And Structure Declarations
+====================================
+
+interface IDisposable extends AutoCloseable {
+  function dispose()
+}
+
+structure Printable {
+  function render(prefix: String)
+}
+
+---
+
+(start
+  (gInterfaceOrStructure
+    name: (id)
+    (type
+      (type_identifier))
+    body: (interfaceBody
+      (declaration
+        (functionDefn
+          (id)))))
+  (gInterfaceOrStructure
+    name: (id)
+    body: (interfaceBody
+      (declaration
+        (functionDefn
+          (id)
+          (parameterDeclarationList
+            (parameterDeclaration
+              (id)
+              type: (type
+                (type_identifier)))))))))
+
+====================================
+Enum With Constants And Members
+====================================
+
+enum Color implements Printable {
+  RED("r"),
+  GREEN("g"),
+  BLUE;
+  var code : String
+}
+
+---
+
+(start
+  (gEnum
+    name: (id)
+    (type
+      (type_identifier))
+    body: (enumBody
+      (enumConstants
+        (enumConstant
+          (id)
+          (arguments
+            (literal
+              (StringLiteral))))
+        (enumConstant
+          (id)
+          (arguments
+            (literal
+              (StringLiteral))))
+        (enumConstant
+          (id)))
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier))))))))
+
+====================================
+Enhancement Declaration
+====================================
+
+enhancement CoreArrayEnhancement<T> : T[] {
+  function first() {
+    var x = "ok"
+  }
+}
+
+---
+
+(start
+  (gEnhancement
+    name: (id)
+    (typeVariableDefs
+      (typeVariableDefinition
+        (id)))
+    (type
+      (type_identifier))
+    body: (enhancementBody
+      (declaration
+        (functionDefn
+          (id)
+          (statement
+            (localVarStatement
+              (id)
+              value: (literal
+                (StringLiteral)))))))))
+
+====================================
+Inner Class And Anonymous Class
+====================================
+
+class Outer {
+  class Inner {}
+  function make() {
+    var r = new Runnable() {
+      function run() {}
+    }
+  }
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (gClass
+            name: (id)
+            body: (classBody)))
+        (declaration
+          (functionDefn
+            (id)
+            (statement
+              (localVarStatement
+                (id)
+                value: (newExpr
+                  (id)
+                  (arguments)
+                  (classMembers
+                    (declaration
+                      (functionDefn
+                        (id)))))))))))))

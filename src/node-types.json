@@ -243,7 +243,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -252,6 +252,90 @@
         },
         {
           "type": "functionDefn",
+          "named": true
+        },
+        {
+          "type": "gClass",
+          "named": true
+        },
+        {
+          "type": "gEnum",
+          "named": true
+        },
+        {
+          "type": "gInterfaceOrStructure",
+          "named": true
+        },
+        {
+          "type": "modifiers",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enhancementBody",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enumBody",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "classMembers",
+          "named": true
+        },
+        {
+          "type": "enumConstants",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enumConstant",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enumConstants",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "enumConstant",
           "named": true
         }
       ]
@@ -370,6 +454,140 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeVariableDefs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gEnhancement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "enhancementBody",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "id",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeVariableDefs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gEnum",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "enumBody",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "id",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeVariableDefs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gInterfaceOrStructure",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interfaceBody",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "id",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeVariableDefs",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -386,6 +604,21 @@
         },
         {
           "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interfaceBody",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "declaration",
           "named": true
         }
       ]
@@ -499,7 +732,15 @@
           "named": true
         },
         {
+          "type": "classMembers",
+          "named": true
+        },
+        {
           "type": "id",
+          "named": true
+        },
+        {
+          "type": "typeArguments",
           "named": true
         }
       ]
@@ -587,6 +828,18 @@
         },
         {
           "type": "gClass",
+          "named": true
+        },
+        {
+          "type": "gEnhancement",
+          "named": true
+        },
+        {
+          "type": "gEnum",
+          "named": true
+        },
+        {
+          "type": "gInterfaceOrStructure",
           "named": true
         },
         {
@@ -710,6 +963,40 @@
       "types": [
         {
           "type": "typeArgument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeVariableDefinition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeVariableDefs",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typeVariableDefinition",
           "named": true
         }
       ]
@@ -856,6 +1143,14 @@
     "named": false
   },
   {
+    "type": "enhancement",
+    "named": false
+  },
+  {
+    "type": "enum",
+    "named": false
+  },
+  {
     "type": "escape_sequence",
     "named": true
   },
@@ -878,6 +1173,14 @@
   {
     "type": "id",
     "named": true
+  },
+  {
+    "type": "implements",
+    "named": false
+  },
+  {
+    "type": "interface",
+    "named": false
   },
   {
     "type": "internal",
@@ -921,7 +1224,15 @@
     "named": false
   },
   {
+    "type": "reified",
+    "named": false
+  },
+  {
     "type": "static",
+    "named": false
+  },
+  {
+    "type": "structure",
     "named": false
   },
   {
