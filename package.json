@@ -25,6 +25,7 @@
     "bindings/node/*",
     "queries/*",
     "src/**",
+    "templates/**",
     "*.wasm"
   ],
   "dependencies": {

@@ -23,15 +23,23 @@ use tree_sitter_language::LanguageFn;
 
 extern "C" {
     fn tree_sitter_gosu() -> *const ();
+    fn tree_sitter_gosu_templates() -> *const ();
 }
 
-/// The tree-sitter [`LanguageFn`] for this grammar.
+/// The tree-sitter [`LanguageFn`] for this grammar (`.gs`, `.gsp`, `.gsx`).
 pub const LANGUAGE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_gosu) };
+
+/// The tree-sitter [`LanguageFn`] for Gosu templates (`.gst`).
+pub const LANGUAGE_TEMPLATES: LanguageFn =
+    unsafe { LanguageFn::from_raw(tree_sitter_gosu_templates) };
 
 /// The content of the [`node-types.json`] file for this grammar.
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers/6-static-node-types
 pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
+
+/// The content of the [`node-types.json`] file for the Gosu templates grammar.
+pub const NODE_TYPES_TEMPLATES: &str = include_str!("../../templates/src/node-types.json");
 
 // NOTE: uncomment these to include any queries that this grammar contains:
 
@@ -48,5 +56,17 @@ mod tests {
         parser
             .set_language(&super::LANGUAGE.into())
             .expect("Error loading Gosu parser");
+    }
+
+    #[test]
+    fn test_can_load_templates_grammar() {
+        let mut parser = tree_sitter::Parser::new();
+        parser
+            .set_language(&super::LANGUAGE_TEMPLATES.into())
+            .expect("Error loading Gosu templates parser");
+        let src = "<%-- comment --%>\n<%@ params(x: String) %>\nHello ${x}\n";
+        let tree = parser.parse(src, None).unwrap();
+        assert!(!tree.root_node().has_error());
+        assert!(super::NODE_TYPES_TEMPLATES.contains("template_comment"));
     }
 }

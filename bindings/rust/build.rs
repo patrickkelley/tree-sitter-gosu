@@ -17,5 +17,12 @@ fn main() {
         println!("cargo:rerun-if-changed={}", scanner_path.to_str().unwrap());
     }
 
+    let templates_parser_path = std::path::Path::new("templates/src/parser.c");
+    c_config.file(templates_parser_path);
+    println!(
+        "cargo:rerun-if-changed={}",
+        templates_parser_path.to_str().unwrap()
+    );
+
     c_config.compile("tree-sitter-gosu");
 }

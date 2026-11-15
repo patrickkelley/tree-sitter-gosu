@@ -17,6 +17,11 @@ include = [
   "grammar.js",
   "queries/*",
   "src/*",
+  "src/tree_sitter/*",
+  "templates/grammar.js",
+  "templates/src/*",
+  "templates/src/tree_sitter/*",
+  "templates/tree-sitter.json",
   "tree-sitter.json",
   "LICENSE",
 ]

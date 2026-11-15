@@ -1,0 +1,31 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "gosu_templates",
+      "camelcase": "GosuTemplates",
+      "title": "Gosu Templates",
+      "scope": "source.gosu.template",
+      "file-types": [
+        "gst"
+      ],
+      "injection-regex": "^gosu-templates$",
+      "class-name": "TreeSitterGosuTemplates"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Gosu template (.gst) grammar for tree-sitter.",
+    "authors": [
+      {
+        "name": "Marek Kubica",
+        "email": "marek@tarides.com",
+        "url": "https://tarides.com/"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/patrickkelley/tree-sitter-gosu"
+    }
+  }
+}

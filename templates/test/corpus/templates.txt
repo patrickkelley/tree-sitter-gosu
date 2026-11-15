@@ -1,144 +1,88 @@
-===========
-Plain markup
-===========
+==================
+Plain Markup Text
+==================
 
-<html>
-  <body>Hello world</body>
-</html>
+Hello World!
+Second line of markup.
 
 ---
 
-(document
+(template
   (template_text))
 
-==================
-One scriptlet
-==================
+==========================
+Directive And Expression
+==========================
 
-<% var x = 1 %>
-
----
-
-(document
-  (template_scriptlet
-    (localVarStatement
-      (id)
-      value: (number))))
-
-=====================
-Expression scriptlet
-=====================
-
-<%= 1 + 2 %>
+<%@ params(names: List<String>) %>
+Count: <%= names.size() %>
 
 ---
 
-(document
-  (template_expression
-    (number)
-    (additiveOp)
-    (number)))
-
-=============
-Directive
-=============
-
-<%@ extends foo.Bar(x) %>
-
----
-
-(document
+(template
   (template_directive
-    (id)
-    (id)
-    (arguments
-      (id))))
+    (code_fragment))
+  (template_text)
+  (template_expression
+    (code_fragment)))
 
-====================
-Multi-line template comment
-====================
+=========================================
+Scriptlet Loop And Inline Interpolation
+=========================================
 
-<%-- a comment
-  spanning multiple lines
-  with 50% and dashes -- ok --%>
-
----
-
-(document
-  (template_comment))
-
-=============================
-Template comment between scriptlets
-=============================
-
-<% var a = 1 %>
-<%-- set a --%>
-<% var b = 2 %>
+<% for (name in names) { %>
+  - ${name}
+<% } %>
 
 ---
 
-(document
+(template
   (template_scriptlet
-    (localVarStatement
-      (id)
-      value: (number)))
+    (code_fragment))
+  (template_text)
+  (template_interpolation
+    (interpolation_code))
+  (template_scriptlet
+    (code_fragment)))
+
+=========================================
+Multi-line Template And Scriptlet Comments
+=========================================
+
+<%--
+  Multi-line template comment
+  spanning two lines
+--%>
+Visible line
+<%
+  // line comment in scriptlet
+  /* block comment in scriptlet */
+  print("hi")
+%>
+
+---
+
+(template
   (template_comment)
+  (template_text)
   (template_scriptlet
-    (localVarStatement
-      (id)
-      value: (number))))
+    (line_comment)
+    (block_comment)
+    (code_fragment)
+    (StringLiteral)
+    (code_fragment)))
 
-====================
-Scriptlet with if/foreach
-====================
+===============================================
+Strings With Comment Markers Inside Templates
+===============================================
 
-<% foreach (x in list) { %>
-  <p><%= x.name %></p>
-<% } %>
+<%= "http://example.com//not-a-comment" %>
+${"/* also not a comment */ --%>"}
 
 ---
 
-(document
-  (template_scriptlet
-    (foreachStatement
-      name: (id)
-      iterable: (id)
-      (statementBlock
-        (template_text)
-        (template_expression
-          (id)
-          (indirectMemberAccess1
-            (id)))
-        (template_text)))))
-
-==================================
-Block spanning multiple scriptlets
-==================================
-
-<% if (x) { %>
-<% a = 1 %>
-<% } %>
-
----
-
-(document
-  (template_scriptlet
-    (ifStatement
-      (id)
-      (statementBlock
-        (template_text)
-        (assignmentOrMethodCall
-          (id)
-          value: (number))
-        (template_text)))))
-
-=========================
-Literal %> as template text
-=========================
-
-50%> done
-
----
-
-(document
-  (template_text))
+(template
+  (template_expression
+    (StringLiteral))
+  (template_interpolation
+    (StringLiteral)))
