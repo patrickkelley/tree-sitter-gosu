@@ -52,9 +52,10 @@ module.exports = grammar({
     ),
     namespaceStatement: $ => seq($.id, repeat(seq(".", $.id)), repeat(";")),
     usesStatement: $ => seq("uses", seq($.id, repeat(seq(".", $.id)), optional(seq(".", "*"))), repeat(";")),
+    annotation: $ => seq("@", $.id, repeat(seq(".", $.id)), optional($.arguments)),
     modifiers: $ =>
       repeat1(choice(
-        // $.annotation,
+        $.annotation,
         "private", "internal", "protected", "public",
         "static", "abstract", "override", "final", "transient", "reified")),
 
@@ -101,15 +102,53 @@ module.exports = grammar({
     declaration: $ => seq(
       choice(
         $.fieldDefn,
-        seq(optional($.modifiers), $.functionDefn),
-        seq(optional($.modifiers), $.gClass),
-        seq(optional($.modifiers), $.gInterfaceOrStructure),
-        seq(optional($.modifiers), $.gEnum),
+        $.staticInitializer,
+        seq(
+          optional($.modifiers),
+          choice(
+            $.functionDefn,
+            $.constructorDefn,
+            $.propertyDefn,
+            $.delegateDefn,
+            $.gClass,
+            $.gInterfaceOrStructure,
+            $.gEnum,
+          ),
+        ),
       ),
       optional(";"),
     ),
+    staticInitializer: $ => prec(1, seq("static", "{", repeat($.statement), "}")),
+    delegateDefn: $ => prec.right(seq(
+      "delegate",
+      $.id,
+      optional(seq(":", $.type)),
+      "represents",
+      $.type,
+      repeat(seq(",", $.type)),
+      optional(seq("=", $._expression)),
+    )),
+    constructorDefn: $ => seq(
+      "construct",
+      "(",
+      optional($.parameterDeclarationList),
+      ")",
+      optional(seq(":", field("type", $.type))),
+      "{",
+      repeat($.statement),
+      "}",
+    ),
+    propertyDefn: $ => seq(
+      "property",
+      choice("get", "set"),
+      $.id,
+      optional(seq("(", optional($.parameterDeclarationList), ")")),
+      optional(seq(":", field("type", $.type))),
+      optional(seq("{", repeat($.statement), "}")),
+    ),
     fieldDefn: $ => prec.right(seq(
       optional($.modifiers),
+      optional("property"),
       "var",
       $.id,
       optional(seq(":",
@@ -121,15 +160,23 @@ module.exports = grammar({
       optional(";")
     )),
     functionDefn: $ => seq(
-      "function", $.id, "(", optional($.parameterDeclarationList), ")",
+      "function",
+      $.id,
+      optional($.typeVariableDefs),
+      "(",
+      optional($.parameterDeclarationList),
+      ")",
+      optional(seq(":", field("type", $.type))),
       optional(seq("{", repeat($.statement), "}"))
     ),
     parameterDeclarationList: $ => seq($.parameterDeclaration, repeat(seq(",", $.parameterDeclaration))),
     parameterDeclaration: $ => seq(
+      repeat($.annotation),
+      optional("final"),
       $.id,
       optional(choice(
         seq(":", field("type", $.type), optional(seq("=", field("value", $._expression)))),
-        // TODO: $.blockTypeLiteral,
+        $.blockLiteral,
         seq("=", field("value", $._expression)),
       )),
     ),
@@ -146,7 +193,9 @@ module.exports = grammar({
       optional(seq("=",
         field("value", $._expression))),
     ),
-    arguments: $ => seq("(", optional(seq($._expression, repeat(seq(",", $._expression)))), ")"),
+    arguments: $ => seq("(", optional(seq($._argExpression, repeat(seq(",", $._argExpression)))), ")"),
+    _argExpression: $ => choice($.namedArgExpression, $._expression),
+    namedArgExpression: $ => seq(":", $.id, "=", $._expression),
     indirectMemberAccess1: $ => choice(
       seq(".", $.id),
       $.arguments,

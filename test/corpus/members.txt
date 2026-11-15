@@ -1,0 +1,201 @@
+=============================
+Constructor And Properties
+=============================
+
+class Person {
+  var _name : String
+
+  construct(name: String) {
+    var x = name
+  }
+
+  property get Name() : String {
+    var r = _name
+  }
+
+  property set Name(value: String) {
+    var r = value
+  }
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier))))
+        (declaration
+          (constructorDefn
+            (parameterDeclarationList
+              (parameterDeclaration
+                (id)
+                type: (type
+                  (type_identifier))))
+            (statement
+              (localVarStatement
+                (id)
+                value: (id)))))
+        (declaration
+          (propertyDefn
+            (id)
+            type: (type
+              (type_identifier))
+            (statement
+              (localVarStatement
+                (id)
+                value: (id)))))
+        (declaration
+          (propertyDefn
+            (id)
+            (parameterDeclarationList
+              (parameterDeclaration
+                (id)
+                type: (type
+                  (type_identifier))))
+            (statement
+              (localVarStatement
+                (id)
+                value: (id)))))))))
+
+=============================================
+Generic Function Return Type And Block Param
+=============================================
+
+class Util {
+  reified function fold<T>(init: T, aggregator(a: T, b: T): T) : T {
+    var res = init
+  }
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (modifiers)
+          (functionDefn
+            (id)
+            (typeVariableDefs
+              (typeVariableDefinition
+                (id)))
+            (parameterDeclarationList
+              (parameterDeclaration
+                (id)
+                type: (type
+                  (type_identifier)))
+              (parameterDeclaration
+                (id)
+                (blockLiteral
+                  (blockLiteralArg
+                    (id)
+                    (type
+                      (type_identifier)))
+                  (blockLiteralArg
+                    (id)
+                    (type
+                      (type_identifier)))
+                  (type
+                    (type_identifier)))))
+            type: (type
+              (type_identifier))
+            (statement
+              (localVarStatement
+                (id)
+                value: (id)))))))))
+
+====================================
+Delegate And Static Initializer
+====================================
+
+class Wrapper {
+  delegate _list : List represents Collection, Iterable = new ArrayList()
+  static {
+    var init = 1
+  }
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (delegateDefn
+            (id)
+            (type
+              (type_identifier))
+            (type
+              (type_identifier))
+            (type
+              (type_identifier))
+            (newExpr
+              (id)
+              (arguments))))
+        (declaration
+          (staticInitializer
+            (statement
+              (localVarStatement
+                (id)
+                value: (literal
+                  (NumberLiteral
+                    (IntOrFloatLiteral)))))))))))
+
+====================================
+Annotations On Class Member And Param
+====================================
+
+@Deprecated("use V2", :since = "1.0")
+class OldService {
+  @ShortCircuitingProperty
+  function call(@NotNull final input: String) : String {
+    var out = input
+  }
+}
+
+---
+
+(start
+  (modifiers
+    (annotation
+      (id)
+      (arguments
+        (literal
+          (StringLiteral))
+        (namedArgExpression
+          (id)
+          (literal
+            (StringLiteral))))))
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (modifiers
+            (annotation
+              (id)))
+          (functionDefn
+            (id)
+            (parameterDeclarationList
+              (parameterDeclaration
+                (annotation
+                  (id))
+                (id)
+                type: (type
+                  (type_identifier))))
+            type: (type
+              (type_identifier))
+            (statement
+              (localVarStatement
+                (id)
+                value: (id)))))))))

@@ -97,6 +97,25 @@
     "fields": {}
   },
   {
+    "type": "annotation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "arguments",
     "named": true,
     "fields": {},
@@ -118,6 +137,10 @@
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "namedArgExpression",
           "named": true
         },
         {
@@ -239,6 +262,36 @@
     }
   },
   {
+    "type": "constructorDefn",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameterDeclarationList",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "declaration",
     "named": true,
     "fields": {},
@@ -246,6 +299,14 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "constructorDefn",
+          "named": true
+        },
+        {
+          "type": "delegateDefn",
+          "named": true
+        },
         {
           "type": "fieldDefn",
           "named": true
@@ -268,6 +329,49 @@
         },
         {
           "type": "modifiers",
+          "named": true
+        },
+        {
+          "type": "propertyDefn",
+          "named": true
+        },
+        {
+          "type": "staticInitializer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delegateDefn",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -410,7 +514,18 @@
   {
     "type": "functionDefn",
     "named": true,
-    "fields": {},
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -425,6 +540,10 @@
         },
         {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "typeVariableDefs",
           "named": true
         }
       ]
@@ -702,7 +821,48 @@
   {
     "type": "modifiers",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "namedArgExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "namespaceStatement",
@@ -788,9 +948,17 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "annotation",
+          "named": true
+        },
+        {
+          "type": "blockLiteral",
+          "named": true
+        },
         {
           "type": "id",
           "named": true
@@ -808,6 +976,40 @@
       "types": [
         {
           "type": "parameterDeclaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "propertyDefn",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "parameterDeclarationList",
+          "named": true
+        },
+        {
+          "type": "statement",
           "named": true
         }
       ]
@@ -875,6 +1077,21 @@
         },
         {
           "type": "localVarStatement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "staticInitializer",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "statement",
           "named": true
         }
       ]
@@ -1094,6 +1311,10 @@
     "named": false
   },
   {
+    "type": "@",
+    "named": false
+  },
+  {
     "type": "BinLiteral",
     "named": true
   },
@@ -1143,6 +1364,14 @@
     "named": false
   },
   {
+    "type": "construct",
+    "named": false
+  },
+  {
+    "type": "delegate",
+    "named": false
+  },
+  {
     "type": "enhancement",
     "named": false
   },
@@ -1168,6 +1397,10 @@
   },
   {
     "type": "function",
+    "named": false
+  },
+  {
+    "type": "get",
     "named": false
   },
   {
@@ -1212,6 +1445,10 @@
     "named": false
   },
   {
+    "type": "property",
+    "named": false
+  },
+  {
     "type": "protected",
     "named": false
   },
@@ -1225,6 +1462,14 @@
   },
   {
     "type": "reified",
+    "named": false
+  },
+  {
+    "type": "represents",
+    "named": false
+  },
+  {
+    "type": "set",
     "named": false
   },
   {
