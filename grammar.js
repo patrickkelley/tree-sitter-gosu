@@ -33,12 +33,15 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.indirectMemberAccess1],
+    [$._primaryExpr],
+    [$._primaryExpr, $._memberChain],
     [$._statement, $._expression],
   ],
 
   rules: {
     start: $ => seq(
+      optional($.shebang_comment),
+      optional($.classpathStatement),
       optional(seq("package", $.namespaceStatement)),
       repeat($.usesStatement),
       repeat(choice(
@@ -52,9 +55,12 @@ module.exports = grammar({
           ),
         ),
         $.functionDefn,
+        $.propertyDefn,
         $.statement,
       )),
     ),
+    shebang_comment: _ => token(seq("#!", /[^\n\r]*/)),
+    classpathStatement: $ => prec.right(seq("classpath", $.StringLiteral, repeat(";"))),
     namespaceStatement: $ => prec.right(seq($.id, repeat(seq(".", $.id)), repeat(";"))),
     usesStatement: $ => prec.right(seq("uses", seq($.id, repeat(seq(".", $.id)), optional(seq(".", "*"))), repeat(";"))),
     annotation: $ => seq("@", $.id, repeat(seq(".", $.id)), optional($.arguments)),
@@ -266,13 +272,15 @@ module.exports = grammar({
     _argExpression: $ => choice($.namedArgExpression, $._expression),
     namedArgExpression: $ => seq(":", $.id, "=", $._expression),
     indirectMemberAccess1: $ => choice(
-      seq(choice(".", "?.", "*."), $.id, optional($.typeArguments)),
-      $.featureLiteral,
-      seq(choice("[", "?["), $._expression, "]"),
-      $.arguments,
+      prec(15, seq(choice(".", "?.", "*."), $.id)),
+      prec(15, $.featureLiteral),
+      prec(15, seq(choice("[", "?["), $._expression, "]")),
+      prec(15, $.arguments),
+      prec(8, seq(alias($._callTypeArguments, $.typeArguments), $.arguments)),
     ),
+    _callTypeArguments: $ => prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
     thisSuperExpr: _ => choice("this", "super"),
-    assignmentOrMethodCall: $ => prec.right(seq(
+    assignmentOrMethodCall: $ => prec.right(-1, seq(
       choice(
         $.id,
         $.thisSuperExpr,
@@ -280,7 +288,7 @@ module.exports = grammar({
         $.parenthExpr,
         $.StringLiteral,
       ),
-      repeat($.indirectMemberAccess1),
+      optional($._memberChain),
       optional(choice(
         $.incrementOp,
         seq($.assignmentOp, $._expression),
@@ -333,7 +341,7 @@ module.exports = grammar({
       $.evalExpr,
       $._primaryExpr,
     ),
-    _primaryExpr: $ => prec.right(15, seq(
+    _primaryExpr: $ => prec(8, seq(
       choice(
         $.literal,
         $.thisSuperExpr,
@@ -342,7 +350,11 @@ module.exports = grammar({
         $.parenthExpr,
         $.standAloneDataStructureInitialization,
       ),
-      repeat($.indirectMemberAccess1),
+      optional($._memberChain),
+    )),
+    _memberChain: $ => prec(8, choice(
+      $.indirectMemberAccess1,
+      seq($._memberChain, $.indirectMemberAccess1),
     )),
     parenthExpr: $ => seq("(", $._expression, ")"),
     blockExpr: $ => prec.right(0, seq("\\", optional($.parameterDeclarationList), "->", choice($._expression, $.statementBlock))),

@@ -1444,6 +1444,21 @@
     }
   },
   {
+    "type": "classpathStatement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "StringLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "conditionalAndExpr",
     "named": true,
     "fields": {},
@@ -4515,6 +4530,10 @@
       "required": false,
       "types": [
         {
+          "type": "classpathStatement",
+          "named": true
+        },
+        {
           "type": "functionDefn",
           "named": true
         },
@@ -4540,6 +4559,14 @@
         },
         {
           "type": "namespaceStatement",
+          "named": true
+        },
+        {
+          "type": "propertyDefn",
+          "named": true
+        },
+        {
+          "type": "shebang_comment",
           "named": true
         },
         {
@@ -5972,6 +5999,10 @@
     "named": false
   },
   {
+    "type": "classpath",
+    "named": false
+  },
+  {
     "type": "construct",
     "named": false
   },
@@ -6139,6 +6170,10 @@
   {
     "type": "set",
     "named": false
+  },
+  {
+    "type": "shebang_comment",
+    "named": true
   },
   {
     "type": "static",

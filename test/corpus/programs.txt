@@ -1,0 +1,123 @@
+====================================
+Program With Shebang And Mixed Items
+====================================
+
+#!/usr/bin/env gosu
+uses java.util.Date
+
+var greeting = "Hello"
+print(greeting)
+
+function helper(msg: String) : String {
+  return msg
+}
+
+---
+
+(start
+  (shebang_comment)
+  (usesStatement
+    (id)
+    (id)
+    (id))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (StringLiteral))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (id)))))
+  (functionDefn
+    (id)
+    (parameterDeclarationList
+      (parameterDeclaration
+        (id)
+        type: (type
+          (type_identifier))))
+    type: (type
+      (type_identifier))
+    (statement
+      (returnStatement
+        (id)))))
+
+====================================
+Enhancement File With Method And Loop
+====================================
+
+package gw.lang.enhancements
+uses java.lang.Integer
+
+enhancement IntArrayEnhancement : Integer[] {
+  property get IsEmpty() : Boolean {
+    return this.length == 0
+  }
+
+  function sum() : Integer {
+    var total = 0
+    for (elt in this) {
+      total += elt
+    }
+    return total
+  }
+}
+
+---
+
+(start
+  (namespaceStatement
+    (id)
+    (id)
+    (id))
+  (usesStatement
+    (id)
+    (id)
+    (id))
+  (gEnhancement
+    name: (id)
+    (type
+      (type_identifier))
+    body: (enhancementBody
+      (declaration
+        (propertyDefn
+          (id)
+          type: (type
+            (type_identifier))
+          (statement
+            (returnStatement
+              (equalityExpr
+                (thisSuperExpr)
+                (indirectMemberAccess1
+                  (id))
+                (equalityOp)
+                (literal
+                  (NumberLiteral
+                    (IntOrFloatLiteral))))))))
+      (declaration
+        (functionDefn
+          (id)
+          type: (type
+            (type_identifier))
+          (statement
+            (localVarStatement
+              (id)
+              value: (literal
+                (NumberLiteral
+                  (IntOrFloatLiteral)))))
+          (statement
+            (forEachStatement
+              (id)
+              (thisSuperExpr)
+              (statement
+                (statementBlock
+                  (statement
+                    (assignmentOrMethodCall
+                      (id)
+                      (assignmentOp)
+                      (id)))))))
+          (statement
+            (returnStatement
+              (id))))))))
