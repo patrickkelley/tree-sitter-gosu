@@ -1,0 +1,207 @@
+=========================
+If Else And While DoWhile
+=========================
+
+if (ready) {
+  run()
+} else {
+  wait()
+}
+
+while (running) {
+  step()
+}
+
+do {
+  tick()
+} while (active)
+
+---
+
+(start
+  (statement
+    (ifStatement
+      (id)
+      (statement
+        (statementBlock
+          (statement
+            (assignmentOrMethodCall
+              (id)
+              (indirectMemberAccess1
+                (arguments))))))
+      (statement
+        (statementBlock
+          (statement
+            (assignmentOrMethodCall
+              (id)
+              (indirectMemberAccess1
+                (arguments))))))))
+  (statement
+    (whileStatement
+      (id)
+      (statement
+        (statementBlock
+          (statement
+            (assignmentOrMethodCall
+              (id)
+              (indirectMemberAccess1
+                (arguments))))))))
+  (statement
+    (doWhileStatement
+      (statement
+        (statementBlock
+          (statement
+            (assignmentOrMethodCall
+              (id)
+              (indirectMemberAccess1
+                (arguments))))))
+      (id))))
+
+=================================
+For And Foreach With Index Iterator
+=================================
+
+for (item in items index i iterator it) {
+  process(item)
+}
+
+foreach (var x in list) {
+  use(x)
+}
+
+---
+
+(start
+  (statement
+    (forEachStatement
+      (id)
+      (id)
+      (indexRest
+        (indexVar
+          (id))
+        (iteratorVar
+          (id)))
+      (statement
+        (statementBlock
+          (statement
+            (assignmentOrMethodCall
+              (id)
+              (indirectMemberAccess1
+                (arguments
+                  (id)))))))))
+  (statement
+    (forEachStatement
+      (id)
+      (id)
+      (statement
+        (statementBlock
+          (statement
+            (assignmentOrMethodCall
+              (id)
+              (indirectMemberAccess1
+                (arguments
+                  (id))))))))))
+
+=================================
+Switch Try Catch Finally And Jump
+=================================
+
+switch (kind) {
+  case "a":
+    break
+  default:
+    continue
+}
+
+try {
+  return compute()
+} catch (var e : Exception) {
+  throw e
+} finally {
+  cleanup()
+}
+
+---
+
+(start
+  (statement
+    (switchStatement
+      (id)
+      (switchBlockStatementGroup
+        (literal
+          (StringLiteral))
+        (statement
+          (breakStatement)))
+      (switchBlockStatementGroup
+        (statement
+          (continueStatement)))))
+  (statement
+    (tryCatchFinallyStatement
+      (statementBlock
+        (statement
+          (returnStatement
+            (id)
+            (indirectMemberAccess1
+              (arguments)))))
+      (catchClause
+        (id)
+        (type
+          (type_identifier))
+        (statementBlock
+          (statement
+            (throwStatement
+              (id)))))
+      (statementBlock
+        (statement
+          (assignmentOrMethodCall
+            (id)
+            (indirectMemberAccess1
+              (arguments))))))))
+
+====================================
+Using Assert Eval And Empty Statement
+====================================
+
+using (var s = openStream()) {
+  read(s)
+} finally {
+  done()
+}
+
+assert ok : "failed"
+eval("1 + 1");
+;
+
+---
+
+(start
+  (statement
+    (usingStatement
+      (localVarStatement
+        (id)
+        value: (id)
+        value: (indirectMemberAccess1
+          (arguments)))
+      (statementBlock
+        (statement
+          (assignmentOrMethodCall
+            (id)
+            (indirectMemberAccess1
+              (arguments
+                (id))))))
+      (statementBlock
+        (statement
+          (assignmentOrMethodCall
+            (id)
+            (indirectMemberAccess1
+              (arguments)))))))
+  (statement
+    (assertStatement
+      (id)
+      (literal
+        (StringLiteral))))
+  (statement
+    (evalExpr
+      (literal
+        (StringLiteral))))
+  (statement))
