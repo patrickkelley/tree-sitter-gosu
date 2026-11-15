@@ -2,8 +2,8 @@
   "name": "tree-sitter-gosu",
   "version": "0.1.0",
   "description": "Gosu is a statically typed general-purpose programming language that runs on the Java Virtual Machine.",
-  "repository": "https://github.com/tarides/tree-sitter-gosu",
-  "license": "UNLICENSED",
+  "repository": "https://github.com/patrickkelley/tree-sitter-gosu",
+  "license": "MIT",
   "author": {
     "name": "Marek Kubica",
     "email": "marek@tarides.com",

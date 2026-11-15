@@ -7,7 +7,9 @@
       "title": "Gosu",
       "scope": "source.gosu",
       "file-types": [
-        "gosu"
+        "gs",
+        "gsp",
+        "gsx"
       ],
       "injection-regex": "^gosu$",
       "class-name": "TreeSitterGosu"
@@ -15,7 +17,7 @@
   ],
   "metadata": {
     "version": "0.1.0",
-    "license": "UNLICENSED",
+    "license": "MIT",
     "description": "Gosu is a statically typed general-purpose programming language that runs on the Java Virtual Machine.",
     "authors": [
       {
@@ -25,7 +27,7 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/tarides/tree-sitter-gosu"
+      "repository": "https://github.com/patrickkelley/tree-sitter-gosu"
     }
   },
   "bindings": {

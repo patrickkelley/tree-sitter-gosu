@@ -1,7 +1,7 @@
 /**
  * @file Gosu is a statically typed general-purpose programming language that runs on the Java Virtual Machine.
  * @author Marek Kubica <marek@tarides.com>
- * @license UNLICENSED
+ * @license MIT
  */
 
 /// <reference types="tree-sitter-cli/dsl" />
