@@ -81,7 +81,7 @@ class Foo {}
 ---
 
 (start
-  (LINE_COMMENT)
+  (line_comment)
   (gClass
     name: (id)
     body: (classBody)))
@@ -98,7 +98,7 @@ class Foo {}
 ---
 
 (start
-  (COMMENT)
+  (block_comment)
   (gClass
     name: (id)
     body: (classBody)))

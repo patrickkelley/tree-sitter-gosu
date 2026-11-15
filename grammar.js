@@ -22,8 +22,8 @@ module.exports = grammar({
 
   extras: $ => [
     /\s/,
-    $.COMMENT,
-    $.LINE_COMMENT,
+    $.block_comment,
+    $.line_comment,
   ],
 
   rules: {
@@ -146,8 +146,11 @@ module.exports = grammar({
     // EscapeSequence: $ => choice(seq("\\", choice("v", "a", "b", "t", "n", "f", "r", '"', "'", "\\", "$", "<")), $.UnicodeEscape, $.OctalEscape),
     // OctalEscape: $ => choice(seq("\\", /0-3/, $.ZeroToSeven, $.ZeroToSeven), seq("\\", $.ZeroToSeven, $.ZeroToSeven), seq("\\", $.ZeroToSeven)),
     // UnicodeEscape: $ => seq("\\u", $.HexDigit, $.HexDigit, $.HexDigit, $.HexDigit),
-    COMMENT: _ => /\/\*([^\*]|(\*[^\/]))*\*\//,
-    LINE_COMMENT: _ => /\/\/[^\n\r]*/,
+    // NOTE: Comment node kinds must contain the lowercase substring
+    // "comment" (see docs/PRD.md R3): loc's counter matches node kinds with
+    // a case-sensitive `contains("comment")`.
+    block_comment: _ => /\/\*([^\*]|(\*[^\/]))*\*\//,
+    line_comment: _ => /\/\/[^\n\r]*/,
   }
 });
 
