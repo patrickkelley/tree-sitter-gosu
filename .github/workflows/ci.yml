@@ -18,6 +18,8 @@ jobs:
       - run: npm install
       - run: npx tree-sitter generate
       - run: npx tree-sitter test
+      - run: cd templates && npx tree-sitter generate && npx tree-sitter test
+      - run: ./scripts/audit.sh examples
 
   rust:
     name: Rust binding
