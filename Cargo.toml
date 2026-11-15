@@ -13,17 +13,17 @@ autoexamples = false
 
 build = "bindings/rust/build.rs"
 include = [
-  "bindings/rust/*",
-  "grammar.js",
-  "queries/*",
-  "src/*",
-  "src/tree_sitter/*",
-  "templates/grammar.js",
-  "templates/src/*",
-  "templates/src/tree_sitter/*",
-  "templates/tree-sitter.json",
-  "tree-sitter.json",
-  "LICENSE",
+  "/bindings/rust/*",
+  "/grammar.js",
+  "/queries/*",
+  "/src/*",
+  "/src/tree_sitter/*",
+  "/templates/grammar.js",
+  "/templates/src/*",
+  "/templates/src/tree_sitter/*",
+  "/templates/tree-sitter.json",
+  "/tree-sitter.json",
+  "/LICENSE",
 ]
 
 [lib]
