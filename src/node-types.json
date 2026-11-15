@@ -73,6 +73,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -81,11 +121,43 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
           "named": true
         },
         {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
           "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -93,6 +165,11 @@
   },
   {
     "type": "additiveOp",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "andOp",
     "named": true,
     "fields": {}
   },
@@ -128,6 +205,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -136,7 +253,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -145,6 +270,236 @@
         },
         {
           "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arrayInitializer",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arrayValueList",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -163,6 +518,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -171,15 +566,52 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
           "type": "newExpr",
           "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "assignmentOp",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "assignmentOrMethodCall",
@@ -190,6 +622,169 @@
       "required": true,
       "types": [
         {
+          "type": "StringLiteral",
+          "named": true
+        },
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "assignmentOp",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "incrementOp",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitshiftExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftOp",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -198,7 +793,468 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
           "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitshiftOp",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "bitwiseAndExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitwiseOrExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitwiseXorExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "blockExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parameterDeclarationList",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "statementBlock",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -236,7 +1292,47 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
           "type": "blockLiteral",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
           "named": true
         },
         {
@@ -248,7 +1344,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -256,7 +1360,31 @@
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
           "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -310,6 +1438,323 @@
       "types": [
         {
           "type": "declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditionalAndExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "andOp",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditionalExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditionalOrExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "orOp",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -409,6 +1854,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -417,7 +1902,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -425,7 +1918,31 @@
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
           "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -444,6 +1961,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -452,7 +2009,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -460,7 +2025,31 @@
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -535,6 +2124,118 @@
     }
   },
   {
+    "type": "equalityExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "equalityOp",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "equalityOp",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "evalExpr",
     "named": true,
     "fields": {},
@@ -547,6 +2248,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -555,11 +2296,66 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
           "named": true
         },
         {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
           "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "featureLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "typeArguments",
           "named": true
         }
       ]
@@ -598,6 +2394,46 @@
             "named": true
           },
           {
+            "type": "bitshiftExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseAndExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseOrExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseXorExpr",
+            "named": true
+          },
+          {
+            "type": "blockExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalAndExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalOrExpr",
+            "named": true
+          },
+          {
+            "type": "equalityExpr",
+            "named": true
+          },
+          {
+            "type": "evalExpr",
+            "named": true
+          },
+          {
             "type": "id",
             "named": true
           },
@@ -606,11 +2442,43 @@
             "named": true
           },
           {
+            "type": "intervalExpr",
+            "named": true
+          },
+          {
             "type": "literal",
             "named": true
           },
           {
+            "type": "multiplicativeExpr",
+            "named": true
+          },
+          {
             "type": "newExpr",
+            "named": true
+          },
+          {
+            "type": "parenthExpr",
+            "named": true
+          },
+          {
+            "type": "relationalExpr",
+            "named": true
+          },
+          {
+            "type": "standAloneDataStructureInitialization",
+            "named": true
+          },
+          {
+            "type": "thisSuperExpr",
+            "named": true
+          },
+          {
+            "type": "typeAsExpr",
+            "named": true
+          },
+          {
+            "type": "unaryExpr",
             "named": true
           }
         ]
@@ -644,6 +2512,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -660,7 +2568,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -668,7 +2584,31 @@
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -885,6 +2825,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -893,7 +2873,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -901,11 +2889,40 @@
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "incrementOp",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "indexRest",
@@ -946,15 +2963,233 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
         {
           "type": "arguments",
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "featureLiteral",
+          "named": true
+        },
+        {
           "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeArguments",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "initializerAssignment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "initializerExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "arrayValueList",
+          "named": true
+        },
+        {
+          "type": "mapInitializerList",
           "named": true
         }
       ]
@@ -974,6 +3209,118 @@
         }
       ]
     }
+  },
+  {
+    "type": "intervalExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "intervalOp",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "intervalOp",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "iteratorVar",
@@ -1009,6 +3356,10 @@
         {
           "type": "StringLiteral",
           "named": true
+        },
+        {
+          "type": "featureLiteral",
+          "named": true
         }
       ]
     }
@@ -1036,6 +3387,46 @@
             "named": true
           },
           {
+            "type": "bitshiftExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseAndExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseOrExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseXorExpr",
+            "named": true
+          },
+          {
+            "type": "blockExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalAndExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalOrExpr",
+            "named": true
+          },
+          {
+            "type": "equalityExpr",
+            "named": true
+          },
+          {
+            "type": "evalExpr",
+            "named": true
+          },
+          {
             "type": "id",
             "named": true
           },
@@ -1044,11 +3435,43 @@
             "named": true
           },
           {
+            "type": "intervalExpr",
+            "named": true
+          },
+          {
             "type": "literal",
             "named": true
           },
           {
+            "type": "multiplicativeExpr",
+            "named": true
+          },
+          {
             "type": "newExpr",
+            "named": true
+          },
+          {
+            "type": "parenthExpr",
+            "named": true
+          },
+          {
+            "type": "relationalExpr",
+            "named": true
+          },
+          {
+            "type": "standAloneDataStructureInitialization",
+            "named": true
+          },
+          {
+            "type": "thisSuperExpr",
+            "named": true
+          },
+          {
+            "type": "typeAsExpr",
+            "named": true
+          },
+          {
+            "type": "unaryExpr",
             "named": true
           }
         ]
@@ -1070,6 +3493,109 @@
     }
   },
   {
+    "type": "mapInitializerList",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "modifiers",
     "named": true,
     "fields": {},
@@ -1085,6 +3611,118 @@
     }
   },
   {
+    "type": "multiplicativeExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "multiplicativeOp",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multiplicativeOp",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "namedArgExpression",
     "named": true,
     "fields": {},
@@ -1097,6 +3735,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -1105,11 +3783,43 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
           "named": true
         },
         {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
           "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -1139,7 +3849,35 @@
       "required": true,
       "types": [
         {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
           "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "arrayInitializer",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
           "named": true
         },
         {
@@ -1147,15 +3885,107 @@
           "named": true
         },
         {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "initializerExpression",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "objectInitializer",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
           "named": true
         },
         {
           "type": "typeArguments",
           "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "objectInitializer",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "initializerAssignment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "orOp",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "parameterDeclaration",
@@ -1180,6 +4010,46 @@
             "named": true
           },
           {
+            "type": "bitshiftExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseAndExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseOrExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseXorExpr",
+            "named": true
+          },
+          {
+            "type": "blockExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalAndExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalOrExpr",
+            "named": true
+          },
+          {
+            "type": "equalityExpr",
+            "named": true
+          },
+          {
+            "type": "evalExpr",
+            "named": true
+          },
+          {
             "type": "id",
             "named": true
           },
@@ -1188,11 +4058,43 @@
             "named": true
           },
           {
+            "type": "intervalExpr",
+            "named": true
+          },
+          {
             "type": "literal",
             "named": true
           },
           {
+            "type": "multiplicativeExpr",
+            "named": true
+          },
+          {
             "type": "newExpr",
+            "named": true
+          },
+          {
+            "type": "parenthExpr",
+            "named": true
+          },
+          {
+            "type": "relationalExpr",
+            "named": true
+          },
+          {
+            "type": "standAloneDataStructureInitialization",
+            "named": true
+          },
+          {
+            "type": "thisSuperExpr",
+            "named": true
+          },
+          {
+            "type": "typeAsExpr",
+            "named": true
+          },
+          {
+            "type": "unaryExpr",
             "named": true
           }
         ]
@@ -1233,6 +4135,109 @@
     }
   },
   {
+    "type": "parenthExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "propertyDefn",
     "named": true,
     "fields": {
@@ -1267,6 +4272,122 @@
     }
   },
   {
+    "type": "relOp",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "relationalExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relOp",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "returnStatement",
     "named": true,
     "fields": {},
@@ -1279,6 +4400,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -1287,11 +4448,58 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
           "named": true
         },
         {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
           "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "standAloneDataStructureInitialization",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "initializerExpression",
           "named": true
         }
       ]
@@ -1463,6 +4671,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -1471,7 +4719,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -1479,7 +4735,31 @@
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -1498,6 +4778,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -1506,7 +4826,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -1514,7 +4842,31 @@
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
           "type": "switchBlockStatementGroup",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -1533,6 +4885,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -1541,15 +4933,52 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
           "type": "newExpr",
           "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "thisSuperExpr",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "throwStatement",
@@ -1564,6 +4993,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -1572,11 +5041,43 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
           "named": true
         },
         {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
           "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -1659,6 +5160,122 @@
     }
   },
   {
+    "type": "typeAsExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsOp",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeAsOp",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "typeVariableDefinition",
     "named": true,
     "fields": {},
@@ -1693,6 +5310,118 @@
     }
   },
   {
+    "type": "unaryExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        },
+        {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unaryOp",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "usesStatement",
     "named": true,
     "fields": {},
@@ -1720,11 +5449,55 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
         {
           "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "intervalExpr",
           "named": true
         },
         {
@@ -1736,11 +5509,39 @@
           "named": true
         },
         {
+          "type": "multiplicativeExpr",
+          "named": true
+        },
+        {
           "type": "newExpr",
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
           "type": "statementBlock",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
@@ -1759,6 +5560,46 @@
           "named": true
         },
         {
+          "type": "bitshiftExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseAndExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseOrExpr",
+          "named": true
+        },
+        {
+          "type": "bitwiseXorExpr",
+          "named": true
+        },
+        {
+          "type": "blockExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalAndExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalExpr",
+          "named": true
+        },
+        {
+          "type": "conditionalOrExpr",
+          "named": true
+        },
+        {
+          "type": "equalityExpr",
+          "named": true
+        },
+        {
+          "type": "evalExpr",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
@@ -1767,7 +5608,15 @@
           "named": true
         },
         {
+          "type": "intervalExpr",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "multiplicativeExpr",
           "named": true
         },
         {
@@ -1775,14 +5624,66 @@
           "named": true
         },
         {
+          "type": "parenthExpr",
+          "named": true
+        },
+        {
+          "type": "relationalExpr",
+          "named": true
+        },
+        {
+          "type": "standAloneDataStructureInitialization",
+          "named": true
+        },
+        {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "thisSuperExpr",
+          "named": true
+        },
+        {
+          "type": "typeAsExpr",
+          "named": true
+        },
+        {
+          "type": "unaryExpr",
           "named": true
         }
       ]
     }
   },
   {
+    "type": "!",
+    "named": false
+  },
+  {
+    "type": "!*",
+    "named": false
+  },
+  {
+    "type": "!+",
+    "named": false
+  },
+  {
+    "type": "!-",
+    "named": false
+  },
+  {
+    "type": "!=",
+    "named": false
+  },
+  {
+    "type": "!==",
+    "named": false
+  },
+  {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "#",
     "named": false
   },
   {
@@ -1790,7 +5691,27 @@
     "named": false
   },
   {
+    "type": "%",
+    "named": false
+  },
+  {
+    "type": "%=",
+    "named": false
+  },
+  {
     "type": "&",
+    "named": false
+  },
+  {
+    "type": "&&",
+    "named": false
+  },
+  {
+    "type": "&&=",
+    "named": false
+  },
+  {
+    "type": "&=",
     "named": false
   },
   {
@@ -1810,7 +5731,23 @@
     "named": false
   },
   {
+    "type": "*.",
+    "named": false
+  },
+  {
+    "type": "*=",
+    "named": false
+  },
+  {
     "type": "+",
+    "named": false
+  },
+  {
+    "type": "++",
+    "named": false
+  },
+  {
+    "type": "+=",
     "named": false
   },
   {
@@ -1822,7 +5759,35 @@
     "named": false
   },
   {
+    "type": "--",
+    "named": false
+  },
+  {
+    "type": "-=",
+    "named": false
+  },
+  {
+    "type": "->",
+    "named": false
+  },
+  {
     "type": ".",
+    "named": false
+  },
+  {
+    "type": "..",
+    "named": false
+  },
+  {
+    "type": "..|",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "/=",
     "named": false
   },
   {
@@ -1838,7 +5803,27 @@
     "named": false
   },
   {
+    "type": "<<",
+    "named": false
+  },
+  {
+    "type": "<<=",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "==",
+    "named": false
+  },
+  {
+    "type": "===",
     "named": false
   },
   {
@@ -1846,7 +5831,35 @@
     "named": false
   },
   {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": ">>",
+    "named": false
+  },
+  {
+    "type": ">>=",
+    "named": false
+  },
+  {
+    "type": ">>>",
+    "named": false
+  },
+  {
+    "type": ">>>=",
+    "named": false
+  },
+  {
     "type": "?",
+    "named": false
+  },
+  {
+    "type": "?%",
+    "named": false
+  },
+  {
+    "type": "?*",
     "named": false
   },
   {
@@ -1855,6 +5868,22 @@
   },
   {
     "type": "?-",
+    "named": false
+  },
+  {
+    "type": "?.",
+    "named": false
+  },
+  {
+    "type": "?/",
+    "named": false
+  },
+  {
+    "type": "?:",
+    "named": false
+  },
+  {
+    "type": "?[",
     "named": false
   },
   {
@@ -1886,11 +5915,27 @@
     "named": false
   },
   {
+    "type": "\\",
+    "named": false
+  },
+  {
     "type": "]",
     "named": false
   },
   {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "^=",
+    "named": false
+  },
+  {
     "type": "abstract",
+    "named": false
+  },
+  {
+    "type": "and",
     "named": false
   },
   {
@@ -2040,7 +6085,15 @@
     "named": false
   },
   {
+    "type": "not",
+    "named": false
+  },
+  {
     "type": "null",
+    "named": false
+  },
+  {
+    "type": "or",
     "named": false
   },
   {
@@ -2092,6 +6145,10 @@
     "named": false
   },
   {
+    "type": "statictypeof",
+    "named": false
+  },
+  {
     "type": "structure",
     "named": false
   },
@@ -2101,6 +6158,10 @@
   },
   {
     "type": "switch",
+    "named": false
+  },
+  {
+    "type": "this",
     "named": false
   },
   {
@@ -2124,6 +6185,18 @@
     "named": true
   },
   {
+    "type": "typeas",
+    "named": false
+  },
+  {
+    "type": "typeis",
+    "named": false
+  },
+  {
+    "type": "typeof",
+    "named": false
+  },
+  {
     "type": "uses",
     "named": false
   },
@@ -2144,7 +6217,35 @@
     "named": false
   },
   {
+    "type": "|",
+    "named": false
+  },
+  {
+    "type": "|..",
+    "named": false
+  },
+  {
+    "type": "|..|",
+    "named": false
+  },
+  {
+    "type": "|=",
+    "named": false
+  },
+  {
+    "type": "||",
+    "named": false
+  },
+  {
+    "type": "||=",
+    "named": false
+  },
+  {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]

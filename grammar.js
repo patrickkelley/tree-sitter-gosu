@@ -32,6 +32,11 @@ module.exports = grammar({
     $.line_comment,
   ],
 
+  conflicts: $ => [
+    [$.indirectMemberAccess1],
+    [$._statement, $._expression],
+  ],
+
   rules: {
     start: $ => seq(
       optional(seq("package", $.namespaceStatement)),
@@ -261,16 +266,26 @@ module.exports = grammar({
     _argExpression: $ => choice($.namedArgExpression, $._expression),
     namedArgExpression: $ => seq(":", $.id, "=", $._expression),
     indirectMemberAccess1: $ => choice(
-      seq(".", $.id),
+      seq(choice(".", "?.", "*."), $.id, optional($.typeArguments)),
+      $.featureLiteral,
+      seq(choice("[", "?["), $._expression, "]"),
       $.arguments,
     ),
-    assignmentOrMethodCall: $ => seq(
+    thisSuperExpr: _ => choice("this", "super"),
+    assignmentOrMethodCall: $ => prec.right(seq(
       choice(
         $.id,
+        $.thisSuperExpr,
         $.newExpr,
+        $.parenthExpr,
+        $.StringLiteral,
       ),
       repeat($.indirectMemberAccess1),
-    ),
+      optional(choice(
+        $.incrementOp,
+        seq($.assignmentOp, $._expression),
+      )),
+    )),
     type: $ => prec.left(seq(
       choice(
         seq(
@@ -299,20 +314,67 @@ module.exports = grammar({
       seq(optional(seq($.id, ":")), $.type, optional(seq("=", $._expression))),
     ),
     _type_identifier: $ => alias($.id, $.type_identifier),
-    _expression: $ => prec.right(seq(
+    _expression: $ => choice(
+      $.conditionalExpr,
+      $.conditionalOrExpr,
+      $.conditionalAndExpr,
+      $.bitwiseOrExpr,
+      $.bitwiseXorExpr,
+      $.bitwiseAndExpr,
+      $.equalityExpr,
+      $.relationalExpr,
+      $.intervalExpr,
+      $.bitshiftExpr,
+      $.additiveExpr,
+      $.multiplicativeExpr,
+      $.typeAsExpr,
+      $.unaryExpr,
+      $.blockExpr,
+      $.evalExpr,
+      $._primaryExpr,
+    ),
+    _primaryExpr: $ => prec.right(15, seq(
       choice(
         $.literal,
+        $.thisSuperExpr,
         $.id,
-        $.additiveExpr,
         $.newExpr,
+        $.parenthExpr,
+        $.standAloneDataStructureInitialization,
       ),
       repeat($.indirectMemberAccess1),
     )),
+    parenthExpr: $ => seq("(", $._expression, ")"),
+    blockExpr: $ => prec.right(0, seq("\\", optional($.parameterDeclarationList), "->", choice($._expression, $.statementBlock))),
+    featureLiteral: $ => prec.right(seq("#", choice($.id, "construct"), optional($.typeArguments), optional($.arguments))),
+    standAloneDataStructureInitialization: $ => prec(1, seq("{", optional($.initializerExpression), "}")),
+    initializerExpression: $ => choice($.mapInitializerList, $.arrayValueList),
+    arrayValueList: $ => seq($._expression, repeat(seq(",", $._expression))),
+    mapInitializerList: $ => seq($._expression, "->", $._expression, repeat(seq(",", $._expression, "->", $._expression))),
+    objectInitializer: $ => seq($.initializerAssignment, repeat(seq(",", $.initializerAssignment))),
+    initializerAssignment: $ => seq(":", $.id, "=", $._expression),
+    arrayInitializer: $ => seq("{", optional(seq($._expression, repeat(seq(",", $._expression)))), "}"),
+    conditionalExpr: $ => prec.right(1, choice(
+      seq($._expression, "?", $._expression, ":", $._expression),
+      seq($._expression, "?:", $._expression),
+    )),
+    conditionalOrExpr: $ => prec.left(2, seq($._expression, $.orOp, $._expression)),
+    conditionalAndExpr: $ => prec.left(3, seq($._expression, $.andOp, $._expression)),
+    bitwiseOrExpr: $ => prec.left(4, seq($._expression, "|", $._expression)),
+    bitwiseXorExpr: $ => prec.left(5, seq($._expression, "^", $._expression)),
+    bitwiseAndExpr: $ => prec.left(6, seq($._expression, "&", $._expression)),
+    equalityExpr: $ => prec.left(7, seq($._expression, $.equalityOp, $._expression)),
+    relationalExpr: $ => prec.left(8, choice(
+      seq($._expression, $.relOp, $._expression),
+      seq($._expression, "typeis", $.type),
+    )),
+    intervalExpr: $ => prec.left(9, seq($._expression, $.intervalOp, $._expression)),
+    bitshiftExpr: $ => prec.left(10, seq($._expression, $.bitshiftOp, $._expression)),
     // In Gosu's EBNF: literal = NumberLiteral | featureLiteral | StringLiteral
-    // | CharLiteral | "true" | "false" | "null". featureLiteral is added with
-    // the expression work.
+    // | CharLiteral | "true" | "false" | "null".
     literal: $ => prec(1, choice(
       $.NumberLiteral,
+      $.featureLiteral,
       $.StringLiteral,
       $.CharLiteral,
       "true",
@@ -343,15 +405,24 @@ module.exports = grammar({
         /(bi|BI|[lLsSbB])/,
       ))),
     )),
-    // FIXME: express in terms of multiplicativeExpr as in EBNF?
-    additiveExpr: $ => prec.left(seq($._expression, seq($.additiveOp, $._expression))),
+    additiveExpr: $ => prec.left(11, seq($._expression, $.additiveOp, $._expression)),
+    multiplicativeExpr: $ => prec.left(12, seq($._expression, $.multiplicativeOp, $._expression)),
+    typeAsExpr: $ => prec.left(13, seq($._expression, $.typeAsOp, $.type)),
+    unaryExpr: $ => prec.right(14, seq(choice("+", "-", "!-", $.unaryOp), $._expression)),
     newExpr: $ => prec.right(seq(
       "new",
-      $.id,
-      optional($.typeArguments),
-      repeat(seq(".", $.id, optional($.typeArguments))),
-      $.arguments,
-      optional(seq("{", optional($.classMembers), "}")),
+      optional(seq(
+        $.id,
+        optional($.typeArguments),
+        repeat(seq(".", $.id, optional($.typeArguments))),
+      )),
+      choice(
+        seq($.arguments, optional(seq("{", optional(choice($.initializerExpression, $.objectInitializer, $.classMembers)), "}"))),
+        seq("[", choice(
+          seq("]", repeat(seq("[", "]")), $.arrayInitializer),
+          seq($._expression, "]", repeat(seq("[", $._expression, "]")), repeat(seq("[", "]"))),
+        )),
+      ),
     )),
     id: $ => token(seq(Letter, repeat(choice(Digit, Letter)))) ,
     // Strings own their content: the fragments are immediate tokens so that
@@ -379,7 +450,18 @@ module.exports = grammar({
     )),
     template_substitution: $ => seq(prec(2, '${'), $._expression, '}'),
     Digit: _ => Digit,
-    additiveOp: _ => choice("+", "-", "?+", "?-"),
+    orOp: _ => choice("||", "or"),
+    andOp: _ => choice("&&", "and"),
+    assignmentOp: _ => choice("=", "+=", "-=", "*=", "/=", "&=", "&&=", "|=", "||=", "^=", "%=", "<<=", ">>>=", ">>="),
+    incrementOp: _ => choice("++", "--"),
+    equalityOp: _ => choice("===", "!==", "==", "!="),
+    intervalOp: _ => choice("..", "|..", "..|", "|..|"),
+    relOp: _ => choice("<=", ">=", "<", ">"),
+    bitshiftOp: _ => choice("<<", ">>>", ">>"),
+    additiveOp: _ => choice("+", "-", "?+", "?-", "!+", "!-"),
+    multiplicativeOp: _ => choice("*", "/", "%", "?*", "!*", "?/", "?%"),
+    typeAsOp: _ => choice("typeas", "as"),
+    unaryOp: _ => choice("~", "!", "not", "typeof", "statictypeof"),
     // HexDigit: $ => choice($.Digit, /[A-F]/, /[a-f]/),
     // ZeroToSeven: _ => /[0-7]/,
     // EscapeSequence: $ => choice(seq("\\", choice("v", "a", "b", "t", "n", "f", "r", '"', "'", "\\", "$", "<")), $.UnicodeEscape, $.OctalEscape),

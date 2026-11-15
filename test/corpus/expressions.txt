@@ -1,0 +1,191 @@
+======================================
+Conditional Elvis And Logical Operators
+======================================
+
+var a = flag ? x : y
+var b = maybe ?: "fallback"
+var c = p or q and not r
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (conditionalExpr
+        (id)
+        (id)
+        (id))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (conditionalExpr
+        (id)
+        (literal
+          (StringLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (conditionalOrExpr
+        (id)
+        (orOp)
+        (conditionalAndExpr
+          (id)
+          (andOp)
+          (unaryExpr
+            (unaryOp)
+            (id)))))))
+
+======================================
+Comparison Typeis Interval And Cast
+======================================
+
+var ok = x >= 0 and x typeis Integer
+var rng = 0..|10
+var val = (raw as String)
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (conditionalAndExpr
+        (relationalExpr
+          (id)
+          (relOp)
+          (literal
+            (NumberLiteral
+              (IntOrFloatLiteral))))
+        (andOp)
+        (relationalExpr
+          (id)
+          (type
+            (type_identifier))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (intervalExpr
+        (literal
+          (NumberLiteral
+            (IntOrFloatLiteral)))
+        (intervalOp)
+        (literal
+          (NumberLiteral
+            (IntOrFloatLiteral))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (parenthExpr
+        (typeAsExpr
+          (id)
+          (typeAsOp)
+          (type
+            (type_identifier)))))))
+
+=========================================
+NullSafe Access Indexing And Assignment
+=========================================
+
+var first = items?[0]?.name
+arr[i] += 1
+count++
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (id)
+      value: (indirectMemberAccess1
+        (literal
+          (NumberLiteral
+            (IntOrFloatLiteral))))
+      value: (indirectMemberAccess1
+        (id))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (id))
+      (assignmentOp)
+      (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (incrementOp))))
+
+=================================================
+Lambda Block Collection Map And Feature Literals
+=================================================
+
+var fn = \ x: int, y: int -> x + y
+var list = {"one", "two"}
+var map = {"a" -> 1, "b" -> 2}
+var prop = Person#Name
+var arr = new String[3]
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (blockExpr
+        (parameterDeclarationList
+          (parameterDeclaration
+            (id)
+            type: (type
+              (type_identifier)))
+          (parameterDeclaration
+            (id)
+            type: (type
+              (type_identifier))))
+        (additiveExpr
+          (id)
+          (additiveOp)
+          (id)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (standAloneDataStructureInitialization
+        (initializerExpression
+          (arrayValueList
+            (literal
+              (StringLiteral))
+            (literal
+              (StringLiteral)))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (standAloneDataStructureInitialization
+        (initializerExpression
+          (mapInitializerList
+            (literal
+              (StringLiteral))
+            (literal
+              (NumberLiteral
+                (IntOrFloatLiteral)))
+            (literal
+              (StringLiteral))
+            (literal
+              (NumberLiteral
+                (IntOrFloatLiteral))))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (id)
+      value: (indirectMemberAccess1
+        (featureLiteral
+          (id)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (newExpr
+        (id)
+        (literal
+          (NumberLiteral
+            (IntOrFloatLiteral)))))))
