@@ -44,9 +44,48 @@ structures, enums), `.gsp` (programs), `.gsx` (enhancements), and `.gst`
 - Literals & strings: integer, float, hex (`0x`), and binary (`0b`) literals
   with suffixes (`L`, `S`, `B`, `BI`, `F`, `D`, `BD`), `true`/`false`/`null`,
   `NaN`/`Infinity`, `CharLiteral`, multi-line strings, escape sequences, and
-  `"${expr}"` string interpolation parsed as child nodes
+  `"${expr}"` string interpolation parsed as child nodes. A `$` that does not
+  start `${`, including immediately before the closing quote, is string content
 - Comments: `line_comment` (`//`), `block_comment` (`/* ... */`, including
   GSDoc `/** ... */`), and `template_comment` (`<%-- ... --%>` in `.gst`)
+
+## Usage
+
+Add to `Cargo.toml`:
+
+```toml
+[dependencies]
+tree-sitter = "0.27"
+tree-sitter-gosu = "0.1.1"
+```
+
+`LANGUAGE` parses `.gs`, `.gsp`, and `.gsx`. `LANGUAGE_TEMPLATES` parses `.gst`.
+Both are `LanguageFn` values; pass `.into()` to `parser.set_language`. Both
+report the language name `gosu` when used by [loc](https://github.com/patrickkelley/loc).
+
+```rust
+use tree_sitter::Parser;
+
+let code = "class Foo {}\n";
+let mut parser = Parser::new();
+parser
+    .set_language(&tree_sitter_gosu::LANGUAGE.into())
+    .expect("Error loading Gosu parser");
+let tree = parser.parse(code, None).unwrap();
+
+let template = "Hello ${name}\n";
+parser
+    .set_language(&tree_sitter_gosu::LANGUAGE_TEMPLATES.into())
+    .expect("Error loading Gosu templates parser");
+let template_tree = parser.parse(template, None).unwrap();
+```
+
+## Publish
+
+`cargo publish --dry-run` must succeed before publishing. The owner publishes
+with `cargo login`, then `cargo publish`. The crate name is `tree-sitter-gosu`.
+0.1.0 was the first publish. 0.1.1 is the release that includes the string-`$`
+contract.
 
 ## License
 

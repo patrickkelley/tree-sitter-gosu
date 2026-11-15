@@ -1,4 +1,4 @@
-module github.com/tarides/tree-sitter-gosu
+module github.com/patrickkelley/tree-sitter-gosu
 
 go 1.22
 

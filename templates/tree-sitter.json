@@ -9,12 +9,12 @@
       "file-types": [
         "gst"
       ],
-      "injection-regex": "^gosu-templates$",
+      "injection-regex": "^gosu_templates$",
       "class-name": "TreeSitterGosuTemplates"
     }
   ],
   "metadata": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "license": "MIT",
     "description": "Gosu template (.gst) grammar for tree-sitter.",
     "authors": [

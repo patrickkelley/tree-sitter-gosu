@@ -8,33 +8,38 @@ language, maintained as a fork of `tarides/tree-sitter-gosu` to be consumed by
 The spec is `docs/PRD.md` and is authoritative for scope; it mandates strict TDD
 (failing corpus test first) for every grammar feature.
 
-## Verification (run all three in this order before declaring done)
+## Verification (run in this order before declaring done)
 
 ```
 npx tree-sitter generate
+git diff
 npx tree-sitter test
+cd templates && npx tree-sitter generate && npx tree-sitter test
+git diff
 cargo test
 ```
 
-`generate` must produce no conflicts and no diff beyond what your grammar edit
-explains; `test` runs the corpus in `test/corpus/`; `cargo test` compiles
-`src/parser.c` via the `cc` crate and runs the Rust binding tests + doctests.
-Single corpus test: `npx tree-sitter test -f 'test name'`.
+`generate` must produce no conflicts. `git diff` must be empty after each
+generate (regenerated sources are committed with the grammar edit, not left
+dirty). `test` runs the corpus in `test/corpus/` (and `templates/test/corpus/`
+for the templates grammar). `cargo test` compiles `src/parser.c` via the `cc`
+crate and runs the Rust binding tests + doctests.
+Single corpus test: `npx tree-sitter test --include 'test name'`.
 
 ## Gotchas
 
 - **Comment node kinds MUST contain the lowercase substring `comment`**
-  (`line_comment`, `block_comment`, and later `template_comment` for `.gst`).
+  (`line_comment`, `block_comment`, `shebang_comment`, and `template_comment`).
   `loc`'s counter matches `node.kind().contains("comment")` **case-sensitively**
   (`src/counter.rs`); docs/PRD.md R3. A regression here is a release blocker —
   add a corpus test whenever comment handling changes.
 - The comment kinds were renamed from the inherited uppercase
   `COMMENT`/`LINE_COMMENT` in this fork (commit "Rename comment node kinds");
   any tooling keyed on the old names must use the lowercase ones.
-- **Regenerate + commit `src/` after every `grammar.js` edit**: `src/parser.c`,
-  `src/node-types.json`, `src/grammar.json` and the `src/tree_sitter/` headers
-  are tracked. A grammar change without regenerated `src/` means Rust tests
-  silently test the old parser.
+- **Regenerate + commit `src/` and `templates/src/` after every `grammar.js`
+  edit**: `parser.c`, `node-types.json`, `grammar.json`, and the
+  `tree_sitter/` headers in both trees are tracked. A grammar change without
+  regenerated sources means Rust tests silently test the old parser.
 - The tree-sitter CLI is pinned to the **0.25.x** line (`package.json`
   devDependency `^0.25.9`). Do not jump major CLI versions; the grammar is
   generated and tested with 0.25.x only.

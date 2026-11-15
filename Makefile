@@ -3,8 +3,8 @@ $(error Windows is not supported)
 endif
 
 LANGUAGE_NAME := tree-sitter-gosu
-HOMEPAGE_URL := https://github.com/tarides/tree-sitter-gosu
-VERSION := 0.1.0
+HOMEPAGE_URL := https://github.com/patrickkelley/tree-sitter-gosu
+VERSION := 0.1.1
 
 # repository
 SRC_DIR := src

@@ -6,3 +6,7 @@ and `gosu-test`) under the **Apache License 2.0** (Copyright Guidewire Software,
 
 They are parsed in CI via `scripts/audit.sh` to verify that real-world `.gs`,
 `.gsp`, `.gsx`, and `.gst` files parse without `ERROR` or `MISSING` nodes.
+
+CI runs `scripts/audit.sh examples`. Unexpected `ERROR` or `MISSING` nodes fail
+the run. Expected exceptions are listed in `examples/allowlist.txt`. That file
+is currently empty, so every example must parse clean.

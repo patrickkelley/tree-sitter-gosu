@@ -138,3 +138,24 @@ var i = 'a${x}b'
         (StringLiteral
           (template_substitution
             (id)))))))
+
+========================================
+Dollar Before Closing Quote Is Content
+========================================
+
+var s = "$"
+var t = "cost $"
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (StringLiteral))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (StringLiteral)))))

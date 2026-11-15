@@ -17,9 +17,20 @@ finishing it, publishing it, and integrating it into `loc` exactly the way
 The grammar targets the official Gosu EBNF at
 `gosu-lang/gosu-lang@78c5f6c839597a81ac5ec75a46259cbb6ad40545`
 (`gosu-core/src/main/java/gw/internal/gosu/parser/ebnf/Gosu.ebnf`) — the same
-commit the tarides grammar cites. Divergences from the EBNF (error tolerance for
-incomplete files, as `tree-sitter-java` does) are allowed but must be noted in
-`grammar.js` comments.
+commit the tarides grammar cites. Divergences from the EBNF are allowed but
+must be noted in `grammar.js` comments. The specified divergences are:
+
+- Error-tolerant start: optional shebang, `classpath`, `package`, `uses`, and a
+  sequence of type declarations, functions, properties, and statements.
+  Function and property bodies may be absent. The EBNF start rule is one type
+  declaration.
+- `"${expr}"` interpolation as a child of `StringLiteral`. The EBNF string is
+  only escapes and any character. A `$` that does not begin `${` is that
+  character, including a `$` immediately before the closing quote.
+- A fractional literal requires a digit after the dot, so `0..5` is an interval
+  and `5.` is not a float.
+- `reified` is a modifier. It is absent from that EBNF's modifier list.
+- `{ expr -> expr }` is only a map initializer. Blocks are the backslash form.
 
 ## Decisions (locked)
 
@@ -33,6 +44,9 @@ incomplete files, as `tree-sitter-java` does) are allowed but must be noted in
 | Workflow           | Strict TDD — corpus test first per feature, red-green-refactor      |
 | Toolchain          | tree-sitter CLI 0.25.x (pinned); must compile against `tree-sitter` crate 0.27 (`tree-sitter-java` 0.23.5 is the compatibility reference) |
 | Scope              | One end-to-end PRD through `loc` integration                       |
+| String `$`         | `${expr}` is the only interpolation. A `$` that does not start `${`, including immediately before the closing quote, is string content and must not produce an `ERROR` or an `id` child. `$ident` is literal text. |
+| Lambdas            | Blocks are `\ args -> expr` and `\ args -> { statements }` only. `{ expr -> expr }` is a map initializer, not a lambda. |
+| Version            | First crates.io release is 0.1.0. The release `loc` consumes for this spec is 0.1.1. |
 
 ## Goals
 
@@ -58,71 +72,86 @@ incomplete files, as `tree-sitter-java` does) are allowed but must be noted in
 - Regenerate with tree-sitter CLI **0.25.x** (pinned in `package.json`);
   commit generated `src/parser.c` and `src/node-types.json` (adjust
   `.gitignore` so they are tracked).
-- Fix metadata: `license: "MIT"` in `Cargo.toml`, `package.json`,
-  `tree-sitter.json`, and the `grammar.js` header; repository URLs point to the
-  fork; original author attribution retained.
+- Fix metadata: `license: "MIT"` and fork repository URLs in every manifest
+  that carries them (`Cargo.toml`, `package.json`, `package-lock.json`,
+  `tree-sitter.json`, `templates/tree-sitter.json`, `pyproject.toml`,
+  `grammar.js`, `templates/grammar.js`, `go.mod`, `CMakeLists.txt`,
+  `Makefile`); original author attribution retained.
 - Existing corpus (`test/corpus/basics.txt`) green after regeneration.
 
 ### R2 — Core language (`.gs`, `.gsp`, `.gsx`)
 Corpus-test-first per feature (red → green → refactor, one commit per unit):
 1. Comments: `//`, `/* */` (also covers GSDoc `/** */`), as `extras`.
 2. Strings: escape sequences, multi-line, `${expr}` interpolation with the
-   embedded expression parsed as children; `CharLiteral` for single chars.
+   embedded expression parsed as children. A `$` that does not start `${`,
+   including immediately before the closing quote (`"$"`, `"cost $"`), is
+   string content: no `ERROR`, no `id` child. `$ident` is not interpolation.
+   `CharLiteral` for single chars, including `'$'`.
 3. Literals: int/float/hex/bin with suffixes, `true`/`false`/`null`, `Infinity`/`NaN`.
 4. Types: qualified names, generics (`typeArguments`, `? extends/super`),
    intersections (`&`), arrays (`[]`), function/block types.
 5. Type declarations: classes (extends/implements, type variables), interfaces
    and structures, enums (constants + members), enhancements
-   (`enhance X : Type`), inner/anonymous classes.
+   (`enhancement X : Type`), inner/anonymous classes.
 6. Members: constructors (`construct`), properties (`property get/set`),
    functions with bodies, fields (`var`/`property var`), `delegate`, static
    initializer blocks, modifiers (`public/private/internal/protected`,
-   `static/abstract/override/final/transient`), annotations (`@Foo(...)`).
+   `static/abstract/override/final/transient/reified`), annotations (`@Foo(...)`).
 7. Statements: if/else, while, do-while, for/foreach (incl. `index`/`iterator`
    clauses), switch/case/default, try/catch/finally, throw, return, break,
    continue, `using (...)`, `assert`, `eval`, blocks, `;`.
-8. Expressions: full EBNF precedence chain (conditional `?:`/`?:`, `or/and`,
-   bitwise, equality, relational + `typeis`, intervals `..`/`|..`/`..|`,
+8. Expressions: full EBNF precedence chain (ternary `? :`, Elvis `?:`, `or/and`,
+   bitwise, equality, relational + `typeis`, intervals `..`/`|..`/`..|`/`|..|`,
    bitshift, additive incl. `?+`, multiplicative incl. `?*`, `as`/`typeas`,
    unary incl. `not`/`~`/`typeof`), member access (`.`/`?.`/`*.`), indexing,
    `new` (incl. anonymous classes and array initializers), map/list literals
-   (`{k -> v}`), feature literals (`#foo`), lambda blocks (`\ args -> expr`,
-   `{ args -> ... }`), assignment and increment operators.
+   (`{k -> v}`), feature literals (`#foo`), lambda blocks (`\ args -> expr` and
+   `\ args -> { statements }` only), assignment and increment operators.
 9. Program files (`.gsp`): top-level statements after `package`/`uses`,
-   shebang lines; enhancement files (`.gsx`) via the enhancement rule.
+   `classpath`, shebang lines (`shebang_comment`); enhancement files (`.gsx`)
+   via the enhancement rule.
 
 ### R3 — Comment & string contract (the `loc` lifeline)
 - **Every** comment node kind must contain the lowercase substring `comment`
-  (`line_comment`, `block_comment`, and later `template_comment`), because
-  `loc`'s counter matches `node.kind().contains("comment")` **case-sensitively**.
-  The inherited `COMMENT`/`LINE_COMMENT` kinds violate this and MUST be renamed.
+  (`line_comment`, `block_comment`, `shebang_comment`, and `template_comment`
+  for `.gst`), because `loc`'s counter matches `node.kind().contains("comment")`
+  **case-sensitively**. The inherited `COMMENT`/`LINE_COMMENT` kinds violate
+  this and MUST be renamed.
 - Comments are `extras`, so they attach inside broken/ERROR regions and their
   ranges remain discoverable.
-- String literals own their content, with interpolation as child nodes, so
-  `//` or `/*` inside a string is never a comment.
+- String literals own their content. The only expression child is
+  `template_substitution` for `${expr}`. A `$` that does not start `${` is
+  content, not an `id` and not an `ERROR`. `//` or `/*` inside a string is
+  never a comment.
 - Locked by fixture tests: `loc`-side `gosu_comments` and grammar-side corpus
-  cases; a regression here is a release blocker.
+  cases, including `"$"` / `"cost $"` and comment text inside a string. A
+  regression here is a release blocker.
 
 ### R4 — Templates (`.gst`), gated phase
 - Sub-grammar in `templates/` (the `tree-sitter-typescript` multi-grammar
   pattern): own `grammar.js`, own corpus (`templates/test/corpus/`), self-contained
   (no shared-module refactor of the root grammar).
 - Surface: markup text, `<% statements %>`, `<%= expression %>`,
-  `<%@ directive %>`, `<%-- comment --%>` as `template_comment`.
+  `<%@ directive %>`, `<%-- comment --%>` as `template_comment`, and inline
+  `${...}` in markup. Scriptlet, expression, and directive interiors recognize
+  strings and comments so markers inside strings are not comments. They are not
+  a second copy of the statement grammar.
 - Gate: ships only after the R7 audit passes for the three code file types.
 - Exposed as `LANGUAGE_TEMPLATES` from the same crate.
 
 ### R5 — Packaging & publish
-- `Cargo.toml`: MIT, description, `repository` = fork, version 0.1.0,
+- `Cargo.toml`: MIT, description, `repository` = fork, version 0.1.1,
   `dev-dependencies.tree-sitter = "0.27"` (proves `loc`-side compatibility in the
-  crate's own tests).
+  crate's own tests). 0.1.0 is the first crates.io publish; 0.1.1 is the release
+  that satisfies this spec, including the string-`$` contract.
 - `cargo publish --dry-run` green (package includes `src/*`, `grammar.js`,
   `templates/**` as needed, `tree-sitter.json`, `LICENSE`, queries).
 - Publish to crates.io by the owner (requires `cargo login`); `loc` switches to
-  the versioned crates.io dep once 0.1.0 is live; until then `loc` uses a
-  documented git dependency on this fork.
+  the versioned crates.io dep once 0.1.1 is live; until then `loc` may stay on
+  the published 0.1.0 crate.
 - README updated: supported syntax list kept current, fork/credit note for
-  tarides, publish/usage instructions.
+  tarides, EBNF link, usage (`LANGUAGE` and `LANGUAGE_TEMPLATES`), and publish
+  instructions.
 
 ### R6 — `loc` integration (exact `tree-sitter-java` mirror)
 - `Cargo.toml` dep (git dep → crates.io dep post-publish).
@@ -142,7 +171,9 @@ Corpus-test-first per feature (red → green → refactor, one commit per unit):
   the grammar change that makes them pass).
 - Real-world audit, public: a set of real Gosu files (Apache-2.0, from
   `gosu-lang`) under `examples/` with attribution; CI parses them and fails on
-  unexpected ERROR nodes (allowlist documented).
+  unexpected ERROR or MISSING nodes. Expected exceptions are listed in
+  `examples/allowlist.txt` (paths relative to the audit directory; an empty
+  file means every example must parse clean).
 - Real-world audit, local: `scripts/audit.sh <path-to-gosu-repo>` reports
   (a) % of files parsing without ERROR nodes and (b) `loc` vs `tokei`/`cloc`
   delta on tracked files. Targets: **≥95% error-free files**; **line counts
@@ -158,8 +189,10 @@ Every unit of work follows red-green-refactor, matching `loc`'s AGENTS.md:
 3. **Refactor**: clean up with tests staying green.
 
 Grammar repo CI gates (`.github/workflows/ci.yml`):
-`npx tree-sitter generate`, `npx tree-sitter test`, `cargo test`,
-plus the `examples/` audit step. Loc repo gates as in R6.
+`npx tree-sitter generate` then `git diff --exit-code` (root and `templates/`),
+`npx tree-sitter test` for both grammars, `cargo test`, plus the `examples/`
+audit step. A generate that dirties committed parser sources fails CI. Loc repo
+gates as in R6.
 
 ## Work breakdown
 
@@ -169,7 +202,7 @@ plus the `examples/` audit step. Loc repo gates as in R6.
 | M1 | R2 features 1–9, corpus-first, README syntax list updated |
 | M2 | R7 audits (public examples in CI; `scripts/audit.sh` for owner-run local audits) |
 | M3 | R4 templates sub-grammar + corpus + `LANGUAGE_TEMPLATES` |
-| M4 | R5 packaging; `cargo publish --dry-run`; owner publishes 0.1.0 |
+| M4 | R5 packaging; `cargo publish --dry-run`; owner publishes 0.1.1 |
 | M5 | R6 `loc` integration on branch `gosu-support` + PR; switch dep to crates.io after publish |
 
 ## Dependencies
@@ -192,6 +225,7 @@ tree-sitter-gosu/
   src/                   — generated parser.c, node-types.json (committed)
   bindings/rust/         — LANGUAGE + LANGUAGE_TEMPLATES via tree-sitter-language
   examples/              — real Gosu samples (Apache-2.0, attributed) for CI audit
+  examples/allowlist.txt — expected ERROR/MISSING paths; empty means none
   scripts/audit.sh       — local real-repo audit (% error-free, loc vs tokei delta)
   .github/workflows/ci.yml
 ```
@@ -204,5 +238,6 @@ tree-sitter-gosu/
 - `cargo publish --dry-run` succeeds; crate metadata MIT + fork URLs.
 - `loc` on branch `gosu-support` counts a real Gosu repo within the R7 targets,
   `gosu_comments`/`.gst` fixtures green, PR open against `patrickkelley/loc`.
-- After the owner publishes 0.1.0 to crates.io, `loc`'s dependency is switched
-  to the versioned crate and this PRD's R5/R6 are re-verified.
+- After the owner publishes 0.1.1 to crates.io, `loc`'s dependency is switched
+  to that version and this PRD's R5/R6 are re-verified. Until that publish,
+  `loc` may remain on the already-published 0.1.0 crate.

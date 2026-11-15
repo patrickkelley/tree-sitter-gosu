@@ -17,8 +17,11 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx tree-sitter generate
+      - run: git diff --exit-code
       - run: npx tree-sitter test
-      - run: cd templates && npx tree-sitter generate && npx tree-sitter test
+      - run: cd templates && npx tree-sitter generate
+      - run: git diff --exit-code
+      - run: cd templates && npx tree-sitter test
       - run: ./scripts/audit.sh examples
 
   rust:

@@ -1,5 +1,6 @@
 /**
  * @file Gosu template (.gst) grammar for tree-sitter.
+ * @author Marek Kubica <marek@tarides.com>
  * @license MIT
  */
 

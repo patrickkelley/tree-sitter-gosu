@@ -9,6 +9,26 @@
 
 
 // Based on the grammer at: https://github.com/gosu-lang/gosu-lang/blob/78c5f6c839597a81ac5ec75a46259cbb6ad40545/gosu-core/src/main/java/gw/internal/gosu/parser/ebnf/Gosu.ebnf
+//
+// Divergences from that EBNF (docs/PRD.md):
+// - The start rule is error-tolerant: an optional shebang, a classpath
+//   statement, package, uses, and a sequence of type declarations, functions,
+//   properties, and statements. Function and property bodies are optional so
+//   incomplete files still parse. The EBNF start rule is a single type
+//   declaration.
+// - StringLiteral accepts "${expr}" interpolation as a child node. The EBNF
+//   string is only EscapeSequence | any_character. A "$" that does not begin
+//   "${", including a "$" immediately before the closing quote, is ordinary
+//   string content and must not be an ERROR or an identifier.
+// - A fractional numeric literal requires a digit after the dot (`5.` is
+//   rejected) so `0..5` lexes as an interval, not `0.` plus `..`.
+// - `reified` is accepted as a modifier. It is used by Gosu and is absent from
+//   that EBNF's modifier list.
+// - `{ expr -> expr }` is only a map initializer. Blocks are the backslash
+//   form `\ args -> expr` and `\ args -> { statements }`, matching the EBNF.
+// - Comment node kinds are lowercase and contain "comment"
+//   (`line_comment`, `block_comment`, `shebang_comment`), not COMMENT /
+//   LINE_COMMENT.
 
 // These patterns are used in the "Ident" rule. In order to make that rule
 // produce a token these can't be rules themselves as tokens must composed of
@@ -440,16 +460,23 @@ module.exports = grammar({
     // Strings own their content: the fragments are immediate tokens so that
     // comments (`//`, `/*`) never leak inside a string literal (docs/PRD.md R3).
     // Interpolated expressions are CHILD nodes of the string via
-    // template_substitution. Note: the official EBNF has no `${}` interpolation
-    // in StringLiteral (string templates live in a separate sub-grammar there);
-    // we support it here because core Gosu allows `"${expr}"` in .gs/.gsp/.gsx.
+    // template_substitution. `${expr}` is the only interpolation; `$ident` is
+    // literal text. A `$` immediately before the closing quote is content, not
+    // an identifier (Letter includes `$`, so a dropped `$` would otherwise be
+    // recovered as an id).
     StringLiteral: $ => choice(
-      seq('"', repeat(choice($._double_string_fragment, $.escape_sequence, $.template_substitution)), '"'),
+      seq('"', repeat(choice($._double_string_fragment, $._trailing_dollar, $.escape_sequence, $.template_substitution)), '"'),
       seq("'", repeat(choice($._sq_char, $.escape_sequence, $.template_substitution)), "'"),
     ),
     // Hidden token rules: matched without skipping extras, and never shown as
     // named nodes in the tree.
+    // `$` plus a following content character. Does not match a `$` whose next
+    // character is `"` or `{`.
     _double_string_fragment: _ => token.immediate(prec(1, /([^"\\$]|\$[^{"])+/)),
+    // A `$` immediately before the closing quote. Lower precedence and shorter
+    // than `${`, so it cannot swallow an interpolation. Hidden, so the tree
+    // still shows a StringLiteral with no identifier child.
+    _trailing_dollar: _ => token.immediate(prec(0, "$")),
     // Single-quoted content is lexed one character at a time (shared by
     // StringLiteral and CharLiteral) so that `'ab'` can only close as a string
     // while `'a'` stays ambiguous until the reduce, where CharLiteral's higher
