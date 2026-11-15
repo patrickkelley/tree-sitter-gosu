@@ -1,0 +1,276 @@
+==================
+Integer Literals
+==================
+
+var a = 42
+var b = 42L
+var c = 42l
+var d = 42S
+var e = 42s
+var f = 42B
+var g = 42b
+var h = 42BI
+var i = 42bi
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral))))))
+
+================
+Float Literals
+================
+
+var a = 3.14
+var b = .5
+var c = 1e10
+var d = 2.5e-3
+var e = 1E+5
+var f = 1.5F
+var g = 1.5f
+var h = 1.5D
+var i = 1.5d
+var j = 1.5BD
+var k = 1.5bd
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral))))))
+
+=====================
+Hex Literals
+=====================
+
+var a = 0x1F
+var b = 0X2A
+var c = 0xFFl
+var d = 0x10S
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (HexLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (HexLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (HexLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (HexLiteral))))))
+
+=====================
+Binary Literals
+=====================
+
+var a = 0b1010
+var b = 0B11
+var c = 0b1010L
+var d = 0b101bi
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (BinLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (BinLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (BinLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (BinLiteral))))))
+
+=========================
+Boolean And Null Literal
+=========================
+
+var t = true
+var f = false
+var n = null
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal)))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal)))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal))))
+
+=========================
+Special Numeric Literals
+=========================
+
+var inf = Infinity
+var nan = NaN
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral)))))

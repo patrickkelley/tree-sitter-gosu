@@ -20,6 +20,12 @@ const Letter = /[A-Za-z_$]/;
 module.exports = grammar({
   name: "gosu",
 
+  // The word token enables tree-sitter's keyword extraction: literals like
+  // `true`, `null` or `NaN` win over identifiers when valid, and are lexed as
+  // identifiers (Gosu allows them as names) in states where the keyword form
+  // is not applicable.
+  word: $ => $.id,
+
   extras: $ => [
     /\s/,
     $.block_comment,
@@ -116,13 +122,47 @@ module.exports = grammar({
     _type_identifier: $ => alias($.id, $.type_identifier),
     _expression: $ => prec.right(seq(
       choice(
-        $.StringLiteral,
-        $.CharLiteral,
+        $.literal,
         $.id,
         $.additiveExpr,
         $.newExpr,
       ),
       repeat($.indirectMemberAccess1),
+    )),
+    // In Gosu's EBNF: literal = NumberLiteral | featureLiteral | StringLiteral
+    // | CharLiteral | "true" | "false" | "null". featureLiteral is added with
+    // the expression work.
+    literal: $ => prec(1, choice(
+      $.NumberLiteral,
+      $.StringLiteral,
+      $.CharLiteral,
+      "true",
+      "false",
+      "null",
+    )),
+    // NaN/Infinity are bare keywords inside NumberLiteral (per the EBNF), so
+    // the tree shows a bare `(NumberLiteral)` for them while the digit-based
+    // forms are visible sub-tokens.
+    NumberLiteral: $ => choice(
+      "NaN",
+      "Infinity",
+      $.HexLiteral,
+      $.BinLiteral,
+      $.IntOrFloatLiteral,
+    ),
+    HexLiteral: _ => token(seq(choice("0x", "0X"), repeat1(/[0-9a-fA-F]/), optional(choice("s", "S", "l", "L")))),
+    BinLiteral: _ => token(seq(choice("0b", "0B"), repeat1(/[01]/), optional(choice("bi", "BI", /[lLsSbB]/)))),
+    // Divergence from the EBNF: a fractional part requires at least one digit
+    // after the dot (`5.` is rejected) so that interval expressions like
+    // `0..5` lex as `0` `..` `5` instead of `0.` `..` `5`.
+    IntOrFloatLiteral: _ => token(choice(
+      seq(/\.\d+/, optional(/(bd|BD|[fFdD])/)),
+      seq(/\d+/, optional(choice(
+        seq(/\.\d+/, optional(/([eE][+-]?\d+)/), optional(/(bd|BD|[fFdD])/)),
+        seq(/([eE][+-]?\d+)/, optional(/(bd|BD|[fFdD])/)),
+        /(bd|BD|[fFdD])/,
+        /(bi|BI|[lLsSbB])/,
+      ))),
     )),
     // FIXME: express in terms of multiplicativeExpr as in EBNF?
     additiveExpr: $ => prec.left(seq($._expression, seq($.additiveOp, $._expression))),

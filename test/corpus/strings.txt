@@ -21,16 +21,17 @@ class Foo {
             (statement
               (localVarStatement
                 (id)
-                value: (StringLiteral
-                  (escape_sequence)
-                  (escape_sequence)
-                  (escape_sequence)
-                  (escape_sequence)
-                  (escape_sequence)
-                  (escape_sequence)
-                  (escape_sequence)
-                  (escape_sequence)
-                  (escape_sequence))))))))))
+                value: (literal
+                  (StringLiteral
+                    (escape_sequence)
+                    (escape_sequence)
+                    (escape_sequence)
+                    (escape_sequence)
+                    (escape_sequence)
+                    (escape_sequence)
+                    (escape_sequence)
+                    (escape_sequence)
+                    (escape_sequence)))))))))))
 
 ==================
 Multi-line String
@@ -45,7 +46,8 @@ second line"
   (statement
     (localVarStatement
       (id)
-      value: (StringLiteral))))
+      value: (literal
+        (StringLiteral)))))
 
 =========================
 String Interpolation
@@ -59,9 +61,10 @@ var greeting = "Hello, ${name}!"
   (statement
     (localVarStatement
       (id)
-      value: (StringLiteral
-        (template_substitution
-          (id))))))
+      value: (literal
+        (StringLiteral
+          (template_substitution
+            (id)))))))
 
 ======================================
 Interpolation With Nested Expression
@@ -77,12 +80,13 @@ print("Total: ${a + b}")
       (id)
       (indirectMemberAccess1
         (arguments
-          (StringLiteral
-            (template_substitution
-              (additiveExpr
-                (id)
-                (additiveOp)
-                (id)))))))))
+          (literal
+            (StringLiteral
+              (template_substitution
+                (additiveExpr
+                  (id)
+                  (additiveOp)
+                  (id))))))))))
 
 ======================================
 Comment Text Inside String Literals
@@ -96,7 +100,8 @@ var s = "// not a comment /* also not */"
   (statement
     (localVarStatement
       (id)
-      value: (StringLiteral))))
+      value: (literal
+        (StringLiteral)))))
 
 ==============
 Char Literals
@@ -113,19 +118,23 @@ var i = 'a${x}b'
   (statement
     (localVarStatement
       (id)
-      value: (CharLiteral)))
+      value: (literal
+        (CharLiteral))))
   (statement
     (localVarStatement
       (id)
-      value: (CharLiteral
-        (escape_sequence))))
+      value: (literal
+        (CharLiteral
+          (escape_sequence)))))
   (statement
     (localVarStatement
       (id)
-      value: (StringLiteral)))
+      value: (literal
+        (StringLiteral))))
   (statement
     (localVarStatement
       (id)
-      value: (StringLiteral
-        (template_substitution
-          (id))))))
+      value: (literal
+        (StringLiteral
+          (template_substitution
+            (id)))))))

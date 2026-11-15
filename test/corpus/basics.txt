@@ -48,7 +48,8 @@ class Foo {
         (declaration
           (fieldDefn
             (id)
-            value: (StringLiteral)))))))
+            value: (literal
+              (StringLiteral))))))))
 
 =========
 Modifiers
@@ -123,7 +124,8 @@ class Foo {
             (id)
             type: (type
               (type_identifier))
-            value: (StringLiteral)))))))
+            value: (literal
+              (StringLiteral))))))))
 
 ==========
 Properties
@@ -146,7 +148,8 @@ class Foo {
             type: (type
               (type_identifier))
             as: (id)
-            value: (StringLiteral)))))))
+            value: (literal
+              (StringLiteral))))))))
 
 ===================
 Package Declaration
@@ -251,10 +254,12 @@ class Foo {
                 (id)
                 type: (type
                   (type_identifier))
-                value: (StringLiteral))
+                value: (literal
+                  (StringLiteral)))
               (parameterDeclaration
                 (id)
-                value: (StringLiteral)))))))))
+                value: (literal
+                  (StringLiteral))))))))))
 
 ========================
 Local Variable Statement
@@ -279,7 +284,8 @@ class Foo {
             (statement
               (localVarStatement
                 (id)
-                value: (StringLiteral)))))))))
+                value: (literal
+                  (StringLiteral))))))))))
 
 ===========
 Method Call
@@ -314,7 +320,8 @@ class Foo {
                   (id))
                 (indirectMemberAccess1
                   (arguments
-                    (StringLiteral)))))))))))
+                    (literal
+                      (StringLiteral))))))))))))
 
 ========================
 Method Call is Statement
@@ -366,9 +373,11 @@ class Foo {
               (localVarStatement
                 (id)
                 value: (additiveExpr
-                  (StringLiteral)
+                  (literal
+                    (StringLiteral))
                   (additiveOp)
-                  (StringLiteral))))))))))
+                  (literal
+                    (StringLiteral)))))))))))
 
 ==============
 New Expression
@@ -397,9 +406,11 @@ class Foo {
                   (id)
                   (arguments
                     (additiveExpr
-                      (StringLiteral)
+                      (literal
+                        (StringLiteral))
                       (additiveOp)
-                      (StringLiteral))))))))))))
+                      (literal
+                        (StringLiteral)))))))))))))
 
 ===========================
 New Expression is Statement
