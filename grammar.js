@@ -30,19 +30,11 @@ module.exports = grammar({
     start: $ => seq(
       optional(seq("package", $.namespaceStatement)),
       repeat($.usesStatement),
-      optional($.modifiers),
-      choice($.gClass,
-             // $.gInterfaceOrStructure, $.gEnum,
-             // $.gEnhancement
-
-             // NOTE: Allow we allow functionDefn, statement, etc. for parsing
-             // incomplete files, adding some support for Gosu programs and
-             // parsing patterns in Semgrep rules, even if this is not strictly
-             // allowed in Gosu's EBNF grammar. See also tree-sitter-java, for
-             // instance.
-             $.functionDefn,
-             $.statement,
-            ),
+      repeat(choice(
+        seq(optional($.modifiers), $.gClass),
+        $.functionDefn,
+        $.statement,
+      )),
     ),
     namespaceStatement: $ => seq($.id, repeat(seq(".", $.id)), repeat(";")),
     usesStatement: $ => seq("uses", seq($.id, repeat(seq(".", $.id)), optional(seq(".", "*"))), repeat(";")),
@@ -125,6 +117,7 @@ module.exports = grammar({
     _expression: $ => prec.right(seq(
       choice(
         $.StringLiteral,
+        $.CharLiteral,
         $.id,
         $.additiveExpr,
         $.newExpr,
@@ -135,10 +128,30 @@ module.exports = grammar({
     additiveExpr: $ => prec.left(seq($._expression, seq($.additiveOp, $._expression))),
     newExpr: $ => seq("new", $.id, $.arguments),
     id: $ => token(seq(Letter, repeat(choice(Digit, Letter)))) ,
+    // Strings own their content: the fragments are immediate tokens so that
+    // comments (`//`, `/*`) never leak inside a string literal (docs/PRD.md R3).
+    // Interpolated expressions are CHILD nodes of the string via
+    // template_substitution. Note: the official EBNF has no `${}` interpolation
+    // in StringLiteral (string templates live in a separate sub-grammar there);
+    // we support it here because core Gosu allows `"${expr}"` in .gs/.gsp/.gsx.
     StringLiteral: $ => choice(
-      seq("'", /[^'\\]+/, "'"),
-      seq('"', /[^"\\]+/, '"')
+      seq('"', repeat(choice($._double_string_fragment, $.escape_sequence, $.template_substitution)), '"'),
+      seq("'", repeat(choice($._sq_char, $.escape_sequence, $.template_substitution)), "'"),
     ),
+    // Hidden token rules: matched without skipping extras, and never shown as
+    // named nodes in the tree.
+    _double_string_fragment: _ => token.immediate(prec(1, /([^"\\$]|\$[^{"])+/)),
+    // Single-quoted content is lexed one character at a time (shared by
+    // StringLiteral and CharLiteral) so that `'ab'` can only close as a string
+    // while `'a'` stays ambiguous until the reduce, where CharLiteral's higher
+    // precedence wins.
+    _sq_char: _ => token.immediate(choice(/[^'\\$]/, /\$/)),
+    escape_sequence: _ => token.immediate(choice(
+      /\\[vabtnfr"'\\$<]/,
+      /\\u[0-9a-fA-F]{4}/,
+      /\\([0-3][0-7][0-7]|[0-7][0-7]|[0-7])/,
+    )),
+    template_substitution: $ => seq(prec(2, '${'), $._expression, '}'),
     Digit: _ => Digit,
     additiveOp: _ => choice("+", "-", "?+", "?-"),
     // HexDigit: $ => choice($.Digit, /[A-F]/, /[a-f]/),
@@ -149,6 +162,10 @@ module.exports = grammar({
     // NOTE: Comment node kinds must contain the lowercase substring
     // "comment" (see docs/PRD.md R3): loc's counter matches node kinds with
     // a case-sensitive `contains("comment")`.
+    // Char literals share the single-quoted syntax with strings; a single
+    // character gets higher precedence so `'a'` parses as CharLiteral while
+    // `'ab'` stays a StringLiteral.
+    CharLiteral: $ => prec(1, seq("'", choice($.escape_sequence, $._sq_char), "'")),
     block_comment: _ => /\/\*([^\*]|(\*[^\/]))*\*\//,
     line_comment: _ => /\/\/[^\n\r]*/,
   }

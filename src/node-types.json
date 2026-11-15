@@ -1,8 +1,37 @@
 [
   {
+    "type": "CharLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "StringLiteral",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "template_substitution",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "additiveExpr",
@@ -12,6 +41,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "CharLiteral",
+          "named": true
+        },
         {
           "type": "StringLiteral",
           "named": true
@@ -52,6 +85,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "CharLiteral",
+          "named": true
+        },
         {
           "type": "StringLiteral",
           "named": true
@@ -175,6 +212,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "CharLiteral",
+            "named": true
+          },
           {
             "type": "StringLiteral",
             "named": true
@@ -300,6 +341,10 @@
         "required": false,
         "types": [
           {
+            "type": "CharLiteral",
+            "named": true
+          },
+          {
             "type": "StringLiteral",
             "named": true
           },
@@ -391,6 +436,10 @@
         "required": false,
         "types": [
           {
+            "type": "CharLiteral",
+            "named": true
+          },
+          {
             "type": "StringLiteral",
             "named": true
           },
@@ -446,7 +495,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "functionDefn",
@@ -495,6 +544,41 @@
     }
   },
   {
+    "type": "template_substitution",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "CharLiteral",
+          "named": true
+        },
+        {
+          "type": "StringLiteral",
+          "named": true
+        },
+        {
+          "type": "additiveExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "indirectMemberAccess1",
+          "named": true
+        },
+        {
+          "type": "newExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type",
     "named": true,
     "fields": {},
@@ -526,6 +610,10 @@
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "${",
     "named": false
   },
   {
@@ -596,6 +684,10 @@
   {
     "type": "class",
     "named": false
+  },
+  {
+    "type": "escape_sequence",
+    "named": true
   },
   {
     "type": "final",

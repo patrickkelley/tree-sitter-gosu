@@ -1,0 +1,131 @@
+==================
+Escape Sequences
+==================
+
+class Foo {
+    function foo() {
+        var s = "a\tb\nc\"d\'e\\f\$g\<h\u0041\101"
+    }
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (functionDefn
+            (id)
+            (statement
+              (localVarStatement
+                (id)
+                value: (StringLiteral
+                  (escape_sequence)
+                  (escape_sequence)
+                  (escape_sequence)
+                  (escape_sequence)
+                  (escape_sequence)
+                  (escape_sequence)
+                  (escape_sequence)
+                  (escape_sequence)
+                  (escape_sequence))))))))))
+
+==================
+Multi-line String
+==================
+
+var s = "first line
+second line"
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (StringLiteral))))
+
+=========================
+String Interpolation
+=========================
+
+var greeting = "Hello, ${name}!"
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (StringLiteral
+        (template_substitution
+          (id))))))
+
+======================================
+Interpolation With Nested Expression
+======================================
+
+print("Total: ${a + b}")
+
+---
+
+(start
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (StringLiteral
+            (template_substitution
+              (additiveExpr
+                (id)
+                (additiveOp)
+                (id)))))))))
+
+======================================
+Comment Text Inside String Literals
+======================================
+
+var s = "// not a comment /* also not */"
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (StringLiteral))))
+
+==============
+Char Literals
+==============
+
+var c = 'a'
+var n = '\n'
+var s = 'ab'
+var i = 'a${x}b'
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (CharLiteral)))
+  (statement
+    (localVarStatement
+      (id)
+      value: (CharLiteral
+        (escape_sequence))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (StringLiteral)))
+  (statement
+    (localVarStatement
+      (id)
+      value: (StringLiteral
+        (template_substitution
+          (id))))))
