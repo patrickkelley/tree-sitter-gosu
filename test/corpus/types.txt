@@ -1,0 +1,163 @@
+======================
+Qualified Type
+======================
+
+class Foo {
+  var bar : java.util.Date
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier)
+              (type_identifier)
+              (type_identifier))))))))
+
+======================
+Generic Type Arguments
+======================
+
+class Foo {
+  var a : Map<String, List<Integer>>
+  var b : Box<? extends Number>
+  var c : Consumer<? super String>
+  var d : Holder<?>
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier)
+              (typeArguments
+                (typeArgument
+                  (type
+                    (type_identifier)))
+                (typeArgument
+                  (type
+                    (type_identifier)
+                    (typeArguments
+                      (typeArgument
+                        (type
+                          (type_identifier))))))))))
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier)
+              (typeArguments
+                (typeArgument
+                  (type
+                    (type_identifier)))))))
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier)
+              (typeArguments
+                (typeArgument
+                  (type
+                    (type_identifier)))))))
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier)
+              (typeArguments
+                (typeArgument)))))))))
+
+======================
+Intersection Type
+======================
+
+class Foo {
+  var bar : Runnable & Closeable
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier)
+              (type
+                (type_identifier)))))))))
+
+======================
+Array Type
+======================
+
+class Foo {
+  var a : String[]
+  var b : int[][]
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier))))
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier))))))))
+
+======================
+Block Type
+======================
+
+class Foo {
+  var fn : block(x: String, y: int): Boolean
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (blockLiteral
+                (blockLiteralArg
+                  (id)
+                  (type
+                    (type_identifier)))
+                (blockLiteralArg
+                  (id)
+                  (type
+                    (type_identifier)))
+                (type
+                  (type_identifier))))))))))

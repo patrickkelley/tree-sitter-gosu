@@ -115,10 +115,33 @@ module.exports = grammar({
       ),
       repeat($.indirectMemberAccess1),
     ),
-    type: $ =>
-      choice($._type_identifier)
-      // prec.right(choice(seq($.classOrInterfaceType, repeat(seq("[", "]"))), seq("block", $.blockLiteral)));
-    ,
+    type: $ => prec.left(seq(
+      choice(
+        seq(
+          $._type_identifier,
+          optional($.typeArguments),
+          repeat(seq(".", $._type_identifier, optional($.typeArguments))),
+          repeat(seq("[", "]")),
+        ),
+        seq("block", $.blockLiteral),
+      ),
+      repeat(seq("&", $.type)),
+    )),
+    typeArguments: $ => seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"),
+    typeArgument: $ => choice(
+      $.type,
+      seq("?", optional(seq(choice("extends", "super"), $.type))),
+    ),
+    blockLiteral: $ => prec.right(seq(
+      "(",
+      optional(seq($.blockLiteralArg, repeat(seq(",", $.blockLiteralArg)))),
+      ")",
+      optional(seq(":", $.type)),
+    )),
+    blockLiteralArg: $ => choice(
+      prec(1, seq($.id, choice(seq("=", $._expression), $.blockLiteral))),
+      seq(optional(seq($.id, ":")), $.type, optional(seq("=", $._expression))),
+    ),
     _type_identifier: $ => alias($.id, $.type_identifier),
     _expression: $ => prec.right(seq(
       choice(
