@@ -2699,40 +2699,44 @@
       ]
     },
     "_callTypeArguments": {
-      "type": "PREC",
-      "value": 8,
+      "type": "PREC_DYNAMIC",
+      "value": 1,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "<"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "typeArgument"
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": ","
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "typeArgument"
-                }
-              ]
+        "type": "PREC",
+        "value": 8,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "<"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "typeArgument"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "typeArgument"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ">"
             }
-          },
-          {
-            "type": "STRING",
-            "value": ">"
-          }
-        ]
+          ]
+        }
       }
     },
     "thisSuperExpr": {
@@ -2938,6 +2942,151 @@
                 "type": "BLANK"
               }
             ]
+          }
+        ]
+      }
+    },
+    "typeLiteral": {
+      "type": "PREC_RIGHT",
+      "value": 8,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_genericQualifiedType"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "["
+                },
+                {
+                  "type": "STRING",
+                  "value": "]"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "_genericQualifiedType": {
+      "type": "PREC_RIGHT",
+      "value": 8,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "id"
+                },
+                "named": true,
+                "value": "type_identifier"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_typeLiteralTypeArguments"
+                },
+                "named": true,
+                "value": "typeArguments"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "."
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_qualifiedType"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "PREC",
+            "value": 15,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "id"
+                  },
+                  "named": true,
+                  "value": "type_identifier"
+                },
+                {
+                  "type": "STRING",
+                  "value": "."
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_genericQualifiedType"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "_typeLiteralTypeArguments": {
+      "type": "PREC",
+      "value": 8,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "<"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "typeArgument"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "typeArgument"
+                }
+              ]
+            }
+          },
+          {
+            "type": "STRING",
+            "value": ">"
           }
         ]
       }
@@ -3287,6 +3436,10 @@
               {
                 "type": "SYMBOL",
                 "name": "id"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "typeLiteral"
               },
               {
                 "type": "SYMBOL",
@@ -5048,6 +5201,18 @@
     [
       "_statement",
       "_expression"
+    ],
+    [
+      "_genericQualifiedType",
+      "_primaryExpr"
+    ],
+    [
+      "indirectMemberAccess1",
+      "_genericQualifiedType"
+    ],
+    [
+      "_callTypeArguments",
+      "_typeLiteralTypeArguments"
     ]
   ],
   "precedences": [],

@@ -268,3 +268,73 @@ var k = u as java.util.List<String>
             (typeArgument
               (type
                 (type_identifier)))))))))
+
+==================================
+Generic Type Literal As Argument
+==================================
+
+g(Map<String, Integer>)
+foo(List<String>, 1)
+h(java.util.Map<String, Integer>)
+g(a < b, c > d)
+
+---
+
+(start
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (typeArguments
+              (typeArgument
+                (type
+                  (type_identifier)))
+              (typeArgument
+                (type
+                  (type_identifier)))))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (typeArguments
+              (typeArgument
+                (type
+                  (type_identifier)))))
+          (literal
+            (NumberLiteral
+              (IntOrFloatLiteral)))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (type_identifier)
+            (type_identifier)
+            (typeArguments
+              (typeArgument
+                (type
+                  (type_identifier)))
+              (typeArgument
+                (type
+                  (type_identifier)))))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (relationalExpr
+            (id)
+            (relOp)
+            (id))
+          (relationalExpr
+            (id)
+            (relOp)
+            (id)))))))

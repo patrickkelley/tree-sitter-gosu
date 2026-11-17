@@ -56,6 +56,13 @@ module.exports = grammar({
     [$._primaryExpr],
     [$._primaryExpr, $._memberChain],
     [$._statement, $._expression],
+    // Generic type literal (`g(Map<String, Integer>)`) vs comparison / member
+    // chain / generic call (`g<String>(x)`): GLR keeps the candidates alive
+    // until invalid continuations die; `_callTypeArguments` carries higher
+    // dynamic precedence so `g<String>(x)` resolves as a generic call.
+    [$._genericQualifiedType, $._primaryExpr],
+    [$.indirectMemberAccess1, $._genericQualifiedType],
+    [$._callTypeArguments, $._typeLiteralTypeArguments],
   ],
 
   rules: {
@@ -298,7 +305,7 @@ module.exports = grammar({
       prec(15, $.arguments),
       prec(8, seq(alias($._callTypeArguments, $.typeArguments), $.arguments)),
     ),
-    _callTypeArguments: $ => prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
+    _callTypeArguments: $ => prec.dynamic(1, prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"))),
     thisSuperExpr: _ => choice("this", "super"),
     assignmentOrMethodCall: $ => prec.right(-1, seq(
       choice(
@@ -333,6 +340,31 @@ module.exports = grammar({
       optional($.typeArguments),
       optional(seq(".", $._qualifiedType)),
     )),
+    // Divergence from the EBNF (which has no type-literal expression): a
+    // generic type may appear as a primary expression, e.g. as a call argument
+    // `g(Map<String, Integer>)` or `h(java.util.Map<String, Integer>)`. At
+    // least one segment must carry `typeArguments` so bare `(id)` and plain
+    // dotted expressions stay unambiguous. Declared GLR conflicts keep both the
+    // type-literal and comparison/member-chain readings alive until one dies
+    // (`g(a < b, c > d)` stays two comparisons; `g(x < y)` stays a comparison
+    // because `typeLiteral` requires a closing `>`).
+    typeLiteral: $ => prec.right(8, seq(
+      $._genericQualifiedType,
+      repeat(seq("[", "]")),
+    )),
+    _genericQualifiedType: $ => prec.right(8, choice(
+      seq(
+        alias($.id, $.type_identifier),
+        alias($._typeLiteralTypeArguments, $.typeArguments),
+        optional(seq(".", $._qualifiedType)),
+      ),
+      prec(15, seq(
+        alias($.id, $.type_identifier),
+        ".",
+        $._genericQualifiedType,
+      )),
+    )),
+    _typeLiteralTypeArguments: $ => prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
     typeArguments: $ => seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"),
     typeArgument: $ => choice(
       $.type,
@@ -373,6 +405,7 @@ module.exports = grammar({
         $.literal,
         $.thisSuperExpr,
         $.id,
+        $.typeLiteral,
         $.newExpr,
         $.parenthExpr,
         $.standAloneDataStructureInitialization,
