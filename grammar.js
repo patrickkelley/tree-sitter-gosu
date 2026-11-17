@@ -20,9 +20,10 @@
 //   string is only EscapeSequence | any_character. A "$" that does not begin
 //   "${", including a "$" immediately before the closing quote, is ordinary
 //   string content and must not be an ERROR or an identifier.
-// - A fractional numeric literal may end with the dot (`100000.` is a float)
-//   via a parse-level rule + GLR conflict; `0..5` still lexes as an interval
-//   via longest-match on `..`, and `1.toString()` resolves as member access.
+// - A fractional numeric literal may end with the dot (`100000.` is a float),
+//   lexed via a 1-char-lookahead external scanner (`src/scanner.c`) that
+//   rejects a following `.`, digit, or identifier-start character, keeping
+//   `0..5` intervals and `1.toString()` member calls unambiguous without GLR.
 // - `reified` is accepted as a modifier. It is used by Gosu and is absent from
 //   that EBNF's modifier list.
 // - `{ expr -> expr }` is only a map initializer. Blocks are the backslash
@@ -54,6 +55,10 @@ module.exports = grammar({
   // is not applicable.
   word: $ => $.id,
 
+  externals: $ => [
+    $._trailing_dot_float,
+  ],
+
   extras: $ => [
     /\s/,
     $.block_comment,
@@ -63,9 +68,6 @@ module.exports = grammar({
   conflicts: $ => [
     [$._primaryExpr],
     [$._primaryExpr, $._memberChain],
-    // Trailing-dot float (`100000.`) vs. member access on a numeric literal
-    // (`1.toString()`): both paths consume the same `.`, GLR resolves.
-    [$.NumberLiteral, $._trailingDotFloat],
     [$._statement, $._expression],
     // Generic type literal (`g(Map<String, Integer>)`) vs comparison / member
     // chain / generic call (`g<String>(x)`): GLR keeps the candidates alive
@@ -473,19 +475,16 @@ module.exports = grammar({
       $.HexLiteral,
       $.BinLiteral,
       $.IntOrFloatLiteral,
-      $._trailingDotFloat,
+      alias($._trailing_dot_float, $.IntOrFloatLiteral),
     ),
-    // Hidden so the tree shape stays (NumberLiteral (IntOrFloatLiteral)).
-    _trailingDotFloat: $ => seq($.IntOrFloatLiteral, "."),
     HexLiteral: _ => token(seq(choice("0x", "0X"), repeat1(/[0-9a-fA-F]/), optional(choice("s", "S", "l", "L")))),
     BinLiteral: _ => token(seq(choice("0b", "0B"), repeat1(/[01]/), optional(choice("bi", "BI", /[lLsSbB]/)))),
     // Divergence from the EBNF: a fractional part may also end with the dot
     // (`100000.` is a float), so audit files with trailing-dot literals parse.
-    // Intervals like `0..5` still lex as `0` `..` `5` because the lexer's
-    // longest-match emits the two-dot interval token, and member access on
-    // numeric literals like `1.toString()` still parses because GLR (declared
-    // conflict with indirectMemberAccess1) keeps both paths alive until one
-    // dies on the missing token.
+    // Trailing-dot floats are lexed via a 1-char-lookahead external scanner
+    // (`src/scanner.c`) that rejects a following `.`, digit, or
+    // identifier-start character, keeping `0..5` intervals and `1.toString()`
+    // member calls unambiguous without GLR.
     IntOrFloatLiteral: _ => token(choice(
       seq(/\.\d+/, optional(/(bd|BD|[fFdD])/)),
       seq(/\d+/, optional(choice(
