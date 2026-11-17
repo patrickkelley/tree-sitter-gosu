@@ -4806,22 +4806,13 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[A-Za-z_$]"
+            "value": "[\\p{L}\\p{Nl}_$]"
           },
           {
             "type": "REPEAT",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "[0-9]"
-                },
-                {
-                  "type": "PATTERN",
-                  "value": "[A-Za-z_$]"
-                }
-              ]
+              "type": "PATTERN",
+              "value": "[\\p{L}\\p{Nl}\\p{Nd}\\p{Mn}\\p{Mc}\\p{Pc}_$]"
             }
           }
         ]

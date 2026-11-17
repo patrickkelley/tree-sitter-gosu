@@ -511,3 +511,46 @@ class Foo {
                 value: (id)
                 value: (indirectMemberAccess1
                   (id))))))))))
+
+=====================
+Non-ASCII Identifiers
+=====================
+
+class Foo {
+  var _prop : String as Própérty
+  function résumé(naïve: int) : int {
+    var αβγ = naïve
+    return αβγ
+  }
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (type_identifier))
+            as: (id)))
+        (declaration
+          (functionDefn
+            (id)
+            (parameterDeclarationList
+              (parameterDeclaration
+                (id)
+                type: (type
+                  (type_identifier))))
+            type: (type
+              (type_identifier))
+            (statement
+              (localVarStatement
+                (id)
+                value: (id)))
+            (statement
+              (returnStatement
+                (id)))))))))

@@ -38,12 +38,16 @@
 // - Generic type literals (`Map<String, Integer>`, `java.util.Map<K, V>`) are
 //   accepted as primary expressions (e.g. call arguments). The EBNF has no
 //   type-literal expression.
+// - Identifiers accept JVM/Unicode identifier characters (`\p{L}`, `\p{Nl}`,
+//   combining marks, connector punctuation, Unicode digits); the EBNF `Letter`
+//   is ASCII `[A-Za-z_$]`.
 
 // These patterns are used in the "Ident" rule. In order to make that rule
 // produce a token these can't be rules themselves as tokens must composed of
 // only terminal rules.
 const Digit = /[0-9]/;
-const Letter = /[A-Za-z_$]/;
+const Letter = /[\p{L}\p{Nl}_$]/;
+const IdContinue = /[\p{L}\p{Nl}\p{Nd}\p{Mn}\p{Mc}\p{Pc}_$]/;
 
 // The rules, presented in the same order as the grammar definition in Gosu's source code.
 module.exports = grammar({
@@ -529,7 +533,7 @@ module.exports = grammar({
         )),
       ),
     )),
-    id: $ => token(seq(Letter, repeat(choice(Digit, Letter)))) ,
+    id: _ => token(seq(Letter, repeat(IdContinue))),
     // Strings own their content: the fragments are immediate tokens so that
     // comments (`//`, `/*`) never leak inside a string literal (docs/PRD.md R3).
     // Interpolated expressions are CHILD nodes of the string via
