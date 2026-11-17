@@ -30,9 +30,10 @@
 // - Comment node kinds are lowercase and contain "comment"
 //   (`line_comment`, `block_comment`, `shebang_comment`), not COMMENT /
 //   LINE_COMMENT.
-// - `uses` accepts a static-import tail (`#method`, `#method(args)`, `#*`,
-//   `#construct`) after the dotted path. The EBNF uses statement is only a
-//   dotted path with an optional `.*` wildcard. The `featureLiteral` rule is
+// - `uses` accepts a static-import tail (`#method`, `#method(Type, ...)`,
+//   `#*`, `#construct`, `#construct(Type, ...)`) with `member` and
+//   `parameterTypes` fields after the dotted path, in addition to the EBNF's
+//   dotted path with an optional `.*` `wildcard`. The `featureLiteral` rule is
 //   deliberately NOT reused here so `#*` stays out of the expression grammar.
 // - Generic type literals (`Map<String, Integer>`, `java.util.Map<K, V>`) are
 //   accepted as primary expressions (e.g. call arguments). The EBNF has no
@@ -100,7 +101,21 @@ module.exports = grammar({
     shebang_comment: _ => token(seq("#!", /[^\n\r]*/)),
     classpathStatement: $ => prec.right(seq("classpath", $.StringLiteral, repeat(";"))),
     namespaceStatement: $ => prec.right(seq($.id, repeat(seq(".", $.id)), repeat(";"))),
-    usesStatement: $ => prec.right(seq("uses", seq($.id, repeat(seq(".", $.id)), optional(seq(".", "*")), optional(seq("#", choice($.id, "construct", "*"), optional($.arguments)))), repeat(";"))),
+    usesStatement: $ => prec.right(seq(
+      "uses",
+      $.id,
+      repeat(seq(".", $.id)),
+      optional(choice(
+        seq(".", field("wildcard", alias("*", $.wildcard))),
+        seq(
+          "#",
+          field("member", choice($.id, alias("construct", $.construct), alias("*", $.wildcard))),
+          optional(field("parameters", $.parameterTypes)),
+        ),
+      )),
+      repeat(";"),
+    )),
+    parameterTypes: $ => seq("(", optional(seq($.type, repeat(seq(",", $.type)))), ")"),
     annotation: $ => seq("@", $.id, repeat(seq(".", $.id)), optional($.arguments)),
     modifiers: $ =>
       repeat1(choice(

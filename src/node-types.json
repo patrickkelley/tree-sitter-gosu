@@ -4274,6 +4274,21 @@
     }
   },
   {
+    "type": "parameterTypes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthExpr",
     "named": true,
     "fields": {},
@@ -5630,15 +5645,50 @@
   {
     "type": "usesStatement",
     "named": true,
-    "fields": {},
+    "fields": {
+      "member": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "construct",
+            "named": true
+          },
+          {
+            "type": "id",
+            "named": true
+          },
+          {
+            "type": "wildcard",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "parameterTypes",
+            "named": true
+          }
+        ]
+      },
+      "wildcard": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "wildcard",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "arguments",
-          "named": true
-        },
         {
           "type": "id",
           "named": true
@@ -6202,6 +6252,10 @@
     "named": false
   },
   {
+    "type": "construct",
+    "named": true
+  },
+  {
     "type": "continueStatement",
     "named": true
   },
@@ -6441,6 +6495,10 @@
   {
     "type": "while",
     "named": false
+  },
+  {
+    "type": "wildcard",
+    "named": true
   },
   {
     "type": "{",

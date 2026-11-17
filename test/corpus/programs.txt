@@ -129,8 +129,11 @@ Uses With Method References
 uses x.y.Foo#method
 uses x.y.Foo#method()
 uses x.y.Foo#method(String, int)
+uses a.B#m(String[])
+uses a.B#m(String[], List<Integer>)
 uses x.y.Foo#*
 uses x.y.Foo#construct
+uses x.y.Foo#construct(int[])
 
 ---
 
@@ -139,26 +142,58 @@ uses x.y.Foo#construct
     (id)
     (id)
     (id)
-    (id))
+    member: (id))
   (usesStatement
     (id)
     (id)
     (id)
-    (id)
-    (arguments))
+    member: (id)
+    parameters: (parameterTypes))
   (usesStatement
     (id)
     (id)
     (id)
-    (id)
-    (arguments
-      (id)
-      (id)))
+    member: (id)
+    parameters: (parameterTypes
+      (type
+        (type_identifier))
+      (type
+        (type_identifier))))
   (usesStatement
     (id)
     (id)
-    (id))
+    member: (id)
+    parameters: (parameterTypes
+      (type
+        (type_identifier))))
   (usesStatement
     (id)
     (id)
-    (id)))
+    member: (id)
+    parameters: (parameterTypes
+      (type
+        (type_identifier))
+      (type
+        (type_identifier)
+        (typeArguments
+          (typeArgument
+            (type
+              (type_identifier)))))))
+  (usesStatement
+    (id)
+    (id)
+    (id)
+    member: (wildcard))
+  (usesStatement
+    (id)
+    (id)
+    (id)
+    member: (construct))
+  (usesStatement
+    (id)
+    (id)
+    (id)
+    member: (construct)
+    parameters: (parameterTypes
+      (type
+        (type_identifier)))))

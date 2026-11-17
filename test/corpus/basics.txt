@@ -225,7 +225,8 @@ class Foo {}
     (id))
   (usesStatement
     (id)
-    (id))
+    (id)
+    wildcard: (wildcard))
   (gClass
     name: (id)
     body: (classBody)))
