@@ -4268,21 +4268,13 @@
           "name": "IntOrFloatLiteral"
         },
         {
-          "type": "SYMBOL",
-          "name": "_trailingDotFloat"
-        }
-      ]
-    },
-    "_trailingDotFloat": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "IntOrFloatLiteral"
-        },
-        {
-          "type": "STRING",
-          "value": "."
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_trailing_dot_float"
+          },
+          "named": true,
+          "value": "IntOrFloatLiteral"
         }
       ]
     },
@@ -5347,10 +5339,6 @@
       "_memberChain"
     ],
     [
-      "NumberLiteral",
-      "_trailingDotFloat"
-    ],
-    [
       "_statement",
       "_expression"
     ],
@@ -5368,7 +5356,12 @@
     ]
   ],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_trailing_dot_float"
+    }
+  ],
   "inline": [],
   "supertypes": [],
   "reserved": {}

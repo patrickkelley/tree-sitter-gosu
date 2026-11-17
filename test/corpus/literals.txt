@@ -310,3 +310,55 @@ var s = 1.toString()
         (id))
       value: (indirectMemberAccess1
         (arguments)))))
+
+==========================================
+Number Member Access After Prior Statement
+==========================================
+
+var x = 2
+var s = 1.toString()
+var n = 100000.
+toString()
+var d = 100000. + 5.
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))
+      value: (indirectMemberAccess1
+        (id))
+      value: (indirectMemberAccess1
+        (arguments))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (additiveExpr
+        (literal
+          (NumberLiteral
+            (IntOrFloatLiteral)))
+        (additiveOp)
+        (literal
+          (NumberLiteral
+            (IntOrFloatLiteral)))))))

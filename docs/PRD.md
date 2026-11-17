@@ -28,11 +28,10 @@ must be noted in `grammar.js` comments. The specified divergences are:
   only escapes and any character. A `$` that does not begin `${` is that
   character, including a `$` immediately before the closing quote.
 - A fractional literal may also end with the dot, so `100000.` is a float.
-  Intervals like `0..5` still parse because the lexer's longest-match emits the
-  two-dot interval token, and member access on numeric literals like
-  `1.toString()` still parses because the grammar declares the
-  `NumberLiteral`/`_trailingDotFloat` GLR conflict and member access wins when
-  both paths survive.
+  Trailing-dot floats are lexed via a 1-char-lookahead external scanner
+  (`src/scanner.c`) that rejects a following `.`, digit, or identifier-start
+  character, keeping `0..5` intervals and `1.toString()` member calls
+  unambiguous without GLR.
 - `reified` is a modifier. It is absent from that EBNF's modifier list.
 - `{ expr -> expr }` is only a map initializer. Blocks are the backslash form.
 
