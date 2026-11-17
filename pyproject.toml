@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tree-sitter-gosu"
 description = "Gosu is a statically typed general-purpose programming language that runs on the Java Virtual Machine."
-version = "0.1.1"
+version = "0.1.2"
 keywords = ["incremental", "parsing", "tree-sitter", "gosu"]
 classifiers = [
   "Intended Audience :: Developers",

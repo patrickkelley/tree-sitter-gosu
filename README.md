@@ -15,7 +15,7 @@ This grammar covers the Gosu core language across `.gs` (classes, interfaces,
 structures, enums), `.gsp` (programs), `.gsx` (enhancements), and `.gst`
 (templates via `LANGUAGE_TEMPLATES`):
 
-- `package` declarations, `uses` statements (including wildcards), `classpath`
+- `package` declarations, `uses` statements (including wildcards and `#` method/constructor references), `classpath`
   statements, and leading `#!` shebang comments (`shebang_comment`)
 - Type declarations: classes (`extends`, `implements`, generic type variables),
   `interface` and `structure` types, `enum` types (constants with arguments +
@@ -38,10 +38,10 @@ structures, enums), `.gsp` (programs), `.gsx` (enhancements), and `.gst`
   relational + `typeis`, intervals `..`/`|..`/`..|`/`|..|`, bitshift, additive
   and multiplicative including null-safe/checked `?+`/`?*`, casts `as`/`typeas`,
   unary including `not`/`typeof`/`statictypeof`), null-safe member access
-  (`?.`, `*.`, `?[...]`), generic method calls, lambdas (`\ x -> expr`),
+  (`?.`, `*.`, `?[...]`), generic method calls, generic type literals (`Map<String, Integer>`), lambdas (`\ x -> expr`),
   collection/map initializers (`{a, b}`, `{k -> v}`), feature literals (`#Foo`),
   and `new` expressions
-- Literals & strings: integer, float, hex (`0x`), and binary (`0b`) literals
+- Literals & strings: integer, float (including trailing-dot `100000.`), hex (`0x`), and binary (`0b`) literals
   with suffixes (`L`, `S`, `B`, `BI`, `F`, `D`, `BD`), `true`/`false`/`null`,
   `NaN`/`Infinity`, `CharLiteral`, multi-line strings, escape sequences, and
   `"${expr}"` string interpolation parsed as child nodes. A `$` that does not
@@ -56,7 +56,7 @@ Add to `Cargo.toml`:
 ```toml
 [dependencies]
 tree-sitter = "0.27"
-tree-sitter-gosu = "0.1.1"
+tree-sitter-gosu = "0.1.2"
 ```
 
 `LANGUAGE` parses `.gs`, `.gsp`, and `.gsx`. `LANGUAGE_TEMPLATES` parses `.gst`.
@@ -84,8 +84,8 @@ let template_tree = parser.parse(template, None).unwrap();
 
 `cargo publish --dry-run` must succeed before publishing. The owner publishes
 with `cargo login`, then `cargo publish`. The crate name is `tree-sitter-gosu`.
-0.1.0 was the first publish. 0.1.1 is the release that includes the string-`$`
-contract.
+0.1.0 was the first publish; 0.1.1 added the string-`$` contract; 0.1.2
+carries the real-repo audit bug fixes.
 
 ## License
 

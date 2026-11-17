@@ -50,7 +50,7 @@ must be noted in `grammar.js` comments. The specified divergences are:
 | Scope              | One end-to-end PRD through `loc` integration                       |
 | String `$`         | `${expr}` is the only interpolation. A `$` that does not start `${`, including immediately before the closing quote, is string content and must not produce an `ERROR` or an `id` child. `$ident` is literal text. |
 | Lambdas            | Blocks are `\ args -> expr` and `\ args -> { statements }` only. `{ expr -> expr }` is a map initializer, not a lambda. |
-| Version            | First crates.io release is 0.1.0. The release `loc` consumes for this spec is 0.1.1. |
+| Version            | First crates.io release is 0.1.0; 0.1.1 added the string-`$` contract; 0.1.2 carries the real-repo audit bug fixes. |
 
 ## Goals
 
@@ -144,15 +144,15 @@ Corpus-test-first per feature (red → green → refactor, one commit per unit):
 - Exposed as `LANGUAGE_TEMPLATES` from the same crate.
 
 ### R5 — Packaging & publish
-- `Cargo.toml`: MIT, description, `repository` = fork, version 0.1.1,
+- `Cargo.toml`: MIT, description, `repository` = fork, version 0.1.2,
   `dev-dependencies.tree-sitter = "0.27"` (proves `loc`-side compatibility in the
-  crate's own tests). 0.1.0 is the first crates.io publish; 0.1.1 is the release
-  that satisfies this spec, including the string-`$` contract.
+  crate's own tests). 0.1.0 is the first crates.io publish; 0.1.1 added the
+  string-`$` contract; 0.1.2 carries the real-repo audit bug fixes.
 - `cargo publish --dry-run` green (package includes `src/*`, `grammar.js`,
   `templates/**` as needed, `tree-sitter.json`, `LICENSE`, queries).
 - Publish to crates.io by the owner (requires `cargo login`); `loc` switches to
-  the versioned crates.io dep once 0.1.1 is live; until then `loc` may stay on
-  the published 0.1.0 crate.
+  the versioned crates.io dep once 0.1.2 is live; until then `loc` may stay on
+  the published crate.
 - README updated: supported syntax list kept current, fork/credit note for
   tarides, EBNF link, usage (`LANGUAGE` and `LANGUAGE_TEMPLATES`), and publish
   instructions.
@@ -206,7 +206,7 @@ gates as in R6.
 | M1 | R2 features 1–9, corpus-first, README syntax list updated |
 | M2 | R7 audits (public examples in CI; `scripts/audit.sh` for owner-run local audits) |
 | M3 | R4 templates sub-grammar + corpus + `LANGUAGE_TEMPLATES` |
-| M4 | R5 packaging; `cargo publish --dry-run`; owner publishes 0.1.1 |
+| M4 | R5 packaging; `cargo publish --dry-run`; owner publishes 0.1.2 |
 | M5 | R6 `loc` integration on branch `gosu-support` + PR; switch dep to crates.io after publish |
 
 ## Dependencies
@@ -242,6 +242,6 @@ tree-sitter-gosu/
 - `cargo publish --dry-run` succeeds; crate metadata MIT + fork URLs.
 - `loc` on branch `gosu-support` counts a real Gosu repo within the R7 targets,
   `gosu_comments`/`.gst` fixtures green, PR open against `patrickkelley/loc`.
-- After the owner publishes 0.1.1 to crates.io, `loc`'s dependency is switched
+- After the owner publishes 0.1.2 to crates.io, `loc`'s dependency is switched
   to that version and this PRD's R5/R6 are re-verified. Until that publish,
-  `loc` may remain on the already-published 0.1.0 crate.
+  `loc` may remain on the already-published crate.

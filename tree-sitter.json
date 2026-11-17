@@ -29,7 +29,7 @@
     }
   ],
   "metadata": {
-    "version": "0.1.1",
+    "version": "0.1.2",
     "license": "MIT",
     "description": "Gosu is a statically typed general-purpose programming language that runs on the Java Virtual Machine.",
     "authors": [
