@@ -67,12 +67,14 @@ module.exports = grammar({
     // (`1.toString()`): both paths consume the same `.`, GLR resolves.
     [$.NumberLiteral, $._trailingDotFloat],
     [$._statement, $._expression],
-    // Generic type literal (`g(Map<String, Integer>)`) vs comparison / member
-    // chain / generic call (`g<String>(x)`): GLR keeps the candidates alive
-    // until invalid continuations die; `_callTypeArguments` carries higher
-    // dynamic precedence so `g<String>(x)` resolves as a generic call.
+    // Generic type literal (`g(Map<String, Integer>)`, `g(Outer.Inner<K, V>)`)
+    // vs comparison / member chain / generic call (`g<String>(x)`,
+    // `Arrays.asList<T>(x)`): GLR keeps the candidates alive until invalid
+    // continuations die; `_callTypeArguments` carries higher dynamic
+    // precedence so `g<String>(x)` and `Arrays.asList<T>(x)` resolve as
+    // generic calls.
     [$._genericQualifiedType, $._primaryExpr],
-    [$.indirectMemberAccess1, $._genericQualifiedType],
+    [$.indirectMemberAccess1, $._postDotGenericType],
     [$._callTypeArguments, $._typeLiteralTypeArguments],
   ],
 
@@ -353,12 +355,16 @@ module.exports = grammar({
     )),
     // Divergence from the EBNF (which has no type-literal expression): a
     // generic type may appear as a primary expression, e.g. as a call argument
-    // `g(Map<String, Integer>)` or `h(java.util.Map<String, Integer>)`. At
-    // least one segment must carry `typeArguments` so bare `(id)` and plain
-    // dotted expressions stay unambiguous. Declared GLR conflicts keep both the
-    // type-literal and comparison/member-chain readings alive until one dies
-    // (`g(a < b, c > d)` stays two comparisons; `g(x < y)` stays a comparison
-    // because `typeLiteral` requires a closing `>`).
+    // `g(Map<String, Integer>)`, `g(Outer.Inner<K, V>)`, or
+    // `h(java.util.Map<String, Integer>)`. At least one segment must carry
+    // `typeArguments` so bare `(id)` and plain dotted expressions stay
+    // unambiguous. Post-dot segments (`_postDotGenericType`) shift `.` and `<`
+    // at prec 15 to tie `indirectMemberAccess1` and split via GLR on both 2-
+    // and 3+-segment names; declared GLR conflicts keep both the type-literal
+    // and comparison/member-chain readings alive until one dies
+    // (`g(a < b, c > d)` and `g(a.x < b.y, c > d)` stay comparisons;
+    // `Arrays.asList<T>(x)` resolves as a generic call via `_callTypeArguments`
+    // dynamic precedence).
     typeLiteral: $ => prec.right(8, seq(
       $._genericQualifiedType,
       repeat(seq("[", "]")),
@@ -372,10 +378,23 @@ module.exports = grammar({
       prec(15, seq(
         alias($.id, $.type_identifier),
         ".",
-        $._genericQualifiedType,
+        $._postDotGenericType,
       )),
     )),
+    _postDotGenericType: $ => prec.right(15, choice(
+      seq(
+        alias($.id, $.type_identifier),
+        alias($._postDotTypeArguments, $.typeArguments),
+        optional(seq(".", $._qualifiedType)),
+      ),
+      seq(
+        alias($.id, $.type_identifier),
+        ".",
+        $._postDotGenericType,
+      ),
+    )),
     _typeLiteralTypeArguments: $ => prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
+    _postDotTypeArguments: $ => prec(15, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
     typeArguments: $ => seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"),
     typeArgument: $ => choice(
       $.type,
