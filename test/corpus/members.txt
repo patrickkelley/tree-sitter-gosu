@@ -245,3 +245,45 @@ class Annotated {
                   (id)))))
           (functionDefn
             (id)))))))
+
+======================================
+Field Declared With Function Signature
+======================================
+
+class Holder<T> {
+  private var _f(t : T) : Boolean as F = \t -> true
+  var _cb() as readonly Callback
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    (typeVariableDefs
+      (typeVariableDefinition
+        (id)))
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (modifiers)
+            (id)
+            (blockLiteral
+              (blockLiteralArg
+                (id)
+                (type
+                  (type_identifier)))
+              (type
+                (type_identifier)))
+            as: (id)
+            value: (blockExpr
+              (parameterDeclarationList
+                (parameterDeclaration
+                  (id)))
+              (literal))))
+        (declaration
+          (fieldDefn
+            (id)
+            (blockLiteral)
+            as: (id)))))))

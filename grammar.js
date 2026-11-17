@@ -200,8 +200,10 @@ module.exports = grammar({
       optional("property"),
       "var",
       $.id,
-      optional(seq(":",
-        field("type", $.type))),
+      optional(choice(
+        seq(":", field("type", $.type)),
+        $.blockLiteral,
+      )),
       optional(seq("as",
         optional("readonly"), field("as", $.id))),
       optional(seq("=",
