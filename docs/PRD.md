@@ -27,8 +27,12 @@ must be noted in `grammar.js` comments. The specified divergences are:
 - `"${expr}"` interpolation as a child of `StringLiteral`. The EBNF string is
   only escapes and any character. A `$` that does not begin `${` is that
   character, including a `$` immediately before the closing quote.
-- A fractional literal requires a digit after the dot, so `0..5` is an interval
-  and `5.` is not a float.
+- A fractional literal may also end with the dot, so `100000.` is a float.
+  Intervals like `0..5` still parse because the lexer's longest-match emits the
+  two-dot interval token, and member access on numeric literals like
+  `1.toString()` still parses because the grammar declares the
+  `NumberLiteral`/`_trailingDotFloat` GLR conflict and member access wins when
+  both paths survive.
 - `reified` is a modifier. It is absent from that EBNF's modifier list.
 - `{ expr -> expr }` is only a map initializer. Blocks are the backslash form.
 

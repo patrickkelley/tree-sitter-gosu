@@ -3963,6 +3963,23 @@
         {
           "type": "SYMBOL",
           "name": "IntOrFloatLiteral"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_trailingDotFloat"
+        }
+      ]
+    },
+    "_trailingDotFloat": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "IntOrFloatLiteral"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
@@ -5034,6 +5051,10 @@
     [
       "_primaryExpr",
       "_memberChain"
+    ],
+    [
+      "NumberLiteral",
+      "_trailingDotFloat"
     ],
     [
       "_statement",
