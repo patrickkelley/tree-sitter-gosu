@@ -101,7 +101,7 @@ module.exports = grammar({
     classpathStatement: $ => prec.right(seq("classpath", $.StringLiteral, repeat(";"))),
     namespaceStatement: $ => prec.right(seq($.id, repeat(seq(".", $.id)), repeat(";"))),
     usesStatement: $ => prec.right(seq("uses", seq($.id, repeat(seq(".", $.id)), optional(seq(".", "*")), optional(seq("#", choice($.id, "construct", "*"), optional($.arguments)))), repeat(";"))),
-    annotation: $ => seq("@", $.id, repeat(seq(".", $.id)), optional($.arguments)),
+    annotation: $ => seq("@", $.id, repeat(seq(".", $.id)), optional($.typeArguments), optional($.arguments)),
     modifiers: $ =>
       repeat1(choice(
         $.annotation,

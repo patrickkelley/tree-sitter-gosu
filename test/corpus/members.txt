@@ -199,3 +199,49 @@ class OldService {
               (localVarStatement
                 (id)
                 value: (id)))))))))
+
+===================================
+Annotation With Type Arguments
+===================================
+
+@pkg.Marker<String, Integer>
+class Annotated {
+  @Argument<Date>("EffectiveDate", Date.Today)
+  function run() {
+  }
+}
+
+---
+
+(start
+  (modifiers
+    (annotation
+      (id)
+      (id)
+      (typeArguments
+        (typeArgument
+          (type
+            (type_identifier)))
+        (typeArgument
+          (type
+            (type_identifier))))))
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (modifiers
+            (annotation
+              (id)
+              (typeArguments
+                (typeArgument
+                  (type
+                    (type_identifier))))
+              (arguments
+                (literal
+                  (StringLiteral))
+                (id)
+                (indirectMemberAccess1
+                  (id)))))
+          (functionDefn
+            (id)))))))
