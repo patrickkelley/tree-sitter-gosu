@@ -4313,25 +4313,26 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '=') ADVANCE(135);
       END_STATE();
     case 5:
-      if (lookahead == '*') ADVANCE(6);
+      if (lookahead == '*') ADVANCE(7);
       if (lookahead == '/') ADVANCE(164);
       END_STATE();
     case 6:
-      if (lookahead == '*') ADVANCE(9);
-      if (lookahead != 0) ADVANCE(6);
+      if (lookahead == '*') ADVANCE(6);
+      if (lookahead == '/') ADVANCE(162);
+      if (lookahead != 0) ADVANCE(7);
       END_STATE();
     case 7:
-      if (lookahead == '*') ADVANCE(102);
-      if (lookahead == '"' ||
-          lookahead == '{') ADVANCE(6);
-      if (lookahead != 0) ADVANCE(101);
+      if (lookahead == '*') ADVANCE(6);
+      if (lookahead != 0) ADVANCE(7);
       END_STATE();
     case 8:
-      if (lookahead == '.') ADVANCE(137);
+      if (lookahead == '*') ADVANCE(101);
+      if (lookahead == '"' ||
+          lookahead == '{') ADVANCE(7);
+      if (lookahead != 0) ADVANCE(102);
       END_STATE();
     case 9:
-      if (lookahead == '/') ADVANCE(162);
-      if (lookahead != 0) ADVANCE(6);
+      if (lookahead == '.') ADVANCE(137);
       END_STATE();
     case 10:
       if (lookahead == '>') ADVANCE(66);
@@ -4771,13 +4772,13 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 70:
       ACCEPT_TOKEN(anon_sym_PIPE);
-      if (lookahead == '.') ADVANCE(8);
+      if (lookahead == '.') ADVANCE(9);
       if (lookahead == '=') ADVANCE(123);
       if (lookahead == '|') ADVANCE(114);
       END_STATE();
     case 71:
       ACCEPT_TOKEN(anon_sym_PIPE);
-      if (lookahead == '.') ADVANCE(8);
+      if (lookahead == '.') ADVANCE(9);
       if (lookahead == '|') ADVANCE(113);
       END_STATE();
     case 72:
@@ -4960,7 +4961,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
     case 98:
       ACCEPT_TOKEN(sym__double_string_fragment);
       if (lookahead == '$') ADVANCE(23);
-      if (lookahead == '*') ADVANCE(101);
+      if (lookahead == '*') ADVANCE(102);
       if (lookahead == '/') ADVANCE(103);
       if (lookahead != 0 &&
           lookahead != '"' &&
@@ -4985,19 +4986,20 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 101:
       ACCEPT_TOKEN(sym__double_string_fragment);
-      if (lookahead == '$') ADVANCE(7);
-      if (lookahead == '*') ADVANCE(102);
-      if (lookahead != 0 &&
-          lookahead != '"' &&
-          lookahead != '\\') ADVANCE(101);
-      END_STATE();
-    case 102:
-      ACCEPT_TOKEN(sym__double_string_fragment);
-      if (lookahead == '$') ADVANCE(7);
+      if (lookahead == '$') ADVANCE(8);
+      if (lookahead == '*') ADVANCE(101);
       if (lookahead == '/') ADVANCE(99);
       if (lookahead != 0 &&
           lookahead != '"' &&
-          lookahead != '\\') ADVANCE(101);
+          lookahead != '\\') ADVANCE(102);
+      END_STATE();
+    case 102:
+      ACCEPT_TOKEN(sym__double_string_fragment);
+      if (lookahead == '$') ADVANCE(8);
+      if (lookahead == '*') ADVANCE(101);
+      if (lookahead != 0 &&
+          lookahead != '"' &&
+          lookahead != '\\') ADVANCE(102);
       END_STATE();
     case 103:
       ACCEPT_TOKEN(sym__double_string_fragment);
@@ -5028,7 +5030,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 107:
       ACCEPT_TOKEN(sym__sq_char);
-      if (lookahead == '*') ADVANCE(6);
+      if (lookahead == '*') ADVANCE(7);
       if (lookahead == '/') ADVANCE(164);
       END_STATE();
     case 108:
@@ -5176,12 +5178,12 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 151:
       ACCEPT_TOKEN(anon_sym_SLASH);
-      if (lookahead == '*') ADVANCE(6);
+      if (lookahead == '*') ADVANCE(7);
       if (lookahead == '/') ADVANCE(164);
       END_STATE();
     case 152:
       ACCEPT_TOKEN(anon_sym_SLASH);
-      if (lookahead == '*') ADVANCE(6);
+      if (lookahead == '*') ADVANCE(7);
       if (lookahead == '/') ADVANCE(164);
       if (lookahead == '=') ADVANCE(120);
       END_STATE();

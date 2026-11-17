@@ -513,7 +513,12 @@ module.exports = grammar({
     // character gets higher precedence so `'a'` parses as CharLiteral while
     // `'ab'` stays a StringLiteral.
     CharLiteral: $ => prec(1, seq("'", choice($.escape_sequence, $._sq_char), "'")),
-    block_comment: _ => /\/\*([^\*]|(\*[^\/]))*\*\//,
+    // The star-run form mirrors templates/grammar.js: inside a comment body a
+    // run of '*' may only be followed by a non-'/' char, with the closing
+    // delimiter matched as `\*+/`. The old `([^\*]|(\*[^\/]))*` form fails on
+    // EVEN-length star runs before the closing '/' (e.g. `/***/`, `/* x **/`):
+    // stars pair up internally and strand the '/'.
+    block_comment: _ => /\/\*([^*]|\*+[^*/])*\*+\//,
     line_comment: _ => /\/\/[^\n\r]*/,
   }
 });

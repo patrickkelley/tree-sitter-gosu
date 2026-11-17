@@ -104,6 +104,25 @@ class Foo {}
     name: (id)
     body: (classBody)))
 
+=======================
+Block Comment Star Runs
+=======================
+
+/***/
+
+/* text ** */
+
+/**
+ * Doc text
+ **/
+
+---
+
+(start
+  (block_comment)
+  (block_comment)
+  (block_comment))
+
 ==========
 Field Type
 ==========
