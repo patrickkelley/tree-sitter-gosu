@@ -410,3 +410,60 @@ g(a.x < b.y, c > d)
             (id)
             (relOp)
             (id)))))))
+
+==================================
+Array Type Literal As Argument
+==================================
+
+addSymbol(P, Vehicle[], \e -> e)
+f(int[][])
+f(Outer.Inner[])
+f(java.util.Date[])
+var elem = arr[i]
+
+---
+
+(start
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (id)
+          (typeLiteral
+            (type_identifier))
+          (blockExpr
+            (parameterDeclarationList
+              (parameterDeclaration
+                (id)))
+            (id))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (type_identifier))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (type_identifier)
+            (type_identifier))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (id)
+      value: (indirectMemberAccess1
+        (id)))))

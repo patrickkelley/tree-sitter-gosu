@@ -34,9 +34,11 @@
 //   `#construct`) after the dotted path. The EBNF uses statement is only a
 //   dotted path with an optional `.*` wildcard. The `featureLiteral` rule is
 //   deliberately NOT reused here so `#*` stays out of the expression grammar.
-// - Generic type literals (`Map<String, Integer>`, `java.util.Map<K, V>`) are
-//   accepted as primary expressions (e.g. call arguments). The EBNF has no
-//   type-literal expression.
+// - Generic and array type literals (`Map<String, Integer>`,
+//   `Outer.Inner<K, V>`, `java.util.Map<K, V>`, `Vehicle[]`, `int[][]`,
+//   `Outer.Inner[]`, `java.util.Date[]`) are accepted as primary expressions
+//   (e.g. call arguments) and statement-level member receivers (`Vehicle[].Type`).
+//   The EBNF has no standalone generic/array type-literal expression rule here.
 
 // These patterns are used in the "Ident" rule. In order to make that rule
 // produce a token these can't be rules themselves as tokens must composed of
@@ -67,14 +69,14 @@ module.exports = grammar({
     // (`1.toString()`): both paths consume the same `.`, GLR resolves.
     [$.NumberLiteral, $._trailingDotFloat],
     [$._statement, $._expression],
-    // Generic type literal (`g(Map<String, Integer>)`, `g(Outer.Inner<K, V>)`)
-    // vs comparison / member chain / generic call (`g<String>(x)`,
-    // `Arrays.asList<T>(x)`): GLR keeps the candidates alive until invalid
-    // continuations die; `_callTypeArguments` carries higher dynamic
-    // precedence so `g<String>(x)` and `Arrays.asList<T>(x)` resolve as
-    // generic calls.
-    [$._genericQualifiedType, $._primaryExpr],
-    [$.indirectMemberAccess1, $._postDotGenericType],
+    // Type literals (`g(Map<String, Integer>)`, `g(Outer.Inner<K, V>)`,
+    // `f(Vehicle[])`, `f(Outer.Inner[])`) vs comparison / indexing / member
+    // chain / generic call (`g<String>(x)`, `Arrays.asList<T>(x)`, `arr[i]`):
+    // GLR keeps the candidates alive until invalid continuations die;
+    // `_callTypeArguments` carries higher dynamic precedence so `g<String>(x)`
+    // and `Arrays.asList<T>(x)` resolve as generic calls.
+    [$.typeLiteral, $._primaryExpr],
+    [$.indirectMemberAccess1, $._postDotTypeLiteral],
     [$._callTypeArguments, $._typeLiteralTypeArguments],
   ],
 
@@ -323,6 +325,7 @@ module.exports = grammar({
     assignmentOrMethodCall: $ => prec.right(-1, seq(
       choice(
         $.id,
+        $.typeLiteral,
         $.thisSuperExpr,
         $.newExpr,
         $.parenthExpr,
@@ -354,45 +357,54 @@ module.exports = grammar({
       optional(seq(".", $._qualifiedType)),
     )),
     // Divergence from the EBNF (which has no type-literal expression): a
-    // generic type may appear as a primary expression, e.g. as a call argument
-    // `g(Map<String, Integer>)`, `g(Outer.Inner<K, V>)`, or
-    // `h(java.util.Map<String, Integer>)`. At least one segment must carry
-    // `typeArguments` so bare `(id)` and plain dotted expressions stay
-    // unambiguous. Post-dot segments (`_postDotGenericType`) shift `.` and `<`
-    // at prec 15 to tie `indirectMemberAccess1` and split via GLR on both 2-
-    // and 3+-segment names; declared GLR conflicts keep both the type-literal
-    // and comparison/member-chain readings alive until one dies
-    // (`g(a < b, c > d)` and `g(a.x < b.y, c > d)` stay comparisons;
-    // `Arrays.asList<T>(x)` resolves as a generic call via `_callTypeArguments`
-    // dynamic precedence).
-    typeLiteral: $ => prec.right(8, seq(
-      $._genericQualifiedType,
-      repeat(seq("[", "]")),
-    )),
-    _genericQualifiedType: $ => prec.right(8, choice(
+    // generic or array type may appear as a primary expression, e.g. as a call
+    // argument `g(Map<String, Integer>)`, `g(Outer.Inner<K, V>)`,
+    // `h(java.util.Map<String, Integer>)`, `addSymbol(P, Vehicle[], ...)`, or
+    // `f(Outer.Inner[])`. Either at least one segment must carry
+    // `typeArguments` or the type must end with one or more `[]` dimensions so
+    // bare `(id)` and plain dotted expressions stay unambiguous. Post-dot
+    // segments (`_postDotTypeLiteral`) and array `[]` (`_arrayTypeBrackets`)
+    // shift `.`, `<`, and `[` at prec 15 to tie `indirectMemberAccess1` and
+    // split via GLR; declared GLR conflicts keep both the type-literal and
+    // comparison/indexing/member-chain readings alive until one dies
+    // (`g(a < b, c > d)` and `g(a.x < b.y, c > d)` stay comparisons; `arr[i]`
+    // stays indexing; `Arrays.asList<T>(x)` resolves as a generic call via
+    // `_callTypeArguments` dynamic precedence).
+    typeLiteral: $ => prec.right(8, choice(
       seq(
         alias($.id, $.type_identifier),
         alias($._typeLiteralTypeArguments, $.typeArguments),
         optional(seq(".", $._qualifiedType)),
+        repeat(seq("[", "]")),
+      ),
+      seq(
+        alias($.id, $.type_identifier),
+        $._arrayTypeBrackets,
       ),
       prec(15, seq(
         alias($.id, $.type_identifier),
         ".",
-        $._postDotGenericType,
+        $._postDotTypeLiteral,
       )),
     )),
-    _postDotGenericType: $ => prec.right(15, choice(
+    _postDotTypeLiteral: $ => prec.right(15, choice(
       seq(
         alias($.id, $.type_identifier),
         alias($._postDotTypeArguments, $.typeArguments),
         optional(seq(".", $._qualifiedType)),
+        repeat(seq("[", "]")),
+      ),
+      seq(
+        alias($.id, $.type_identifier),
+        $._arrayTypeBrackets,
       ),
       seq(
         alias($.id, $.type_identifier),
         ".",
-        $._postDotGenericType,
+        $._postDotTypeLiteral,
       ),
     )),
+    _arrayTypeBrackets: _ => prec.right(15, seq("[", "]", repeat(seq("[", "]")))),
     _typeLiteralTypeArguments: $ => prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
     _postDotTypeArguments: $ => prec(15, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
     typeArguments: $ => seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"),
