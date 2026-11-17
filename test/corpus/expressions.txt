@@ -338,3 +338,132 @@ g(a < b, c > d)
             (id)
             (relOp)
             (id)))))))
+
+==============================================
+Two-Segment Qualified Generic Type Literal
+==============================================
+
+g(Outer.Inner<String, Integer>)
+g(a.Map<K, V>)
+Arrays.asList<T>(x)
+g(a.x < b.y, c > d)
+
+---
+
+(start
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (type_identifier)
+            (typeArguments
+              (typeArgument
+                (type
+                  (type_identifier)))
+              (typeArgument
+                (type
+                  (type_identifier)))))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (type_identifier)
+            (typeArguments
+              (typeArgument
+                (type
+                  (type_identifier)))
+              (typeArgument
+                (type
+                  (type_identifier)))))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (id))
+      (indirectMemberAccess1
+        (typeArguments
+          (typeArgument
+            (type
+              (type_identifier))))
+        (arguments
+          (id)))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (relationalExpr
+            (id)
+            (indirectMemberAccess1
+              (id))
+            (relOp)
+            (id)
+            (indirectMemberAccess1
+              (id)))
+          (relationalExpr
+            (id)
+            (relOp)
+            (id)))))))
+
+==================================
+Array Type Literal As Argument
+==================================
+
+addSymbol(P, Vehicle[], \e -> e)
+f(int[][])
+f(Outer.Inner[])
+f(java.util.Date[])
+var elem = arr[i]
+
+---
+
+(start
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (id)
+          (typeLiteral
+            (type_identifier))
+          (blockExpr
+            (parameterDeclarationList
+              (parameterDeclaration
+                (id)))
+            (id))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (type_identifier))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (type_identifier)
+            (type_identifier))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (id)
+      value: (indirectMemberAccess1
+        (id)))))
