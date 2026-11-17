@@ -316,15 +316,22 @@ module.exports = grammar({
     )),
     type: $ => prec.left(seq(
       choice(
-        seq(
-          $._type_identifier,
-          optional($.typeArguments),
-          repeat(seq(".", $._type_identifier, optional($.typeArguments))),
+        prec.right(seq(
+          $._qualifiedType,
           repeat(seq("[", "]")),
-        ),
+        )),
         seq("block", $.blockLiteral),
       ),
       repeat(seq("&", $.type)),
+    )),
+    // Hidden right-recursive dotted chain: isolated from `type`'s outer
+    // `prec.left` (which only disambiguates `&` intersections) and free of a
+    // `repeat(...)` auxiliary rule, so every segment shifts `<` into
+    // `typeArguments` instead of reducing `type` early after `as` / `typeis`.
+    _qualifiedType: $ => prec.right(seq(
+      $._type_identifier,
+      optional($.typeArguments),
+      optional(seq(".", $._qualifiedType)),
     )),
     typeArguments: $ => seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"),
     typeArgument: $ => choice(
