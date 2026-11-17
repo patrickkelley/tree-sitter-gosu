@@ -338,7 +338,7 @@ module.exports = grammar({
           $._qualifiedType,
           repeat(seq("[", "]")),
         )),
-        seq("block", $.blockLiteral),
+        seq(optional("block"), $.blockLiteral),
       ),
       repeat(seq("&", $.type)),
     )),
