@@ -121,3 +121,44 @@ enhancement IntArrayEnhancement : Integer[] {
           (statement
             (returnStatement
               (id))))))))
+
+====================================
+Uses With Method References
+====================================
+
+uses x.y.Foo#method
+uses x.y.Foo#method()
+uses x.y.Foo#method(String, int)
+uses x.y.Foo#*
+uses x.y.Foo#construct
+
+---
+
+(start
+  (usesStatement
+    (id)
+    (id)
+    (id)
+    (id))
+  (usesStatement
+    (id)
+    (id)
+    (id)
+    (id)
+    (arguments))
+  (usesStatement
+    (id)
+    (id)
+    (id)
+    (id)
+    (arguments
+      (id)
+      (id)))
+  (usesStatement
+    (id)
+    (id)
+    (id))
+  (usesStatement
+    (id)
+    (id)
+    (id)))

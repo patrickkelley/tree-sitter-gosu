@@ -5457,6 +5457,10 @@
       "required": true,
       "types": [
         {
+          "type": "arguments",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         }

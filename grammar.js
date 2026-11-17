@@ -29,6 +29,10 @@
 // - Comment node kinds are lowercase and contain "comment"
 //   (`line_comment`, `block_comment`, `shebang_comment`), not COMMENT /
 //   LINE_COMMENT.
+// - `uses` accepts a static-import tail (`#method`, `#method(args)`, `#*`,
+//   `#construct`) after the dotted path. The EBNF uses statement is only a
+//   dotted path with an optional `.*` wildcard. The `featureLiteral` rule is
+//   deliberately NOT reused here so `#*` stays out of the expression grammar.
 
 // These patterns are used in the "Ident" rule. In order to make that rule
 // produce a token these can't be rules themselves as tokens must composed of
@@ -82,7 +86,7 @@ module.exports = grammar({
     shebang_comment: _ => token(seq("#!", /[^\n\r]*/)),
     classpathStatement: $ => prec.right(seq("classpath", $.StringLiteral, repeat(";"))),
     namespaceStatement: $ => prec.right(seq($.id, repeat(seq(".", $.id)), repeat(";"))),
-    usesStatement: $ => prec.right(seq("uses", seq($.id, repeat(seq(".", $.id)), optional(seq(".", "*"))), repeat(";"))),
+    usesStatement: $ => prec.right(seq("uses", seq($.id, repeat(seq(".", $.id)), optional(seq(".", "*")), optional(seq("#", choice($.id, "construct", "*"), optional($.arguments)))), repeat(";"))),
     annotation: $ => seq("@", $.id, repeat(seq(".", $.id)), optional($.arguments)),
     modifiers: $ =>
       repeat1(choice(
