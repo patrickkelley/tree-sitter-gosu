@@ -192,6 +192,10 @@
         {
           "type": "id",
           "named": true
+        },
+        {
+          "type": "typeArguments",
+          "named": true
         }
       ]
     }
@@ -2583,6 +2587,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "blockLiteral",
+          "named": true
+        },
         {
           "type": "id",
           "named": true

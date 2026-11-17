@@ -161,3 +161,44 @@ class Foo {
                     (type_identifier)))
                 (type
                   (type_identifier))))))))))
+
+===================================
+Shorthand And Empty Block Types
+===================================
+
+class Foo {
+  var fn : (x: String, y: int): Boolean
+  function run(action : ()) {
+  }
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (id)
+            type: (type
+              (blockLiteral
+                (blockLiteralArg
+                  (id)
+                  (type
+                    (type_identifier)))
+                (blockLiteralArg
+                  (id)
+                  (type
+                    (type_identifier)))
+                (type
+                  (type_identifier))))))
+        (declaration
+          (functionDefn
+            (id)
+            (parameterDeclarationList
+              (parameterDeclaration
+                (id)
+                type: (type
+                  (blockLiteral))))))))))

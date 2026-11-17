@@ -41,6 +41,8 @@
 // - Identifiers accept JVM/Unicode identifier characters (`\p{L}`, `\p{Nl}`,
 //   combining marks, connector punctuation, Unicode digits); the EBNF `Letter`
 //   is ASCII `[A-Za-z_$]`.
+// - Block types allow omitting the `block` keyword (`(x: T): R`, `()`), and
+//   annotations accept `typeArguments` (`@Argument<Date>(...)`).
 
 // These patterns are used in the "Ident" rule. In order to make that rule
 // produce a token these can't be rules themselves as tokens must composed of
@@ -120,7 +122,7 @@ module.exports = grammar({
       repeat(";"),
     )),
     parameterTypes: $ => seq("(", optional(seq($.type, repeat(seq(",", $.type)))), ")"),
-    annotation: $ => seq("@", $.id, repeat(seq(".", $.id)), optional($.arguments)),
+    annotation: $ => seq("@", $.id, repeat(seq(".", $.id)), optional($.typeArguments), optional($.arguments)),
     modifiers: $ =>
       repeat1(choice(
         $.annotation,
@@ -219,8 +221,10 @@ module.exports = grammar({
       optional("property"),
       "var",
       $.id,
-      optional(seq(":",
-        field("type", $.type))),
+      optional(choice(
+        seq(":", field("type", $.type)),
+        $.blockLiteral,
+      )),
       optional(seq("as",
         optional("readonly"), field("as", $.id))),
       optional(seq("=",
@@ -357,7 +361,7 @@ module.exports = grammar({
           $._qualifiedType,
           repeat(seq("[", "]")),
         )),
-        seq("block", $.blockLiteral),
+        seq(optional("block"), $.blockLiteral),
       ),
       repeat(seq("&", $.type)),
     )),

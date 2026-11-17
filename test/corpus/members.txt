@@ -199,3 +199,91 @@ class OldService {
               (localVarStatement
                 (id)
                 value: (id)))))))))
+
+===================================
+Annotation With Type Arguments
+===================================
+
+@pkg.Marker<String, Integer>
+class Annotated {
+  @Argument<Date>("EffectiveDate", Date.Today)
+  function run() {
+  }
+}
+
+---
+
+(start
+  (modifiers
+    (annotation
+      (id)
+      (id)
+      (typeArguments
+        (typeArgument
+          (type
+            (type_identifier)))
+        (typeArgument
+          (type
+            (type_identifier))))))
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (modifiers
+            (annotation
+              (id)
+              (typeArguments
+                (typeArgument
+                  (type
+                    (type_identifier))))
+              (arguments
+                (literal
+                  (StringLiteral))
+                (id)
+                (indirectMemberAccess1
+                  (id)))))
+          (functionDefn
+            (id)))))))
+
+======================================
+Field Declared With Function Signature
+======================================
+
+class Holder<T> {
+  private var _f(t : T) : Boolean as F = \t -> true
+  var _cb() as readonly Callback
+}
+
+---
+
+(start
+  (gClass
+    name: (id)
+    (typeVariableDefs
+      (typeVariableDefinition
+        (id)))
+    body: (classBody
+      (classMembers
+        (declaration
+          (fieldDefn
+            (modifiers)
+            (id)
+            (blockLiteral
+              (blockLiteralArg
+                (id)
+                (type
+                  (type_identifier)))
+              (type
+                (type_identifier)))
+            as: (id)
+            value: (blockExpr
+              (parameterDeclarationList
+                (parameterDeclaration
+                  (id)))
+              (literal))))
+        (declaration
+          (fieldDefn
+            (id)
+            (blockLiteral)
+            as: (id)))))))
