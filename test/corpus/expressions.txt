@@ -189,3 +189,152 @@ var arr = new String[3]
         (literal
           (NumberLiteral
             (IntOrFloatLiteral)))))))
+
+===================================
+Generic Type After As And Typeis
+===================================
+
+var x = y as List<String>
+var t = x typeis Map<String, Integer>
+var q = z as List<?>
+var a = w as Map<String, Integer>[]
+var k = u as java.util.List<String>
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (typeAsExpr
+        (id)
+        (typeAsOp)
+        (type
+          (type_identifier)
+          (typeArguments
+            (typeArgument
+              (type
+                (type_identifier))))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (relationalExpr
+        (id)
+        (type
+          (type_identifier)
+          (typeArguments
+            (typeArgument
+              (type
+                (type_identifier)))
+            (typeArgument
+              (type
+                (type_identifier))))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (typeAsExpr
+        (id)
+        (typeAsOp)
+        (type
+          (type_identifier)
+          (typeArguments
+            (typeArgument))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (typeAsExpr
+        (id)
+        (typeAsOp)
+        (type
+          (type_identifier)
+          (typeArguments
+            (typeArgument
+              (type
+                (type_identifier)))
+            (typeArgument
+              (type
+                (type_identifier))))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (typeAsExpr
+        (id)
+        (typeAsOp)
+        (type
+          (type_identifier)
+          (type_identifier)
+          (type_identifier)
+          (typeArguments
+            (typeArgument
+              (type
+                (type_identifier)))))))))
+
+==================================
+Generic Type Literal As Argument
+==================================
+
+g(Map<String, Integer>)
+foo(List<String>, 1)
+h(java.util.Map<String, Integer>)
+g(a < b, c > d)
+
+---
+
+(start
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (typeArguments
+              (typeArgument
+                (type
+                  (type_identifier)))
+              (typeArgument
+                (type
+                  (type_identifier)))))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (typeArguments
+              (typeArgument
+                (type
+                  (type_identifier)))))
+          (literal
+            (NumberLiteral
+              (IntOrFloatLiteral)))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (typeLiteral
+            (type_identifier)
+            (type_identifier)
+            (type_identifier)
+            (typeArguments
+              (typeArgument
+                (type
+                  (type_identifier)))
+              (typeArgument
+                (type
+                  (type_identifier)))))))))
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (indirectMemberAccess1
+        (arguments
+          (relationalExpr
+            (id)
+            (relOp)
+            (id))
+          (relationalExpr
+            (id)
+            (relOp)
+            (id)))))))

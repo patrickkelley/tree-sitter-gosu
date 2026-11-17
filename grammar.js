@@ -20,8 +20,9 @@
 //   string is only EscapeSequence | any_character. A "$" that does not begin
 //   "${", including a "$" immediately before the closing quote, is ordinary
 //   string content and must not be an ERROR or an identifier.
-// - A fractional numeric literal requires a digit after the dot (`5.` is
-//   rejected) so `0..5` lexes as an interval, not `0.` plus `..`.
+// - A fractional numeric literal may end with the dot (`100000.` is a float)
+//   via a parse-level rule + GLR conflict; `0..5` still lexes as an interval
+//   via longest-match on `..`, and `1.toString()` resolves as member access.
 // - `reified` is accepted as a modifier. It is used by Gosu and is absent from
 //   that EBNF's modifier list.
 // - `{ expr -> expr }` is only a map initializer. Blocks are the backslash
@@ -33,6 +34,9 @@
 //   `#construct`) after the dotted path. The EBNF uses statement is only a
 //   dotted path with an optional `.*` wildcard. The `featureLiteral` rule is
 //   deliberately NOT reused here so `#*` stays out of the expression grammar.
+// - Generic type literals (`Map<String, Integer>`, `java.util.Map<K, V>`) are
+//   accepted as primary expressions (e.g. call arguments). The EBNF has no
+//   type-literal expression.
 
 // These patterns are used in the "Ident" rule. In order to make that rule
 // produce a token these can't be rules themselves as tokens must composed of
@@ -63,6 +67,13 @@ module.exports = grammar({
     // (`1.toString()`): both paths consume the same `.`, GLR resolves.
     [$.NumberLiteral, $._trailingDotFloat],
     [$._statement, $._expression],
+    // Generic type literal (`g(Map<String, Integer>)`) vs comparison / member
+    // chain / generic call (`g<String>(x)`): GLR keeps the candidates alive
+    // until invalid continuations die; `_callTypeArguments` carries higher
+    // dynamic precedence so `g<String>(x)` resolves as a generic call.
+    [$._genericQualifiedType, $._primaryExpr],
+    [$.indirectMemberAccess1, $._genericQualifiedType],
+    [$._callTypeArguments, $._typeLiteralTypeArguments],
   ],
 
   rules: {
@@ -305,7 +316,7 @@ module.exports = grammar({
       prec(15, $.arguments),
       prec(8, seq(alias($._callTypeArguments, $.typeArguments), $.arguments)),
     ),
-    _callTypeArguments: $ => prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
+    _callTypeArguments: $ => prec.dynamic(1, prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"))),
     thisSuperExpr: _ => choice("this", "super"),
     assignmentOrMethodCall: $ => prec.right(-1, seq(
       choice(
@@ -323,16 +334,48 @@ module.exports = grammar({
     )),
     type: $ => prec.left(seq(
       choice(
-        seq(
-          $._type_identifier,
-          optional($.typeArguments),
-          repeat(seq(".", $._type_identifier, optional($.typeArguments))),
+        prec.right(seq(
+          $._qualifiedType,
           repeat(seq("[", "]")),
-        ),
+        )),
         seq("block", $.blockLiteral),
       ),
       repeat(seq("&", $.type)),
     )),
+    // Hidden right-recursive dotted chain: isolated from `type`'s outer
+    // `prec.left` (which only disambiguates `&` intersections) and free of a
+    // `repeat(...)` auxiliary rule, so every segment shifts `<` into
+    // `typeArguments` instead of reducing `type` early after `as` / `typeis`.
+    _qualifiedType: $ => prec.right(seq(
+      $._type_identifier,
+      optional($.typeArguments),
+      optional(seq(".", $._qualifiedType)),
+    )),
+    // Divergence from the EBNF (which has no type-literal expression): a
+    // generic type may appear as a primary expression, e.g. as a call argument
+    // `g(Map<String, Integer>)` or `h(java.util.Map<String, Integer>)`. At
+    // least one segment must carry `typeArguments` so bare `(id)` and plain
+    // dotted expressions stay unambiguous. Declared GLR conflicts keep both the
+    // type-literal and comparison/member-chain readings alive until one dies
+    // (`g(a < b, c > d)` stays two comparisons; `g(x < y)` stays a comparison
+    // because `typeLiteral` requires a closing `>`).
+    typeLiteral: $ => prec.right(8, seq(
+      $._genericQualifiedType,
+      repeat(seq("[", "]")),
+    )),
+    _genericQualifiedType: $ => prec.right(8, choice(
+      seq(
+        alias($.id, $.type_identifier),
+        alias($._typeLiteralTypeArguments, $.typeArguments),
+        optional(seq(".", $._qualifiedType)),
+      ),
+      prec(15, seq(
+        alias($.id, $.type_identifier),
+        ".",
+        $._genericQualifiedType,
+      )),
+    )),
+    _typeLiteralTypeArguments: $ => prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">")),
     typeArguments: $ => seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"),
     typeArgument: $ => choice(
       $.type,
@@ -373,6 +416,7 @@ module.exports = grammar({
         $.literal,
         $.thisSuperExpr,
         $.id,
+        $.typeLiteral,
         $.newExpr,
         $.parenthExpr,
         $.standAloneDataStructureInitialization,
