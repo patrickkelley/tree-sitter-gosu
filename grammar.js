@@ -59,6 +59,9 @@ module.exports = grammar({
   conflicts: $ => [
     [$._primaryExpr],
     [$._primaryExpr, $._memberChain],
+    // Trailing-dot float (`100000.`) vs. member access on a numeric literal
+    // (`1.toString()`): both paths consume the same `.`, GLR resolves.
+    [$.NumberLiteral, $._trailingDotFloat],
     [$._statement, $._expression],
   ],
 
@@ -426,12 +429,19 @@ module.exports = grammar({
       $.HexLiteral,
       $.BinLiteral,
       $.IntOrFloatLiteral,
+      $._trailingDotFloat,
     ),
+    // Hidden so the tree shape stays (NumberLiteral (IntOrFloatLiteral)).
+    _trailingDotFloat: $ => seq($.IntOrFloatLiteral, "."),
     HexLiteral: _ => token(seq(choice("0x", "0X"), repeat1(/[0-9a-fA-F]/), optional(choice("s", "S", "l", "L")))),
     BinLiteral: _ => token(seq(choice("0b", "0B"), repeat1(/[01]/), optional(choice("bi", "BI", /[lLsSbB]/)))),
-    // Divergence from the EBNF: a fractional part requires at least one digit
-    // after the dot (`5.` is rejected) so that interval expressions like
-    // `0..5` lex as `0` `..` `5` instead of `0.` `..` `5`.
+    // Divergence from the EBNF: a fractional part may also end with the dot
+    // (`100000.` is a float), so audit files with trailing-dot literals parse.
+    // Intervals like `0..5` still lex as `0` `..` `5` because the lexer's
+    // longest-match emits the two-dot interval token, and member access on
+    // numeric literals like `1.toString()` still parses because GLR (declared
+    // conflict with indirectMemberAccess1) keeps both paths alive until one
+    // dies on the missing token.
     IntOrFloatLiteral: _ => token(choice(
       seq(/\.\d+/, optional(/(bd|BD|[fFdD])/)),
       seq(/\d+/, optional(choice(

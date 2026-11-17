@@ -274,3 +274,39 @@ var nan = NaN
       (id)
       value: (literal
         (NumberLiteral)))))
+
+==========================
+Trailing Dot Float Literal
+==========================
+
+var n = 100000.
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral))))))
+
+====================
+Number Member Access
+====================
+
+var s = 1.toString()
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))
+      value: (indirectMemberAccess1
+        (id))
+      value: (indirectMemberAccess1
+        (arguments)))))
