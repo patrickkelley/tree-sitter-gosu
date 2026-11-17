@@ -15,20 +15,24 @@ This grammar covers the Gosu core language across `.gs` (classes, interfaces,
 structures, enums), `.gsp` (programs), `.gsx` (enhancements), and `.gst`
 (templates via `LANGUAGE_TEMPLATES`):
 
-- `package` declarations, `uses` statements (including wildcards and `#` method/constructor references), `classpath`
-  statements, and leading `#!` shebang comments (`shebang_comment`)
+- `package` declarations, `uses` statements (including `.*` / `#*` wildcards and
+  `#method(Type[])` / `#construct(...)` member references with `wildcard`,
+  `member`, and `parameters` fields), `classpath` statements, leading `#!`
+  shebang comments (`shebang_comment`), and Unicode identifiers
 - Type declarations: classes (`extends`, `implements`, generic type variables),
   `interface` and `structure` types, `enum` types (constants with arguments +
   members), `enhancement` declarations (`enhancement X<T> : T[]`), inner and
   anonymous classes
 - Members: constructors (`construct`), properties (`property get`/`set`),
   functions (generic type parameters, return types, block parameters), fields
-  (`var` with `as`/`readonly` property aliases), `delegate ... represents`,
-  `static` initializer blocks, annotations (`@Foo(...)` with named arguments),
-  and modifiers (`public`, `private`, `internal`, `protected`, `static`,
-  `abstract`, `override`, `final`, `transient`, `reified`)
+  (`var` with `as`/`readonly` property aliases and function-signature types like
+  `var _f(t: T): R as F`), `delegate ... represents`, `static` initializer
+  blocks, annotations (`@Foo<T>(...)` with optional type arguments and named
+  arguments), and modifiers (`public`, `private`, `internal`, `protected`,
+  `static`, `abstract`, `override`, `final`, `transient`, `reified`)
 - Types: qualified names, generics (`<T, ? extends U, ? super V>`),
-  intersection types (`A & B`), array types (`T[]`), and `block(...)` types
+  intersection types (`A & B`), array types (`T[]`), and `block(...)` /
+  shorthand block types (`(x: T): R`, `()`)
 - Statements: `if`/`else`, `while`, `do`/`while`, `for`/`foreach` (with
   `index` and `iterator` clauses), `switch`/`case`/`default`,
   `try`/`catch`/`finally`, `using (...)` with `finally`, `return`, `throw`,
@@ -38,9 +42,10 @@ structures, enums), `.gsp` (programs), `.gsx` (enhancements), and `.gst`
   relational + `typeis`, intervals `..`/`|..`/`..|`/`|..|`, bitshift, additive
   and multiplicative including null-safe/checked `?+`/`?*`, casts `as`/`typeas`,
   unary including `not`/`typeof`/`statictypeof`), null-safe member access
-  (`?.`, `*.`, `?[...]`), generic method calls, generic type literals (`Map<String, Integer>`), lambdas (`\ x -> expr`),
-  collection/map initializers (`{a, b}`, `{k -> v}`), feature literals (`#Foo`),
-  and `new` expressions
+  (`?.`, `*.`, `?[...]`), generic method calls, generic and array type literals
+  (`Map<String, Integer>`, `Outer.Inner<K, V>`, `Vehicle[]`), lambdas
+  (`\ x -> expr`), collection/map initializers (`{a, b}`, `{k -> v}`), feature
+  literals (`#Foo`), and `new` expressions
 - Literals & strings: integer, float (including trailing-dot `100000.`), hex (`0x`), and binary (`0b`) literals
   with suffixes (`L`, `S`, `B`, `BI`, `F`, `D`, `BD`), `true`/`false`/`null`,
   `NaN`/`Infinity`, `CharLiteral`, multi-line strings, escape sequences, and
@@ -56,7 +61,7 @@ Add to `Cargo.toml`:
 ```toml
 [dependencies]
 tree-sitter = "0.27"
-tree-sitter-gosu = "0.1.2"
+tree-sitter-gosu = "0.1.3"
 ```
 
 `LANGUAGE` parses `.gs`, `.gsp`, and `.gsx`. `LANGUAGE_TEMPLATES` parses `.gst`.
@@ -84,8 +89,8 @@ let template_tree = parser.parse(template, None).unwrap();
 
 `cargo publish --dry-run` must succeed before publishing. The owner publishes
 with `cargo login`, then `cargo publish`. The crate name is `tree-sitter-gosu`.
-0.1.0 was the first publish; 0.1.1 added the string-`$` contract; 0.1.2
-carries the real-repo audit bug fixes.
+0.1.0 was the first publish; 0.1.1 added the string-`$` contract; 0.1.2 and
+0.1.3 carry the real-repo audit bug fixes.
 
 ## License
 

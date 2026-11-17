@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-gosu
-        VERSION "0.1.2"
+        VERSION "0.1.3"
         DESCRIPTION "Gosu is a statically typed general-purpose programming language that runs on the Java Virtual Machine."
         HOMEPAGE_URL "https://github.com/patrickkelley/tree-sitter-gosu"
         LANGUAGES C)

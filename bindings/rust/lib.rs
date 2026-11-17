@@ -56,6 +56,25 @@ mod tests {
         parser
             .set_language(&super::LANGUAGE.into())
             .expect("Error loading Gosu parser");
+        let src = concat!(
+            "uses a.B#m(String[])\n",
+            "@Argument<Date>(\"EffectiveDate\", Date.Today)\n",
+            "class Foo<T> {\n",
+            "  private var _f(t : T) : Boolean as Própérty = \\t -> true\n",
+            "  function run(action : ()) {\n",
+            "    var x = 2\n",
+            "    var s = 1.toString()\n",
+            "    var n = 100000.\n",
+            "    g(Outer.Inner<String, Integer>, Vehicle[])\n",
+            "  }\n",
+            "}\n",
+        );
+        let tree = parser.parse(src, None).unwrap();
+        assert!(!tree.root_node().has_error());
+        assert_eq!(tree.root_node().child_count(), 3);
+        assert!(super::NODE_TYPES.contains("line_comment"));
+        assert!(super::NODE_TYPES.contains("block_comment"));
+        assert!(super::NODE_TYPES.contains("shebang_comment"));
     }
 
     #[test]
