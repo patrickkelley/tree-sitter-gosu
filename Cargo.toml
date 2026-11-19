@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-gosu"
 description = "Gosu is a statically typed general-purpose programming language that runs on the Java Virtual Machine."
-version = "0.1.3"
+version = "0.1.4"
 authors = ["Marek Kubica <marek@tarides.com>"]
 license = "MIT"
 readme = "README.md"

@@ -23,13 +23,14 @@ structures, enums), `.gsp` (programs), `.gsx` (enhancements), and `.gst`
   `interface` and `structure` types, `enum` types (constants with arguments +
   members), `enhancement` declarations (`enhancement X<T> : T[]`), inner and
   anonymous classes
-- Members: constructors (`construct`), properties (`property get`/`set`),
-  functions (generic type parameters, return types, block parameters), fields
-  (`var` with `as`/`readonly` property aliases and function-signature types like
-  `var _f(t: T): R as F`), `delegate ... represents`, `static` initializer
-  blocks, annotations (`@Foo<T>(...)` with optional type arguments and named
-  arguments), and modifiers (`public`, `private`, `internal`, `protected`,
-  `static`, `abstract`, `override`, `final`, `transient`, `reified`)
+- Members: constructors (`construct`), properties (`property get`/`set` and
+  field-style `property Name : T = expr`), functions (generic type parameters,
+  return types, block parameters), fields (`var` with `as`/`readonly` property
+  aliases and function-signature types like `var _f(t: T): R as F`),
+  `delegate ... represents`, `static` initializer blocks, annotations
+  (`@Foo<T>(...)` with optional type arguments and named arguments), and
+  modifiers (`public`, `private`, `internal`, `protected`, `static`, `abstract`,
+  `override`, `final`, `transient`, `reified`)
 - Types: qualified names, generics (`<T, ? extends U, ? super V>`),
   intersection types (`A & B`), array types (`T[]`), and `block(...)` /
   shorthand block types (`(x: T): R`, `()`)
@@ -61,7 +62,7 @@ Add to `Cargo.toml`:
 ```toml
 [dependencies]
 tree-sitter = "0.27"
-tree-sitter-gosu = "0.1.3"
+tree-sitter-gosu = "0.1.4"
 ```
 
 `LANGUAGE` parses `.gs`, `.gsp`, and `.gsx`. `LANGUAGE_TEMPLATES` parses `.gst`.
@@ -89,8 +90,8 @@ let template_tree = parser.parse(template, None).unwrap();
 
 `cargo publish --dry-run` must succeed before publishing. The owner publishes
 with `cargo login`, then `cargo publish`. The crate name is `tree-sitter-gosu`.
-0.1.0 was the first publish; 0.1.1 added the string-`$` contract; 0.1.2 and
-0.1.3 carry the real-repo audit bug fixes.
+0.1.0 was the first publish; 0.1.1 added the string-`$` contract; 0.1.2–0.1.4
+carry the real-repo audit bug fixes.
 
 ## License
 

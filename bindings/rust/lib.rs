@@ -50,6 +50,16 @@ pub const NODE_TYPES_TEMPLATES: &str = include_str!("../../templates/src/node-ty
 
 #[cfg(test)]
 mod tests {
+    fn count_comment_nodes(node: tree_sitter::Node<'_>) -> usize {
+        let self_count = usize::from(node.kind().contains("comment"));
+        let mut cursor = node.walk();
+        self_count
+            + node
+                .children(&mut cursor)
+                .map(count_comment_nodes)
+                .sum::<usize>()
+    }
+
     #[test]
     fn test_can_load_grammar() {
         let mut parser = tree_sitter::Parser::new();
@@ -58,11 +68,15 @@ mod tests {
             .expect("Error loading Gosu parser");
         let src = concat!(
             "uses a.B#m(String[])\n",
+            "@Mock property Top : T\n",
             "@Argument<Date>(\"EffectiveDate\", Date.Today)\n",
             "class Foo<T> {\n",
+            "  property Name : String = 'http://example.com'\n",
             "  private var _f(t : T) : Boolean as Própérty = \\t -> true\n",
             "  function run(action : ()) {\n",
             "    var x = 2\n",
+            "    // c\n",
+            "    var m = s.p(x) as List<T>\n",
             "    var s = 1.toString()\n",
             "    var n = 100000.\n",
             "    g(Outer.Inner<String, Integer>, Vehicle[])\n",
@@ -71,7 +85,8 @@ mod tests {
         );
         let tree = parser.parse(src, None).unwrap();
         assert!(!tree.root_node().has_error());
-        assert_eq!(tree.root_node().child_count(), 3);
+        assert_eq!(tree.root_node().child_count(), 5);
+        assert_eq!(count_comment_nodes(tree.root_node()), 1);
         assert!(super::NODE_TYPES.contains("line_comment"));
         assert!(super::NODE_TYPES.contains("block_comment"));
         assert!(super::NODE_TYPES.contains("shebang_comment"));

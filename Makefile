@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-gosu
 HOMEPAGE_URL := https://github.com/patrickkelley/tree-sitter-gosu
-VERSION := 0.1.3
+VERSION := 0.1.4
 
 # repository
 SRC_DIR := src
