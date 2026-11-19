@@ -609,8 +609,8 @@ module.exports = grammar({
     // an identifier (Letter includes `$`, so a dropped `$` would otherwise be
     // recovered as an id).
     StringLiteral: $ => choice(
-      seq('"', repeat(choice($._double_string_fragment, $._trailing_dollar, $.escape_sequence, $.template_substitution)), '"'),
-      seq("'", repeat(choice($._sq_char, $.escape_sequence, $.template_substitution)), "'"),
+      seq('"', repeat(choice($._double_string_fragment, $._trailing_dollar, $.escape_sequence, $.template_substitution)), token.immediate('"')),
+      seq("'", repeat(choice($._sq_char, $.escape_sequence, $.template_substitution)), token.immediate("'")),
     ),
     // Hidden token rules: matched without skipping extras, and never shown as
     // named nodes in the tree.
@@ -624,14 +624,16 @@ module.exports = grammar({
     // Single-quoted content is lexed one character at a time (shared by
     // StringLiteral and CharLiteral) so that `'ab'` can only close as a string
     // while `'a'` stays ambiguous until the reduce, where CharLiteral's higher
-    // precedence wins.
-    _sq_char: _ => token.immediate(choice(/[^'\\$]/, /\$/)),
+    // precedence wins. All string-interior tokens (including closing quotes
+    // and `${`) are `token.immediate` so `extras` (`//`, `/*`, `\s`) can never
+    // be lexed inside a string or char literal.
+    _sq_char: _ => token.immediate(prec(1, choice(/[^'\\$]/, /\$/))),
     escape_sequence: _ => token.immediate(choice(
       /\\[vabtnfr"'\\$<]/,
       /\\u[0-9a-fA-F]{4}/,
       /\\([0-3][0-7][0-7]|[0-7][0-7]|[0-7])/,
     )),
-    template_substitution: $ => seq(prec(2, '${'), $._expression, '}'),
+    template_substitution: $ => seq(token.immediate(prec(2, '${')), $._expression, '}'),
     Digit: _ => Digit,
     orOp: _ => choice("||", "or"),
     andOp: _ => choice("&&", "and"),
@@ -656,7 +658,7 @@ module.exports = grammar({
     // Char literals share the single-quoted syntax with strings; a single
     // character gets higher precedence so `'a'` parses as CharLiteral while
     // `'ab'` stays a StringLiteral.
-    CharLiteral: $ => prec(1, seq("'", choice($.escape_sequence, $._sq_char), "'")),
+    CharLiteral: $ => prec(1, seq("'", choice($.escape_sequence, $._sq_char), token.immediate("'"))),
     // The star-run form mirrors templates/grammar.js: inside a comment body a
     // run of '*' may only be followed by a non-'/' char, with the closing
     // delimiter matched as `\*+/`. The old `([^\*]|(\*[^\/]))*` form fails on

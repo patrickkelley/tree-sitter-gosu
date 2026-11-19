@@ -159,3 +159,56 @@ var t = "cost $"
       (id)
       value: (literal
         (StringLiteral)))))
+
+==========================================
+Single-Quoted Strings With Comment Markers
+==========================================
+
+var u = 'http://example.com'
+var c = '/* not a comment */'
+var s = '// also not a comment'
+var i = 'a${x}//b'
+var e = ''
+var sp = ' '
+var sl = '/'
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (StringLiteral))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (StringLiteral))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (StringLiteral))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (StringLiteral
+          (template_substitution
+            (id))))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (StringLiteral))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (CharLiteral))))
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (CharLiteral)))))

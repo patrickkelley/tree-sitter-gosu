@@ -6359,11 +6359,11 @@
   },
   {
     "type": "construct",
-    "named": false
+    "named": true
   },
   {
     "type": "construct",
-    "named": true
+    "named": false
   },
   {
     "type": "continueStatement",

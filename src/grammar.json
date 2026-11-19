@@ -5291,8 +5291,11 @@
               }
             },
             {
-              "type": "STRING",
-              "value": "\""
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "\""
+              }
             }
           ]
         },
@@ -5324,8 +5327,11 @@
               }
             },
             {
-              "type": "STRING",
-              "value": "'"
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "'"
+              }
             }
           ]
         }
@@ -5356,17 +5362,21 @@
     "_sq_char": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "[^'\\\\$]"
-          },
-          {
-            "type": "PATTERN",
-            "value": "\\$"
-          }
-        ]
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^'\\\\$]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "\\$"
+            }
+          ]
+        }
       }
     },
     "escape_sequence": {
@@ -5393,11 +5403,14 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PREC",
-          "value": 2,
+          "type": "IMMEDIATE_TOKEN",
           "content": {
-            "type": "STRING",
-            "value": "${"
+            "type": "PREC",
+            "value": 2,
+            "content": {
+              "type": "STRING",
+              "value": "${"
+            }
           }
         },
         {
@@ -5718,8 +5731,11 @@
             ]
           },
           {
-            "type": "STRING",
-            "value": "'"
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "'"
+            }
           }
         ]
       }
