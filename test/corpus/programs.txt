@@ -197,3 +197,175 @@ uses x.y.Foo#construct(int[])
     parameters: (parameterTypes
       (type
         (type_identifier)))))
+
+===========================================
+Call Arguments After Comments Stay Attached
+===========================================
+
+var y = 1
+// line comment
+var m = s.p(x)
+/* block comment */
+var n = p(x)
+// assignment
+m = s.p(x)
+// cast with generic type
+var c = s.p(x) as List<V>
+// chained generic call
+var g = fetchByPublicID<T>(x).bar(z)
+Vehicle[].Type
+
+class C {
+  function f() : Object {
+    var y = 1
+    // method body comment
+    var m = s.p(x) as List<V>
+    /* return comment */
+    return s.p(x)
+  }
+  function g() {
+    var y = 1
+    // throw comment
+    throw e.wrap(x)
+  }
+}
+
+---
+
+(start
+  (statement
+    (localVarStatement
+      (id)
+      value: (literal
+        (NumberLiteral
+          (IntOrFloatLiteral)))))
+  (line_comment)
+  (statement
+    (localVarStatement
+      (id)
+      value: (id)
+      value: (indirectMemberAccess1
+        (id))
+      value: (indirectMemberAccess1
+        (arguments
+          (id)))))
+  (block_comment)
+  (statement
+    (localVarStatement
+      (id)
+      value: (id)
+      value: (indirectMemberAccess1
+        (arguments
+          (id)))))
+  (line_comment)
+  (statement
+    (assignmentOrMethodCall
+      (id)
+      (assignmentOp)
+      (id)
+      (indirectMemberAccess1
+        (id))
+      (indirectMemberAccess1
+        (arguments
+          (id)))))
+  (line_comment)
+  (statement
+    (localVarStatement
+      (id)
+      value: (typeAsExpr
+        (id)
+        (indirectMemberAccess1
+          (id))
+        (indirectMemberAccess1
+          (arguments
+            (id)))
+        (typeAsOp)
+        (type
+          (type_identifier)
+          (typeArguments
+            (typeArgument
+              (type
+                (type_identifier))))))))
+  (line_comment)
+  (statement
+    (localVarStatement
+      (id)
+      value: (id)
+      value: (indirectMemberAccess1
+        (typeArguments
+          (typeArgument
+            (type
+              (type_identifier))))
+        (arguments
+          (id)))
+      value: (indirectMemberAccess1
+        (id))
+      value: (indirectMemberAccess1
+        (arguments
+          (id)))))
+  (statement
+    (assignmentOrMethodCall
+      (typeLiteral
+        (type_identifier))
+      (indirectMemberAccess1
+        (id))))
+  (gClass
+    name: (id)
+    body: (classBody
+      (classMembers
+        (declaration
+          (functionDefn
+            (id)
+            type: (type
+              (type_identifier))
+            (statement
+              (localVarStatement
+                (id)
+                value: (literal
+                  (NumberLiteral
+                    (IntOrFloatLiteral)))))
+            (line_comment)
+            (statement
+              (localVarStatement
+                (id)
+                value: (typeAsExpr
+                  (id)
+                  (indirectMemberAccess1
+                    (id))
+                  (indirectMemberAccess1
+                    (arguments
+                      (id)))
+                  (typeAsOp)
+                  (type
+                    (type_identifier)
+                    (typeArguments
+                      (typeArgument
+                        (type
+                          (type_identifier))))))))
+            (block_comment)
+            (statement
+              (returnStatement
+                (id)
+                (indirectMemberAccess1
+                  (id))
+                (indirectMemberAccess1
+                  (arguments
+                    (id)))))))
+        (declaration
+          (functionDefn
+            (id)
+            (statement
+              (localVarStatement
+                (id)
+                value: (literal
+                  (NumberLiteral
+                    (IntOrFloatLiteral)))))
+            (line_comment)
+            (statement
+              (throwStatement
+                (id)
+                (indirectMemberAccess1
+                  (id))
+                (indirectMemberAccess1
+                  (arguments
+                    (id)))))))))))

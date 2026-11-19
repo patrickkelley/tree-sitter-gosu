@@ -338,25 +338,32 @@ module.exports = grammar({
     arguments: $ => seq("(", optional(seq($._argExpression, repeat(seq(",", $._argExpression)))), ")"),
     _argExpression: $ => choice($.namedArgExpression, $._expression),
     namedArgExpression: $ => seq(":", $.id, "=", $._expression),
-    indirectMemberAccess1: $ => choice(
+    indirectMemberAccess1: $ => prec.dynamic(1, choice(
       prec(15, seq(choice(".", "?.", "*."), $.id)),
       prec(15, $.featureLiteral),
       prec(15, seq(choice("[", "?["), $._expression, "]")),
       prec(15, $.arguments),
       prec(8, seq(alias($._callTypeArguments, $.typeArguments), $.arguments)),
-    ),
+    )),
     _callTypeArguments: $ => prec.dynamic(1, prec(8, seq("<", $.typeArgument, repeat(seq(",", $.typeArgument)), ">"))),
     thisSuperExpr: _ => choice("this", "super"),
     assignmentOrMethodCall: $ => prec.right(-1, seq(
       choice(
-        $.id,
-        $.typeLiteral,
-        $.thisSuperExpr,
-        $.newExpr,
-        $.parenthExpr,
-        $.StringLiteral,
+        seq(
+          choice(
+            $.id,
+            $.thisSuperExpr,
+            $.newExpr,
+            $.parenthExpr,
+            $.StringLiteral,
+          ),
+          optional($._memberChain),
+        ),
+        seq(
+          $.typeLiteral,
+          $._memberChain,
+        ),
       ),
-      optional($._memberChain),
       optional(choice(
         $.incrementOp,
         seq($.assignmentOp, $._expression),
