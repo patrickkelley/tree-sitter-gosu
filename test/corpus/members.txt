@@ -287,3 +287,85 @@ class Holder<T> {
             (id)
             (blockLiteral)
             as: (id)))))))
+
+=================================
+Field-Style Property Declarations
+=================================
+
+@Mock property Top : T
+
+class Props<T> {
+  property Name : String
+  property Greeting : String = "x"
+  property get Id : String = "0"
+  property set Secret : String
+  @Mock property X : T
+  property get : String
+}
+
+interface IProps {
+  property Label : String
+}
+
+---
+
+(start
+  (modifiers
+    (annotation
+      (id)))
+  (propertyDefn
+    (id)
+    type: (type
+      (type_identifier)))
+  (gClass
+    name: (id)
+    (typeVariableDefs
+      (typeVariableDefinition
+        (id)))
+    body: (classBody
+      (classMembers
+        (declaration
+          (propertyDefn
+            (id)
+            type: (type
+              (type_identifier))))
+        (declaration
+          (propertyDefn
+            (id)
+            type: (type
+              (type_identifier))
+            value: (literal
+              (StringLiteral))))
+        (declaration
+          (propertyDefn
+            (id)
+            type: (type
+              (type_identifier))
+            value: (literal
+              (StringLiteral))))
+        (declaration
+          (propertyDefn
+            (id)
+            type: (type
+              (type_identifier))))
+        (declaration
+          (modifiers
+            (annotation
+              (id)))
+          (propertyDefn
+            (id)
+            type: (type
+              (type_identifier))))
+        (declaration
+          (propertyDefn
+            (id)
+            type: (type
+              (type_identifier)))))))
+  (gInterfaceOrStructure
+    name: (id)
+    body: (interfaceBody
+      (declaration
+        (propertyDefn
+          (id)
+          type: (type
+            (type_identifier)))))))

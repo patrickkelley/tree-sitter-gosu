@@ -4416,6 +4416,108 @@
             "named": true
           }
         ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "additiveExpr",
+            "named": true
+          },
+          {
+            "type": "bitshiftExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseAndExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseOrExpr",
+            "named": true
+          },
+          {
+            "type": "bitwiseXorExpr",
+            "named": true
+          },
+          {
+            "type": "blockExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalAndExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalExpr",
+            "named": true
+          },
+          {
+            "type": "conditionalOrExpr",
+            "named": true
+          },
+          {
+            "type": "equalityExpr",
+            "named": true
+          },
+          {
+            "type": "evalExpr",
+            "named": true
+          },
+          {
+            "type": "id",
+            "named": true
+          },
+          {
+            "type": "indirectMemberAccess1",
+            "named": true
+          },
+          {
+            "type": "intervalExpr",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "multiplicativeExpr",
+            "named": true
+          },
+          {
+            "type": "newExpr",
+            "named": true
+          },
+          {
+            "type": "parenthExpr",
+            "named": true
+          },
+          {
+            "type": "relationalExpr",
+            "named": true
+          },
+          {
+            "type": "standAloneDataStructureInitialization",
+            "named": true
+          },
+          {
+            "type": "thisSuperExpr",
+            "named": true
+          },
+          {
+            "type": "typeAsExpr",
+            "named": true
+          },
+          {
+            "type": "typeLiteral",
+            "named": true
+          },
+          {
+            "type": "unaryExpr",
+            "named": true
+          }
+        ]
       }
     },
     "children": {

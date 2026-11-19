@@ -46,6 +46,9 @@
 //   is ASCII `[A-Za-z_$]`.
 // - Block types allow omitting the `block` keyword (`(x: T): R`, `()`), and
 //   annotations accept `typeArguments` (`@Argument<Date>(...)`).
+// - `propertyDefn` accepts Gosu's shorthand/field-style property declarations
+//   (`property Name : T`, `property Name : T = expr`, `property get Name : T = expr`)
+//   in addition to the EBNF's `property (get | set) id (...) [: T]` form.
 
 // These patterns are used in the "Ident" rule. In order to make that rule
 // produce a token these can't be rules themselves as tokens must composed of
@@ -103,10 +106,10 @@ module.exports = grammar({
             $.gInterfaceOrStructure,
             $.gEnum,
             $.gEnhancement,
+            $.functionDefn,
+            $.propertyDefn,
           ),
         ),
-        $.functionDefn,
-        $.propertyDefn,
         $.statement,
       )),
     ),
@@ -216,15 +219,38 @@ module.exports = grammar({
     ),
     propertyDefn: $ => prec.right(seq(
       "property",
-      choice("get", "set"),
-      $.id,
-      optional(seq("(", optional($.parameterDeclarationList), ")")),
-      optional(seq(":", field("type", $.type))),
-      optional(seq("{", repeat($.statement), "}")),
+      choice(
+        seq(
+          choice("get", "set"),
+          $.id,
+          choice(
+            seq(
+              optional(seq("(", optional($.parameterDeclarationList), ")")),
+              optional(seq(":", field("type", $.type))),
+              optional(seq("{", repeat($.statement), "}")),
+            ),
+            seq(
+              optional(seq(":", field("type", $.type))),
+              seq("=", field("value", $._expression)),
+            ),
+          ),
+        ),
+        seq(
+          choice(alias("get", $.id), alias("set", $.id)),
+          choice(
+            seq(":", field("type", $.type), optional(seq("=", field("value", $._expression)))),
+            seq("=", field("value", $._expression)),
+          ),
+        ),
+        seq(
+          $.id,
+          optional(seq(":", field("type", $.type))),
+          optional(seq("=", field("value", $._expression))),
+        ),
+      ),
     )),
     fieldDefn: $ => prec.right(seq(
       optional($.modifiers),
-      optional("property"),
       "var",
       $.id,
       optional(choice(
